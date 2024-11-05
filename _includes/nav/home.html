@@ -1,9 +1,11 @@
 <table>
     <tr>
+        <td><img src="{{site.baseurl}}/images/logo.png" height="60" title="Home" alt=""></td>
+        <td><a href="{{site.baseurl}}/profile">Profile</a></td>
+        <td><a href="{{site.baseurl}}/post">Posts</a></td>
         <td id="loginArea"><a href="{{site.baseurl}}/login">Login</a></td>
     </tr>
 </table>
-
 <script type="module">
     import { pythonURI, fetchOptions } from '{{site.baseurl}}/assets/js/api/config.js';
 
@@ -18,8 +20,6 @@
                         <button class="dropbtn">${data.name}</button>
                         <div class="dropdown-content">
                             <a href="{{site.baseurl}}/logout">Logout</a>
-                            <a href="{{site.baseurl}}/profile">Profile</a>
-                            <a href="{{site.baseurl}}/post">Post</a>
                         </div>
                     </div>
                 `;
@@ -33,9 +33,8 @@
             // Handle any errors that occurred during getCredentials
         });
     });
-
     function getCredentials() {
-        const URL = pythonURI + '/api/user';
+        const URL = pythonURI + '/api/id';
         return fetch(URL, fetchOptions)
             .then(response => { // API response handler 
                 if (response.status !== 200) {
@@ -54,5 +53,4 @@
                 return null;
             });
     }
-
 </script>
