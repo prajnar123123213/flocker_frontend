@@ -7,10 +7,6 @@ permalink: /moderation/drawpad_doodle/
 author: Arshia, Prajna, Mirabelle, Alex
 ---
 
-
-
-</details>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +23,7 @@ author: Arshia, Prajna, Mirabelle, Alex
         }
     </style>
 </head>
-<body>
+
 
 <canvas id="drawingCanvas" width="600" height="400"></canvas>
 
