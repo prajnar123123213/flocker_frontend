@@ -16,7 +16,6 @@ author: Alex, Arshia, Prajna, and Mirabelle
 
 <p> The page is a place where people can explore themselves creatively and compete to see who has the best doodle. This allows for players to collaborate over their artistic abilities. Our room includes a chat room where players can converse about their creations, a doodle compete area, a place where people can post their art, and winners get crowned every week. This will help add to our classes page by making a fun artistic environment where everyone can collaborate. </p>
 
-</details>
   <a href="{{site.baseurl}}/moderation/chat_doodle/" class="button">Chat Room</a>
 
 <a href="{{site.baseurl}}/moderation/doodle_competition/" style="padding: 10px 20px; font-size: 16px; background-color: #7573e6; color: white; border: none; border-radius: 5px; text-decoration: none; display: inline-block;">
@@ -188,8 +187,6 @@ author: Alex, Arshia, Prajna, and Mirabelle
     <button onclick="downloadDrawing()" style="font-size: 18px; background-color: #ad3636; padding: 10px 20px; color: white;">Save Your Work!</button>
 </div>
 
-
-</body>
 
 <head>
     <meta charset="UTF-8">
