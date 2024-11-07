@@ -3,19 +3,18 @@ layout: post
 title: Create and Compete - Doodle
 search_exclude: true
 permalink: /create_and_compete/doodle
-menu: nav/create_and_compete.html
+menu: nav/doodle.html
 author: Alex, Arshia, Prajna, and Mirabelle 
 ---
-
-
 
 <details>
   <summary>Room Details</summary>
 
-  <a href="{{site.baseurl}}/moderation/rules_doodle/" class="button">Moderation Rules</a>
+<a href="{{site.baseurl}}/moderation/rules_doodle/">Moderation Rules</a>
 
 <p> The page is a place where people can explore themselves creatively and compete to see who has the best doodle. This allows for players to collaborate over their artistic abilities. Our room includes a chat room where players can converse about their creations, a doodle compete area, a place where people can post their art, and winners get crowned every week. This will help add to our classes page by making a fun artistic environment where everyone can collaborate. </p>
 
+</details>
   <a href="{{site.baseurl}}/moderation/chat_doodle/" class="button">Chat Room</a>
 
 <a href="{{site.baseurl}}/moderation/doodle_competition/" style="padding: 10px 20px; font-size: 16px; background-color: #7573e6; color: white; border: none; border-radius: 5px; text-decoration: none; display: inline-block;">
@@ -23,60 +22,6 @@ author: Alex, Arshia, Prajna, and Mirabelle
 </a>
   <a href="{{site.baseurl}}/moderation/artpost_doodle/" class="button">Artpost</a>
 </details>
-
-<style>
-  body {
-    font-family: Arial, sans-serif;
-  }
-
-  details {
-    width: 80%;
-    margin: 20px auto;
-    padding: 15px;
-    background-color: #f0e6ff;
-    border: 2px solid #c0a9e6;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  details summary {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #a4bbe0;
-    cursor: pointer;
-    padding-bottom: 8px;
-  }
-
-  details summary:hover {
-    color: #a06bce;
-  }
-
-  p {
-    color: #5f3877;
-    line-height: 1.6;
-    margin-top: 10px;
-  }
-
-  .button {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 5px 0;
-    font-size: 16px;
-    text-align: center;
-    text-decoration: none;
-    color: #fff;
-    background-color: #b68fe4;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-  }
-
-  .button:hover {
-    background-color: #a06bce;
-  }
-</style>
-
 
 <canvas id="drawingCanvas" width="600" height="400" style="border: 6px solid #7573e6; cursor: crosshair; margin-top: 10px;"></canvas>
 
@@ -150,10 +95,10 @@ author: Alex, Arshia, Prajna, and Mirabelle
     }
 
     function downloadDrawing() {
-    const link = document.createElement('a');
-    link.download = 'my_drawing.png'; 
-    link.href = canvas.toDataURL();  
-    link.click();
+        const link = document.createElement('a');
+        link.download = 'my_drawing.png';
+        link.href = canvas.toDataURL();
+        link.click();
     }
 
     function saveCanvasState() {
@@ -170,23 +115,20 @@ author: Alex, Arshia, Prajna, and Mirabelle
         }
     }
 </script>
-
-<div style="margin-top: 10px;">
-        <button style="background-color: #524e4e!important;  display:inline-block" onclick="changeColor('#524e4e')">Black</button>
-        <button style="background-color: #3a63e8!important;  display:inline-block" onclick="changeColor('#3a63e8')">Blue</button>
-        <button style="background-color: #3c7d2c!important;  display:inline-block" onclick="changeColor('#3c7d2c')">Green</button>
-        <button style="background-color: #992222!important;  display:inline-block" onclick="changeColor('#992222')">Red</button>
-        <button style="background-color: #db74db!important;  display:inline-block" onclick="changeColor('#db74db')">Pink</button>
+<div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+    <button style="background-color: #524e4e !important; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" onclick="changeColor('#524e4e')">Black</button>
+    <button style="background-color: #3a63e8 !important; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" onclick="changeColor('#3a63e8')">Blue</button>
+    <button style="background-color: #3c7d2c !important; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" onclick="changeColor('#3c7d2c')">Green</button>
+    <button style="background-color: #992222 !important; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" onclick="changeColor('#992222')">Red</button>
+    <button style="background-color: #db74db !important; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" onclick="changeColor('#db74db')">Pink</button>
+    <button style="background-color: #7573e6 !important; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" onclick="activateEraser()">Eraser</button>
+    <button style="background-color: #7573e6 !important; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" onclick="undoLastAction()">Undo</button>
+    <button style="background-color: #7573e6 !important; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" onclick="clearCanvas()">Clear Drawing</button>
+    <button style="background-color: #ad3636 !important; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" onclick="downloadDrawing()">Save Your Work!</button>
 </div>
 
-<div>
-    <button onclick="clearCanvas()" style="font-size: 18px; background-color: #ad3636; padding: 10px 20px; color: white;">Clear Drawing</button>
-</div>
 
-<div>
-    <button onclick="downloadDrawing()" style="font-size: 18px; background-color: #ad3636; padding: 10px 20px; color: white;">Save Your Work!</button>
-</div>
-
+</body>
 
 <head>
     <meta charset="UTF-8">
