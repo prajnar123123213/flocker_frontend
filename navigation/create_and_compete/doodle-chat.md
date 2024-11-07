@@ -6,6 +6,8 @@ menu: nav/doodle.html
 permalink: /moderation/chat_doodle/
 author: Arshia, Prajna, Mirabelle, Alex
 ---
+
+
 <div id="mainContainer">
   <div id="sidebar">
     <div class="chatBox" onclick="loadConversation('Alex')">
@@ -32,7 +34,6 @@ author: Arshia, Prajna, Mirabelle, Alex
     </div>
     <div id="messages"></div>
     <div id="inputContainer">
-      <!-- File upload input for the image -->
       <input type="file" id="imageUpload" accept="image/*" />
       <input type="text" id="inputMessage" placeholder="Type a message..." />
       <button id="sendButton">Send</button>
@@ -52,7 +53,8 @@ author: Arshia, Prajna, Mirabelle, Alex
   }
   body {
     background-color: #f7f4f9;
-  }#mainContainer {
+  }
+  #mainContainer {
     width: 90vw;
     height: 90vh;
     display: flex;
@@ -83,9 +85,6 @@ author: Arshia, Prajna, Mirabelle, Alex
     background-color: #ffdde1;
     transform: scale(1.05);
   }
-  .chatBox h3, .chatBox p {
-    color: black;
-  }
   #chatContainer {
     flex: 1;
     padding: 20px;
@@ -99,7 +98,6 @@ author: Arshia, Prajna, Mirabelle, Alex
     max-height: 180px;
     overflow: hidden;
   }
-
   #doodleImage {
     width: 100%;
     height: 100%;
@@ -110,7 +108,6 @@ author: Arshia, Prajna, Mirabelle, Alex
     border: 2px solid #ffcbdb;
     display: block;
   }
-
   #messages {
     flex: 1;
     overflow-y: auto;
@@ -153,9 +150,6 @@ author: Arshia, Prajna, Mirabelle, Alex
     color: #2f4858;
     transition: box-shadow 0.3s;
   }
-  #inputMessage:focus {
-    box-shadow: 0px 0px 8px rgba(255, 123, 123, 0.5);
-  }
   #sendButton {
     padding: 12px 18px;
     font-size: 16px;
@@ -165,10 +159,6 @@ author: Arshia, Prajna, Mirabelle, Alex
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-  }
-  #sendButton:hover {
-    background-color: #ff7184;
-    transform: translateY(-2px);
   }
   #fullscreenButton, #exitFullscreenButton {
     position: absolute;
@@ -184,12 +174,6 @@ author: Arshia, Prajna, Mirabelle, Alex
     transition: background-color 0.3s;
     z-index: 100;
   }
-  #fullscreenButton:hover, #exitFullscreenButton:hover {
-    background-color: #ff869a;
-  }
-  #exitFullscreenButton {
-    display: none;
-  }
   .fullscreen #mainContainer {
     width: 100vw;
     height: 100vh;
@@ -198,12 +182,6 @@ author: Arshia, Prajna, Mirabelle, Alex
     left: 0;
     z-index: 200;
     background-color: #f7f4f9;
-  }
-  .fullscreen #fullscreenButton {
-    display: none;
-  }
-  .fullscreen #exitFullscreenButton {
-    display: block;
   }
 </style>
 
@@ -221,13 +199,12 @@ author: Arshia, Prajna, Mirabelle, Alex
     'Mirabelle': ["Mirabelle: Look at the details on this one!", "You: That’s so intricate!", "Mirabelle: Thanks! It took ages."]
   };
 
-  // Handle the file upload
   imageUpload.addEventListener('change', function(event) {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = function(e) {
-        doodleImage.src = e.target.result;  // Update the image source to the uploaded file
+        doodleImage.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
