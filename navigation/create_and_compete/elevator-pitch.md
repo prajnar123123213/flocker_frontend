@@ -30,6 +30,14 @@ author: Manas, Lalita, Shriya, Ethan
 <div id="prompt-display"></div>
 
 <style>
+    body {
+        background-color: #000; /* Black background for the entire page */
+        color: #ecf0f1; /* Light text color for readability */
+        font-family: Arial, sans-serif; /* Optional: change font family for better readability */
+        margin: 0;
+        padding: 0;
+    }
+
     .container {
         display: flex;
         justify-content: center;
@@ -43,11 +51,11 @@ author: Manas, Lalita, Shriya, Ethan
         flex-direction: column;
         max-width: 800px;
         width: 100%;
-        background-color: #2c3e50;
+        background-color: #2c3e50; /* Dark container background */
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        color: #ecf0f1;
+        color: #ecf0f1; /* Light text inside containers */
     }
     .form-container label {
         margin-bottom: 5px;
@@ -108,7 +116,6 @@ author: Manas, Lalita, Shriya, Ethan
         </div>
     </div>
 </div>
-
 
 <!-- Pitch Submission Section -->
 <section id="pitch-section">
