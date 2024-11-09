@@ -5,9 +5,20 @@ permalink: /dnhscafestudyroom
 menu: nav/home.html
 search_exclude: true
 ---
-## Choose the share and care group, and select the subject channel you'd like to contribute to!
+<h2> Choose the share and care group, and select the subject channel you'd like to contribute to! </h2>
 
 <style>
+    body { 
+    background: linear-gradient(135deg, #a17a64, #452f22); /* Dark brown to light brown */
+    background-attachment: fixed; /* Keeps background fixed */
+    color: #333333; /* Darker text color for better readability */
+    font-family: Arial, sans-serif; 
+    min-height: 100vh; /* Ensures it covers the viewport height */ 
+    margin: 0; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
     .container {
         display: flex;
         justify-content: center;
@@ -21,7 +32,7 @@ search_exclude: true
         flex-direction: column;
         max-width: 800px;
         width: 100%;
-        background-color: #2C3E50;
+        background-color: #ba9163;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -54,15 +65,21 @@ search_exclude: true
             <label for="group_id">Group:</label>
             <select id="group_id" name="group_id" required>
                 <option value="">Select a group</option>
+                <option value="">DNHS Cafe ☕️</option>
             </select>
             <label for="channel_id">Channel:</label>
             <select id="channel_id" name="channel_id" required>
                 <option value="">Select a channel</option>
+                 <option value="">Mathematics 📓📈</option>
+                <option value="">Chemistry 👩🏻‍🔬🧪</option>
+                <option value="">Biology 🧬🔬</option>
+                <option value="">English 🍎📝</option>
+                <option value="">Coding 💻👾</option>
+                <option value="">History 📚🏛️</option>
             </select>
+        <form>
             <button type="submit">Select</button>
         </form>
-    </div>
-</div>
 
 <div class="container">
     <div class="form-container">

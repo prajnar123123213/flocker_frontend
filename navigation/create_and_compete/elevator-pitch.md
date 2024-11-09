@@ -29,6 +29,87 @@ author: Manas, Lalita, Shriya, Ethan
 <button id="generate-prompt">Generate Random Prompt</button>
 <div id="prompt-display"></div>
 
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-width: 1200px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 800px;
+        width: 100%;
+        background-color: #2c3e50;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        color: #ecf0f1;
+    }
+    .form-container label {
+        margin-bottom: 5px;
+    }
+    .form-container input, .form-container textarea, .form-container select {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        width: 100%;
+    }
+    .form-container button {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #34495e;
+        color: #ecf0f1;
+        cursor: pointer;
+    }
+</style>
+
+<div class="container">
+    <div class="form-container">
+        <h2>Select Group and Day</h2>
+        <form id="selectionForm">
+            <label for="group_id">Group:</label>
+            <select id="group_id" name="group_id" required>
+                <option value="">Select a group</option>
+            </select>
+            <label for="channel_id">Channel:</label>
+            <select id="channel_id" name="channel_id" required>
+                <option value="">Select a Day</option>
+            </select>
+            <button type="submit">Select</button>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div class="form-container">
+        <h2>Submit Your Pitch Here</h2>
+        <form id="postForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+            <label for="comment">Comment:</label>
+            <textarea id="comment" name="comment" required></textarea>
+            <button type="submit">Send Pitch</button>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div id="data" class="data">
+        <div class="left-side">
+            <p id="count"></p>
+        </div>
+        <div class="details" id="details">
+        </div>
+    </div>
+</div>
+
+
 <!-- Pitch Submission Section -->
 <section id="pitch-section">
     <h2>Your Pitch</h2>
@@ -87,86 +168,6 @@ author: Manas, Lalita, Shriya, Ethan
 <!-- Link to Custom CSS and Script -->
 <link rel="stylesheet" href="{{site.baseurl}}/navigation/create_and_compete/style.css">
 <script src="{{site.baseurl}}/navigation/create_and_compete/script.js"></script>
-
-<style>
-    .container {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        max-width: 1200px;
-        padding: 20px;
-        box-sizing: border-box;
-    }
-    .form-container {
-        display: flex;
-        flex-direction: column;
-        max-width: 800px;
-        width: 100%;
-        background-color: #2c3e50;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        color: #ecf0f1;
-    }
-    .form-container label {
-        margin-bottom: 5px;
-    }
-    .form-container input, .form-container textarea, .form-container select {
-        margin-bottom: 10px;
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-        width: 100%;
-    }
-    .form-container button {
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-        background-color: #34495e;
-        color: #ecf0f1;
-        cursor: pointer;
-    }
-</style>
-
-<div class="container">
-    <div class="form-container">
-        <h2>Select Group and Channel</h2>
-        <form id="selectionForm">
-            <label for="group_id">Group:</label>
-            <select id="group_id" name="group_id" required>
-                <option value="">Select a group</option>
-            </select>
-            <label for="channel_id">Channel:</label>
-            <select id="channel_id" name="channel_id" required>
-                <option value="">Select a channel</option>
-            </select>
-            <button type="submit">Select</button>
-        </form>
-    </div>
-</div>
-
-<div class="container">
-    <div class="form-container">
-        <h2>Add New Post</h2>
-        <form id="postForm">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required>
-            <label for="comment">Comment:</label>
-            <textarea id="comment" name="comment" required></textarea>
-            <button type="submit">Add Post</button>
-        </form>
-    </div>
-</div>
-
-<div class="container">
-    <div id="data" class="data">
-        <div class="left-side">
-            <p id="count"></p>
-        </div>
-        <div class="details" id="details">
-        </div>
-    </div>
-</div>
 
 <script type="module">
     // Import server URI and standard fetch options

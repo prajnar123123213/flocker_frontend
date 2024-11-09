@@ -1,5 +1,5 @@
 ---
-layout: post 
+layout: post
 title: Instabox
 search_exclude: true
 permalink: rate_and_relate/instabox
@@ -16,44 +16,52 @@ author: Aadi, Aaditya, Aditya, Kanhay
         margin: 0;
         padding: 0;
     }
+
     hr {
         border-color: #333;
     }
+
     /* Navbar styling */
     .navbar {
         padding: 10px;
         display: flex;
         align-items: center;
     }
+
     .navbar a {
         color: white;
         text-decoration: none;
         padding: 10px 20px;
         font-size: 18px;
     }
+
     .navbar a:hover {
         background-color: #6a59a3;
         border-radius: 5px;
     }
+
     .container {
         display: flex;
         justify-content: space-between;
         padding: 20px;
         height: calc(100vh - 60px);
     }
+
     /* Added margin for each box */
     .leaderboard-box,
     .instabox-box {
         margin: 10px;
     }
+
     .leaderboard-box {
         background-color: #444;
         border-radius: 10px;
         padding: 10px;
         height: 100%;
         /* overflow-y: scroll; */
-        box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     }
+
     .instabox-box {
         background-color: #555;
         border-radius: 10px;
@@ -61,8 +69,9 @@ author: Aadi, Aaditya, Aditya, Kanhay
         width: 65%;
         display: flex;
         flex-direction: column;
-        box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     }
+
     /* Instabox chatbox */
     .instabox {
         flex-grow: 1;
@@ -71,10 +80,12 @@ author: Aadi, Aaditya, Aditya, Kanhay
         background-color: #666;
         border-radius: 5px;
     }
+
     .instabox p {
         margin: 10px 0;
     }
-    .chatinput{
+
+    .chatinput {
         background-color: #121212;
         resize: none;
         width: 100%;
@@ -86,40 +97,48 @@ author: Aadi, Aaditya, Aditya, Kanhay
         overflow: hidden;
         text-overflow: none;
     }
+
     #charCount {
         bottom: 5px;
         right: 10px;
         font-size: 12px;
         color: #aaa;
     }
+
     .leaderboard-box h2 {
         text-align: center;
         margin-bottom: 10px;
     }
+
     .leaderboard ul li {
         padding: 10px;
         border-bottom: 1px solid #777;
     }
+
     .leaderboard ul {
         list-style: none;
         padding: 0;
     }
+
     /* Responsive design */
     @media (max-width: 768px) {
         .container {
             flex-direction: column;
             align-items: center;
         }
+
         .leaderboard-box {
             width: 100%;
             height: auto;
             margin-bottom: 20px;
         }
+
         .instabox-box {
             width: 100%;
         }
     }
 </style>
+
 <body>
     <hr>
     <!-- Navbar -->
@@ -161,7 +180,7 @@ author: Aadi, Aaditya, Aditya, Kanhay
         const instabox = document.getElementById("instabox");
         const chatInput = document.getElementById("chatinput");
         // Restore all message on window load
-        window.onload = function() {
+        window.onload = function () {
             for (let i = 1; i <= parseInt(localStorage.getItem("messageCount")); i++) {
                 const messageElement = document.createElement("p");
                 messageElement.innerHTML = `<strong>Me:</strong> ${localStorage.getItem("message" + JSON.stringify(i))}`;
@@ -217,25 +236,32 @@ author: Aadi, Aaditya, Aditya, Kanhay
     </script>
 </body>
 
+<script type="module">
+    import { pythonURI, fetchOptions } from '{{ site.baseurl }}/assets/js/api/config.js';
+    // fetch and display chat messages
+    function fetchMessages() {
+        fetch(`${pythonURI}/api/messages`, {
+            ...fetchMessages,
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+            // body: JSON.stringify({ channel_id: 2 })
+        }) // fetch
+            .then(response => response.json())
+            .then(data => {
+                const messagesContainer = document.getElementById('messages-container'); //in the id defined earlier
+                messagesContainer.innerHTML = '';
 
-<script>
-// fetch and display chat messages
-function fetchMessages() {
-    fetch('http://localhost:8887/api/messages') // fetch
-        .then(response => response.json())
-        .then(data => {
-            const messagesContainer = document.getElementById('messages-container'); //in the id defined earlier
-            messagesContainer.innerHTML = '';
-
-            data.messages.forEach(message => { // for loop to have divs for messages, organized??? <-- we will check with aadi bhat and kanhay patil :)
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('message');
-                messageDiv.textContent = message;
-                messagesContainer.appendChild(messageDiv); // add to messages container
+                data.messages.forEach(message => { // for loop to have divs for messages, organized??? <-- we will check with aadi bhat and kanhay patil :)
+                    const messageDiv = document.createElement('div');
+                    messageDiv.classList.add('message');
+                    messageDiv.textContent = message;
+                    messagesContainer.appendChild(messageDiv); // add to messages container
+                });
             });
-        });
-}
+    }
 
 
-window.onload = fetchMessages; // use and run the script
+    window.onload = fetchMessages; // use and run the script
 </script>
