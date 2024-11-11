@@ -320,7 +320,7 @@ author: Manas, Lalita, Shriya, Ethan
      * Fetch posts based on selected channel
      * Handle response: Fetch and display posts
      */
-    async function fetchData(channelId) {
+     fetchData(channelId) {
         try {
             const response = await fetch(`${pythonURI}/api/posts/filter`, {
                 ...fetchOptions,
