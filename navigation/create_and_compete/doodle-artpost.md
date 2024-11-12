@@ -7,6 +7,18 @@ permalink: /moderation/artpost_doodle/
 author: Alex, Arshia, Prajna, and Mirabelle 
 ---
 
+<div class="profile-container">
+ <div class="card">
+     <label for="profilePicture" class="file-icon"> Upload Your Drawing <i class="fas fa-upload"></i> 
+     </label>
+     <input type="file" id="profilePicture" accept="image/*" onchange="saveProfilePicture()">
+     <div class="image-container" id="profileImageBox">
+         <!-- Profile picture will be displayed here -->
+     </div>
+     <p id="profile-message" style="color: red;"></p>
+ </div>
+</div>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Photo Posting App</title>
