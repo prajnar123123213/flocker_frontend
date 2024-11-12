@@ -17,7 +17,7 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
    <div class="zoom-image-section">
        <div id="image-of-day" class="image-of-day-text">Image of the Day</div>
        <div id="image-display" class="zoom-image-box">
-           <img id="zoomed-image" src="{{site.baseurl}}/images/zoomin-guess/einstein.jpg" alt="Zoomed Image" class="zoom-image">
+           <img id="zoomed-image" src="{{site.baseurl}}/images/zoomin-guess/ryangosling.jpg" alt="Zoomed Image" class="zoom-image">
        </div>
    </div>
 
