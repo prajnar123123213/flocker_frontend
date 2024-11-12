@@ -228,6 +228,19 @@ author: Nolan, Jacob, Claire
 
   async function createPost(postStuff) {
     console.log("bob!");
+    let bodyData = {
+      channel_id: window.channel_id,
+      title: postStuff.title,
+      comment: postStuff.description,
+      content: {
+        ratings: [],
+        comments: [],
+        ingredients: postStuff.ingr,
+      },
+    };
+
+    console.log("bodydata", bodyData);
+
     let url = `${pythonURI}/api/post`;
     let __data = await fetch(url, {
       ...fetchOptions,
@@ -235,19 +248,12 @@ author: Nolan, Jacob, Claire
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        channel_id: window.channel_id,
-        title: postStuff.title,
-        comment: postStuff.description,
-        content: {
-          ratings: [],
-          comments: [],
-          ingredients: postStuff.ingr,
-        },
-      }),
+      body: JSON.stringify(bodyData),
     });
 
-    console.log(__data);
+    console.log("reloading now ...");
+    window.location.reload();
+
   }
 
   let posts = [];
@@ -259,12 +265,12 @@ author: Nolan, Jacob, Claire
     let dat = await rawData.json();
     console.log("dat", dat);
 
-    dat.forEach(da => {
-      if(da.channel_name === "Combos") posts.push(da);
-    })
+    dat.forEach((da) => {
+      if (da.channel_name === "Combos") posts.push(da);
+    });
   }
 
-  console.log("getting posts (fix) 2x");
+  console.log("aadie james gyatt! x2");
   getPosts();
 
   function addComment(id) {
