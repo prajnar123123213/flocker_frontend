@@ -6,6 +6,8 @@ permalink: /moderation/doodlepost
 author: Arshia, Prajna, Mirabelle, Alex
 ---
 
+
+
 <style>
 .doodle-post-btn {
   position: relative;
@@ -53,6 +55,8 @@ author: Arshia, Prajna, Mirabelle, Alex
                     <input type="text" id="title" name="title" placeholder="Enter Title Here" required>
                 </div>
                 <textarea id="textArea" name="textArea" placeholder="Post Here" required></textarea>
+                <input type="file" id="imageUpload" accept="image/*" onchange="previewImage(event)">
+                <img id="imagePreview" src="" alt="Image Preview" style="display:none; max-width: 100px; margin-top: 10px;">
                 <button type="submit">Post</button>
             </form>
         </div>
@@ -206,6 +210,14 @@ author: Arshia, Prajna, Mirabelle, Alex
                 description.classList.add("card-description");
                 description.textContent = channel.attributes["content"];
 
+                if (channel.attributes["imageURL"]) {
+                const img = document.createElement("img");
+                img.src = channel.attributes["imageURL"];
+                img.alt = "User uploaded image";
+                img.style.maxWidth = "100%";
+                card.appendChild(img);
+            }
+
                 card.appendChild(title);
                 card.appendChild(description);
 
@@ -228,7 +240,28 @@ author: Arshia, Prajna, Mirabelle, Alex
             group_id: group_id,
             attributes: {"content": content}
         };
+        
+        const imageFile = document.getElementById('imageUpload').files[0];
+        if (imageFile) {
+            const imageData = new FormData();
+            imageData.append("file", imageFile);
 
+        // Upload the image to the server and get its URL
+        const imageUploadResponse = await fetch(`${pythonURI}/api/upload-image`, {
+            ...fetchOptions,
+            method: 'POST',
+            body: imageData
+        });
+        
+        if (imageUploadResponse.ok) {
+            const imageResponseData = await imageUploadResponse.json();
+            channelData.attributes["imageURL"] = imageResponseData.url; // assuming server returns URL
+        } else {
+            alert("Failed to upload image.");
+            return;
+        }
+    }
+        
         try {
             const response = await fetch(`${pythonURI}/api/channel`, {
                 ...fetchOptions,
@@ -251,4 +284,17 @@ author: Arshia, Prajna, Mirabelle, Alex
         }
     });
     fetchChannels();
+
+function previewImage(event) {
+    const preview = document.getElementById('imagePreview');
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+    }
+}
 </script>
