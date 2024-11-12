@@ -205,19 +205,15 @@ author: Nolan, Jacob, Claire
   window.channel_id = 2;
 
   async function getChannelID() {
-    console.log("getting id");
+    //console.log("getting id");
 
-    const __response = await fetch(`${pythonURI}/api/channels/filter`, {
+    const __response = await fetch(`${pythonURI}/api/channels`, {
       ...fetchOptions,
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ group_name: "Flavor Fusion" }),
+      method: "GET",
     });
 
     let channels = await __response.json();
-    console.log(channels);
+    //console.log(channels);
 
     channels.forEach((channel) => {
       if (channel.name === "Combos") window.channel_id = channel.id;
@@ -227,7 +223,7 @@ author: Nolan, Jacob, Claire
   getChannelID();
 
   async function createPost(postStuff) {
-    console.log("bob!");
+    //console.log("bob!");
     let bodyData = {
       channel_id: window.channel_id,
       title: postStuff.title,
@@ -253,25 +249,7 @@ author: Nolan, Jacob, Claire
 
     console.log("reloading now ...");
     window.location.reload();
-
   }
-
-  let posts = [];
-  async function getPosts() {
-    const rawData = await fetch(`${pythonURI}/api/posts`, {
-      ...fetchOptions,
-    });
-
-    let dat = await rawData.json();
-    console.log("dat", dat);
-
-    dat.forEach((da) => {
-      if (da.channel_name === "Combos") posts.push(da);
-    });
-  }
-
-  console.log("aadie james gyatt! x2");
-  getPosts();
 
   function addComment(id) {
     let element = document.querySelector(`form[data-postid="${id}"]`);
@@ -453,7 +431,7 @@ author: Nolan, Jacob, Claire
     const _slot2 = document.getElementById("slot2");
     const _slot3 = document.getElementById("slot3");
     let _creariv = _slot1.innerText + _slot2.innerText + _slot3.innerText;
-    console.log(_creariv);
+    //console.log(_creariv);
     document.getElementById("flavorflux").innerHTML = submissionCode;
     document.getElementById("beingCreated").innerText += _creariv;
   }
@@ -493,6 +471,102 @@ author: Nolan, Jacob, Claire
   }
 
   mainPage();
+  let posts = [];
+  async function getPosts() {
+    const rawData = await fetch(`${pythonURI}/api/posts`, {
+      ...fetchOptions,
+    });
+
+    let dat = await rawData.json();
+    console.log("raw posts", dat);
+
+    dat.forEach((da) => {
+      if (da.channel_name === "Combos") posts.push(da);
+    });
+
+    let main = document.getElementsByClassName("left")[0];
+
+    /*
+               <div class="combo">
+                  <h3>Juan's Combo</h3>
+                  <p>A super sigma food combo ahaha</p>
+                  <p>🍌 - 🍫 - 🌶️</p>
+                  <p><strong>Rating:</strong> ⭐⭐⭐</p>
+                  <p>Comments:</p>
+                  <ul>
+                      <li>Juan is so hot!!!</li>
+                      <li>Congrats on getting a gf, Kanhay!</li>
+                  </ul>
+                  <form method="get" data-postid="456">
+                      <label for="commenttext">Add a comment</label>
+                      <input type="text" class="commenttext" placeholder="Comment">
+                      <button type="submit" onclick="addComment('456');">Submit</button>
+                  </form>
+              </div>
+              */
+              posts.forEach((post) => {
+                console.log("post:", post)
+                let comboDiv = document.createElement("div");
+                comboDiv.className = "combo";
+
+                let comboTitle = document.createElement("h3");
+                comboTitle.textContent = post.title;
+                comboDiv.appendChild(comboTitle);
+
+                let comboDescription = document.createElement("p");
+                comboDescription.textContent = post.comment;
+                comboDiv.appendChild(comboDescription);
+
+                let comboIngredients = document.createElement("p");
+                comboIngredients.textContent = post.content.ingredients.join(" - ");
+                comboDiv.appendChild(comboIngredients);
+
+                let comboRating = document.createElement("p");
+                comboRating.innerHTML = `<strong>Rating:</strong> ⭐⭐⭐⭐`; // Placeholder rating
+                comboDiv.appendChild(comboRating);
+
+                let commentsTitle = document.createElement("p");
+                commentsTitle.textContent = "Comments:";
+                comboDiv.appendChild(commentsTitle);
+
+                let commentsList = document.createElement("ul");
+                post.content.comments.forEach((comment) => {
+                let commentItem = document.createElement("li");
+                commentItem.textContent = comment;
+                commentsList.appendChild(commentItem);
+                });
+                comboDiv.appendChild(commentsList);
+
+                let commentForm = document.createElement("form");
+                commentForm.method = "get";
+                commentForm.setAttribute("data-postid", post.id);
+
+                let commentLabel = document.createElement("label");
+                commentLabel.setAttribute("for", "commenttext");
+                commentLabel.textContent = "Add a comment";
+                commentForm.appendChild(commentLabel);
+
+                let commentInput = document.createElement("input");
+                commentInput.type = "text";
+                commentInput.className = "commenttext";
+                commentInput.placeholder = "Comment";
+                commentForm.appendChild(commentInput);
+
+                let commentButton = document.createElement("button");
+                commentButton.type = "submit";
+                commentButton.textContent = "Submit";
+                commentButton.onclick = function (e) {
+                e.preventDefault();
+                addComment(post.id);
+                };
+                commentForm.appendChild(commentButton);
+
+                comboDiv.appendChild(commentForm);
+                main.appendChild(comboDiv);
+              });
+  }
+
+  getPosts();
 
   function leaderboard() {
     document.getElementById("flavorflux").innerHTML = leaderboardCode;
