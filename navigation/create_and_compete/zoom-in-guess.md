@@ -530,3 +530,4 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
     // Fetch groups when the page loads
     fetchGroups();
 </script>
+
