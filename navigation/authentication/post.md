@@ -276,4 +276,5 @@ search_exclude: true
 
     // Fetch groups when the page loads
     fetchGroups();
+    
 </script>
