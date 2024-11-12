@@ -211,25 +211,26 @@ author: Aadi, Aaditya, Aditya, Kanhay
                 e.preventDefault();
                 // Get the current text content of the chat input
                 const newMessage = chatInput.textContent.trim();
-                if (localStorage.getItem("messageCount")) {
-                    localStorage.setItem("messageCount", parseInt(localStorage.getItem("messageCount")) + 1);
-                } else {
-                    localStorage.setItem("messageCount", 1);
-                }
+                // if (localStorage.getItem("messageCount")) {
+                //     localStorage.setItem("messageCount", parseInt(localStorage.getItem("messageCount")) + 1);
+                // } else {
+                //     localStorage.setItem("messageCount", 1);
+                // }
                 localStorage.setItem("message" + localStorage.getItem("messageCount"), newMessage);
                 // Create a new paragraph element for the message
                 if (newMessage != "") {
-                    const messageElement = document.createElement("p");
-                    messageElement.innerHTML = `<strong>Me:</strong> ${newMessage}`;
-                    // Append the new message to the instabox
-                    instabox.appendChild(messageElement);
-                    // Clear the chat input
-                    chatInput.textContent = "";
-                    // Scroll to the latest message
-                    instabox.scrollTop = instabox.scrollHeight;
-                    // Reset character count to 100
-                    charCount.textContent = "100";
-                    charCount.style.color = "#aaa";
+                    // const messageElement = document.createElement("p");
+                    // messageElement.innerHTML = `<strong>Me:</strong> ${newMessage}`;
+                    // // Append the new message to the instabox
+                    // instabox.appendChild(messageElement);
+                    // // Clear the chat input
+                    // chatInput.textContent = "";
+                    // // Scroll to the latest message
+                    // instabox.scrollTop = instabox.scrollHeight;
+                    // // Reset character count to 100
+                    // charCount.textContent = "100";
+                    // charCount.style.color = "#aaa";
+                    postMessage(newMessage);
                 }
             }
         });
@@ -260,6 +261,28 @@ author: Aadi, Aaditya, Aditya, Kanhay
                     messagesContainer.appendChild(messageDiv); // add to messages container
                 });
             });
+    }
+    // Add new message
+    function postMessage(newMessage) {
+        fetch(`${pythonURI}/api/messages`, {
+            ...fetchOptions,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ message: newMessage }) // send the new message as payload
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                fetchMessages(); // refresh messages to include the new message
+            } else {
+                console.error("Error posting message:", data.error);
+            }
+        })
+        .catch(error => {
+            console.error("Error in postMessage:", error);
+        });
     }
 
 
