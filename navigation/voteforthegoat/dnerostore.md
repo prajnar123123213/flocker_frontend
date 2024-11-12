@@ -8,481 +8,244 @@ author: Risha Guha, Vibha Mandayam, Ava Shalon
 comments: true
 ---
 
-
-
-<img src="{{ site.baseurl }}/images/dnerostore/Dnero_Store_Header.png" alt="Title">
+<img src="{{ site.baseurl }}/images/dnerostore/Dnero_Store_Header.png" alt="Dnero Store Header" style="width: 100%; height: auto;">
+<h2><a href="{{ site.baseurl }}/dnerostore-mod/" class="mod-rules-button"> Mod Rules </a></h2> 
 
 <details>
-  <summary>Room Details</summary>
-
-  <a href="{{ site.baseurl }}/dnerostore-mod/">Moderation Rules</a>
-  <p>Discuss your favorite D'Nero store items here!</p>
-  <h4>D'Nero Store</h4>
-  <ul>
-    <li>Food/Drink</li>
-    <ul>
-      <li>Trail Mix</li>
-      <li>Nutella</li>
-      <li>Famous Amos</li>
-      <li>Chips</li>
-      <li>Sports Drinks</li>
-      <li>Fruit Snacks</li>
-      <li>Water</li>
-    </ul>
-    <li>Pizza</li>
-    <ul>
-      <li>Whole Pizza</li>
-    </ul>
-    <li>Spirit</li>
-    <ul>
-      <li>Morning Song</li>
-      <li>DNHS T-shirt</li>
-      <li>1 Pom Pom</li>
-    </ul>
-    <li>Limited Edition</li>
-    <ul>
-      <li>Candy</li>
-      <li>Squishmallow mini</li>
-      <li>Starbucks SDSU Tumbler</li>
-    </ul>
-    <li>Gift Card</li>
-    <ul>
-      <li>Chik-fil-a</li>
-      <li>Canes</li>
-    </ul>
-  </ul>
+  <summary style="color: white;">Room Details</summary>
+  <p style="color: white;">Discuss your favorite D'Nero store items here!</p>
 </details>
 
-
-
-
 <div class="container">
-  <div class="post-container">
-    <div class="image-container">
-      <img src="{{ site.baseurl }}/images/dnerostore/pizza.jpg" alt="Pizza Image">
-    </div>
-    <div class="action-bar">
-      <button id="like-btn" onclick="toggleLike()">
-        <span id="heart" class="heart-icon">&#10084;</span>
-      </button>
-      <span id="like-count" class="like-count">136 Likes</span>
-      <button id="comment-btn">
-        <span class="action-icon">💬</span> <!-- Comment icon -->
-      </button>
-      <button id="share-btn">
-        <span class="action-icon">📤</span> <!-- Share icon -->
-      </button>
-    </div>
-    <!-- Comment Section -->
-    <div id="comment-section">
-      <!-- Comment form -->
-      <form id="comment-form" style="display:none;">
-        <div class="form-group">
-          <label for="username" style="color:#05092e;">Name:</label>
-          <input type="text" id="username" name="username" required>
+  <div class="category-box">
+    <!-- Food and Drink Category -->
+    <div class="category-row" onclick="toggleItems('food-drink-items')">
+      <h3>Food and Drink</h3>
+      <div id="food-drink-items" class="item-list-container" style="display: none;">
+        <p>Please select your favorite item from this list:</p>
+        <div class="item-list">
+          <button onclick="selectItem(this, 'most', 'Food and Drink')" data-channel-id="28">Trail Mix</button>
+          <button onclick="selectItem(this, 'most', 'Food and Drink')" data-channel-id="28">Nutella</button>
+          <button onclick="selectItem(this, 'most', 'Food and Drink')" data-channel-id="28">Famous Amos</button>
+          <button onclick="selectItem(this, 'most', 'Food and Drink')" data-channel-id="28">Chips</button>
+          <button onclick="selectItem(this, 'most', 'Food and Drink')" data-channel-id="28">Sports Drinks</button>
+          <button onclick="selectItem(this, 'most', 'Food and Drink')" data-channel-id="28">Fruit Snacks</button>
+          <button onclick="selectItem(this, 'most', 'Food and Drink')" data-channel-id="28">Water</button>
+          <button onclick="selectItem(this, 'most', 'Food and Drink')" data-channel-id="28">Pizza</button>
         </div>
-        <div class="form-group">
-          <label for="comment" style="color:#05092e;">Comment:</label>
-          <textarea id="comment" name="comment" rows="3" required></textarea>
+        <p>Please select your LEAST favorite item from this list:</p>
+        <div class="item-list">
+          <button onclick="selectItem(this, 'least', 'Food and Drink')" data-channel-id="28">Trail Mix</button>
+          <button onclick="selectItem(this, 'least', 'Food and Drink')" data-channel-id="28">Nutella</button>
+          <button onclick="selectItem(this, 'least', 'Food and Drink')" data-channel-id="28">Famous Amos</button>
+          <button onclick="selectItem(this, 'least', 'Food and Drink')" data-channel-id="28">Chips</button>
+          <button onclick="selectItem(this, 'least', 'Food and Drink')" data-channel-id="28">Sports Drinks</button>
+          <button onclick="selectItem(this, 'least', 'Food and Drink')" data-channel-id="28">Fruit Snacks</button>
+          <button onclick="selectItem(this, 'least', 'Food and Drink')" data-channel-id="28">Water</button>
+          <button onclick="selectItem(this, 'least', 'Food and Drink')" data-channel-id="28">Pizza</button>
         </div>
-        <button type="submit">Post Comment</button>
-      </form>
-      <!-- Display area for comments -->
-      <div id="comments-display">
-        <!-- Comments will appear here -->
+      </div>
+    <div id="food-drink-posts" class="category-posts"></div>
+    </div>
+  <!-- Spirit Category -->
+  <div class="category-box">
+  <div class="category-row" onclick="toggleItems('spirit-items')">
+    <h3>Spirit</h3>
+    <div id="spirit-items" class="item-list-container" style="display: none;">
+      <p>Please select your favorite item from this list:</p>
+      <div class="item-list">
+        <button onclick="selectItem(this, 'most', 'Spirit')" data-channel-id="29">Morning Song</button>
+        <button onclick="selectItem(this, 'most', 'Spirit')" data-channel-id="29">DNHS T-shirt</button>
+        <button onclick="selectItem(this, 'most', 'Spirit')" data-channel-id="29">1 Pom Pom</button>
+      </div>
+      <p>Please select your LEAST favorite item from this list:</p>
+      <div class="item-list">
+        <button onclick="selectItem(this, 'least', 'Spirit')" data-channel-id="29">Morning Song</button>
+        <button onclick="selectItem(this, 'least', 'Spirit')" data-channel-id="29">DNHS T-shirt</button>
+        <button onclick="selectItem(this, 'least', 'Spirit')" data-channel-id="29">1 Pom Pom</button>
       </div>
     </div>
+    <div id="spirit-posts" class="category-posts"></div>
   </div>
 
-
-
-
-  <div class="poll-container">
-    <h3>Would you prefer pizza or cookies from D'Nero Store?</h3>
-    <div>
-      <input type="radio" id="pizza" name="poll" value="pizza">
-      <label for="pizza">🍕 Pizza</label><br>
-      <input type="radio" id="cookies" name="poll" value="cookies">
-      <label for="cookies">🍪 Cookies</label>
+  <!-- Limited Edition Category -->
+  <div class="category-box">
+  <div class="category-row" onclick="toggleItems('limited-edition-items')">
+    <h3>Limited Edition</h3>
+    <div id="limited-edition-items" class="item-list-container" style="display: none;">
+      <p>Please select your favorite item from this list:</p>
+      <div class="item-list">
+        <button onclick="selectItem(this, 'most', 'Limited Edition')" data-channel-id="30">Candy</button>
+        <button onclick="selectItem(this, 'most', 'Limited Edition')" data-channel-id="30">Squishmallow mini</button>
+        <button onclick="selectItem(this, 'most', 'Limited Edition')" data-channel-id="30">Starbucks SDSU Tumbler</button>
+      </div>
+      <p>Please select your LEAST favorite item from this list:</p>
+      <div class="item-list">
+        <button onclick="selectItem(this, 'least', 'Limited Edition')" data-channel-id="30">Candy</button>
+        <button onclick="selectItem(this, 'least', 'Limited Edition')" data-channel-id="30">Squishmallow mini</button>
+        <button onclick="selectItem(this, 'least', 'Limited Edition')" data-channel-id="30">Starbucks SDSU Tumbler</button>
+      </div>
     </div>
-    <button onclick="submitVote()">Vote</button>
-    <button onclick="viewResults()">View Results</button>
-    <!-- Results display -->
-    <div id="results" style="display:none; margin-top: 15px;">
-      <div id="pizza-bar" class="result-bar"></div>
-      <div id="cookies-bar" class="result-bar"></div>
+    <div id="limited-edition-posts" class="category-posts"></div>
+
+  </div>
+  <!-- Gift Cards Category -->
+  <div class="category-box">
+  <div class="category-row" onclick="toggleItems('gift-card-items')">
+    <h3>Gift Cards</h3>
+    <div id="gift-card-items" class="item-list-container" style="display: none;">
+      <p>Please select your favorite item from this list:</p>
+      <div class="item-list">
+        <button onclick="selectItem(this, 'most', 'Gift Cards')" data-channel-id="31">Chik-fil-a</button>
+        <button onclick="selectItem(this, 'most', 'Gift Cards')" data-channel-id="31">Canes</button>
+      </div>
+      <p>Please select your LEAST favorite item from this list:</p>
+      <div class="item-list">
+        <button onclick="selectItem(this, 'least', 'Gift Cards')" data-channel-id="31">Chik-fil-a</button>
+        <button onclick="selectItem(this, 'least', 'Gift Cards')" data-channel-id="31">Canes</button>
+      </div>
     </div>
+    <div id="gift-card-posts" class="category-posts"></div>
+
+  </div><!-- New Post Form -->
+<div class="post-form-container" id="post-form" style="display: none;">
+  <h2>Create a Post</h2>
+  <form id="postForm">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required>
+    <p></p>
+    <label for="comment">Comment:</label>
+    <textarea id="comment" name="comment" required></textarea>
+    <!-- Dropdowns for Group and Channel Selection -->
+    <div class="dropdown-container">
+      <label for="group-select">Group:</label>
+      <select id="group-select" name="group">
+        <option value="Dnero Store">Dnero Store</option>
+      </select>
+      <label for="channel-select">Channel:</label>
+      <select id="channel-select" name="channel">
+        <option value="Food and Drink">Food and Drink</option>
+        <option value="Spirit">Spirit</option>
+        <option value="Limited Edition">Limited Edition</option>
+        <option value="Gift Cards">Gift Cards</option>
+      </select>
+    </div>
+
+    <button type="submit">Add Post</button>
+  </form>
   </div>
 </div>
 
-
-
-
 <script>
-  // Initialize like count and liked status
-  var likeCount = 136;
-  var isLiked = false;
-
-
-
-
-  // Toggle like count and heart color
-  function toggleLike() {
-    if (isLiked) {
-      likeCount--;
-      document.getElementById("heart").style.color = "grey";
-    } else {
-      likeCount++;
-      document.getElementById("heart").style.color = "red";
-    }
-    isLiked = !isLiked;
-    document.getElementById("like-count").innerHTML = likeCount + (likeCount === 1 ? " Like" : " Likes");
+  // Toggle visibility of item lists
+  function toggleItems(id) {
+    const selectedItem = document.getElementById(id);
+    const currentState = selectedItem.style.display;
+    selectedItem.style.display = currentState === 'none' ? 'block' : 'none';
   }
 
+  // Handle item selection
+  function selectItem(button, type, category) {
+    const color = type === 'most' ? 'green' : 'red';
+    button.style.backgroundColor = color;
+    button.style.color = 'white';
 
+    // Show the post form
+    const formContainer = document.getElementById('post-form');
+    formContainer.style.display = 'block';
 
+    // Pre-fill form data based on the selected category
+    document.getElementById('title').value = `${category} - ${type} favorite`;
+    document.getElementById('comment').value = `I selected ${button.innerText} as my ${type} favorite because`;
+    // Set the group to "Dnero Store" and set the category for the dropdown
+    document.getElementById('group-select').value = 'Dnero Store';
+    document.getElementById('channel-select').value = category;
 
-  // Show and hide the comment form
-  document.getElementById("comment-btn").addEventListener("click", () => {
-    const form = document.getElementById("comment-form");
-    form.style.display = form.style.display === "none" ? "block" : "none";
-  });
-
-
-
-
-  // Handle comment form submission
-  document.getElementById("comment-form").addEventListener("submit", (event) => {
-    event.preventDefault();
-
-
-
-
-    const username = document.getElementById("username").value;
-    const commentText = document.getElementById("comment").value;
-
-
-
-
-    const comment = document.createElement("div");
-    comment.classList.add("comment");
-
-
-
-
-    const author = document.createElement("div");
-    author.classList.add("comment-author");
-    author.textContent = username;
-
-
-
-
-    const text = document.createElement("div");
-    text.classList.add("comment-text");
-    text.textContent = commentText;
-
-
-
-
-    comment.appendChild(author);
-    comment.appendChild(text);
-
-
-
-
-    const commentsDisplay = document.getElementById("comments-display");
-    commentsDisplay.insertBefore(comment, commentsDisplay.firstChild);
-
-
-
-
-    document.getElementById("username").value = "";
-    document.getElementById("comment").value = "";
-  });
-
-
-
-
-  // Poll functions (same as before)
-  var pizzaVotes = 0;
-  var cookiesVotes = 0;
-
-
-
-
-  function submitVote() {
-    var pollChoice = document.querySelector('input[name="poll"]:checked');
-    if (pollChoice) {
-      if (pollChoice.value === "pizza") {
-        pizzaVotes++;
-      } else if (pollChoice.value === "cookies") {
-        cookiesVotes++;
-      }
-      alert("Vote submitted!");
-    } else {
-      alert("Please select an option to vote.");
-    }
-  }
-
-
-
-
-  function viewResults() {
-    var totalVotes = pizzaVotes + cookiesVotes;
-    if (totalVotes === 0) {
-      alert("No votes submitted yet!");
-      return;
-    }
-
-
-
-
-    var pizzaPercent = Math.round((pizzaVotes / totalVotes) * 100);
-    var cookiesPercent = Math.round((cookiesVotes / totalVotes) * 100);
-
-
-
-
-    document.getElementById("pizza-bar").style.width = pizzaPercent + "%";
-    document.getElementById("pizza-bar").innerText = "Pizza: " + pizzaPercent + "%";
-    document.getElementById("cookies-bar").style.width = cookiesPercent + "%";
-    document.getElementById("cookies-bar").innerText = "Cookies: " + cookiesPercent + "%";
-
-
-
-
-    document.getElementById("results").style.display = "block";
+    const channelID = button.getAttribute('data-channel-id');
+    document.getElementById('postForm').setAttribute('data-channel-id', channelID); // Save the channel ID to the form
   }
 </script>
 
+<script type="module">
+  import { pythonURI, fetchOptions } from '{{ site.baseurl }}/assets/js/api/config.js';
 
+  // Fetch all arguments for a specific channel
+  async function fetchArguments(channelId) {
+    try {
+      const response = await fetch(`${pythonURI}/api/posts/filter`, {
+        ...fetchOptions,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ channel_id: channelId })
+      });
 
+      if (!response.ok) throw new Error('Failed to fetch arguments: ' + response.statusText);
 
-<style>
-  /* Main container for layout */
-  .container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 50px;
+      const argumentsData = await response.json();
+      argumentContainer.innerHTML = ""; // Clear existing arguments
+
+      argumentsData.forEach(arg => {
+        const card = document.createElement("div");
+        card.classList.add("argument-card");
+
+        const text = document.createElement("p");
+        text.innerHTML = `<strong>${arg.user_name}:</strong> ${arg.comment}`; // Adjusted to match backend response structure
+
+        card.appendChild(text);
+        argumentContainer.appendChild(card);
+      });
+    } catch (error) {
+      console.error('Error fetching arguments:', error);
+    }
   }
 
+  // Handle item selection
+  function selectItem(button, type, category) {
+    const color = type === 'most' ? 'green' : 'red';
+    button.style.backgroundColor = color;
+    button.style.color = 'white';
 
+    // Create a post when an item is selected
+    if (type === 'most') {
+      document.getElementById('group-select').value = "Dnero Store";
+      document.getElementById('channel-select').value = category;
 
-
-  /* Post container styles */
-  .post-container {
-    width: 320px;
-    border: 1px solid #dbdbdb;
-    border-radius: 12px;
-    background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 5px;
+      const postForm = document.getElementById('post-form');
+      postForm.style.display = "block"; // Display post form
+    }
   }
 
-
-
-
-  .image-container img {
-    width: 100%;
-    height: auto;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-  }
-
-
-
-
-  /* Action bar styling */
-  .action-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 10px 0;
-  }
-
-
-
-
-  .action-bar button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-  }
-
-
-
-
-  .heart-icon {
-    font-size: 24px;
-    color: grey;
-    transition: color 0.3s ease;
-  }
-
-
-
-
-  .like-count {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-  }
-
-
-
-
-  .action-icon {
-    font-size: 24px;
-  }
-
-
-
-
-  /* Comment section styling */
-  #comment-section {
-    max-width: 300px;
-    margin: 20px auto;
-  }
-
-
-
-
-  .comment {
-    background-color: #05092e;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-  }
-
-
-
-
-  .comment-author {
-    font-weight: bold;
-    font-size: 0.9em;
-    color: #f1f1f1;
-  }
-
-
-
-
-  .comment-text {
-    margin-top: 5px;
-    font-size: 0.9em;
-  }
-
-
-
-
-  /* Align Name and Comment fields */
-  #comment-form .form-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-
-
-
-
-  #comment-form label {
-    flex-shrink: 0;
-    width: 70px;
-    text-align: right;
-    margin-right: 10px;
-  }
-
-
-
-
-  #comment-form input[type="text"],
-  #comment-form textarea {
-    flex-grow: 1;
-    max-width: 100%;
-  }
-
-
-
-
-  /* Poll container styles */
-  .poll-container {
-      width: 300px;
-      padding: 20px;
-      border: 1px solid #dbdbdb;
-      border-radius: 12px;
-      background-color: #f9f9f9;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      height: 300px; /* Set a fixed height */
-      overflow: hidden; /* Prevent overflow */
-  }
-
-
-
-
-  .poll-container h3 {
-    font-size: 18px;
-    margin-bottom: 15px;
-    color: black;
-  }
-
-
-
-
-  .poll-container label {
-    font-size: 16px;
-    color: black;
-  }
-
-
-
-
-  .poll-container button {
-    margin-top: 10px;
-    margin-right: 10px;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-
-
-
-
-  .result-bar {
-    background-color: #4caf50;
-    color: black;
-    text-align: center;
-    padding: 8px 0;
-    margin-top: 5px;
-    border-radius: 5px;
-    width: 100%;
-    height: 30px;
-    max-width: 300px;
-    white-space: nowrap;
-  }
-
-
-
-
-  /* Moderator Rules button */
-  .moderator-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 10px 15px;
-    background-color: black;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-
-
-
-  .moderator-btn:hover {
-    background-color: #444;
-  }
-
-</style>
+  // Handle form submission
+  document.getElementById('postForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const title = document.getElementById('title').value;
+    const comment = document.getElementById('comment').value;
+    const group = document.getElementById('group-select').value;
+    const channel = document.getElementById('channel-select').value;
+    const channelID = document.getElementById('postForm').getAttribute('data-channel-id'); // Retrieve the saved channel ID
+    const postData = {
+      title: title,
+      comment: comment,
+      channel_id: channelID
+    }
+
+    try {
+      const response = await fetch(`${pythonURI}/api/post`, {
+        ...fetchOptions,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(postData)
+      });
+
+      if (!response.ok) throw new Error('Failed to add post: ' + response.statusText);
+      alert("Post added successfully!");
+
+    } catch (error) {
+      console.error('Error adding post:', error);
+    }
+  });
+</script>
 
 
 <style>
@@ -528,7 +291,22 @@ comments: true
     .post-item p {
         margin: 0;
     }
+    .category-box {
+  width: 90%; /* Adjust to your preference for box size */
+  background-color: #000000;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.category-box h3 {
+  text-align: center;
+  background-color: #007BFF;
+  color: white;
+  padding: 10px;
+}
 </style>
+
 
 <!-- Analytics Page -->
 <div class="container">
@@ -544,178 +322,103 @@ comments: true
 <script type="module">
     import { pythonURI, fetchOptions } from '{{ site.baseurl }}/assets/js/api/config.js';
 
-    // URL to fetch all posts
-    const postApiUrl = `${pythonURI}/api/post`;
+    // URLs to fetch profile links, user data, and commits
+    const postApiUrl = `${pythonURI}/api/posts`;
 
-    async function fetchData() {
-        try {
-            // Fetch all posts from the backend
-            const postApiResponse = await fetch(postApiUrl, fetchOptions);
+   // Fetch posts by category
+    async function fetchPosts() {
+      try {
+        const response = await fetch(`${pythonURI}/api/posts`);
+        const data = await response.json();
 
-            if (!postApiResponse.ok) {
-                throw new Error('Failed to fetch post API links: ' + postApiResponse.statusText);
-            }
+        // Clear existing posts
+        document.getElementById("food-drink-posts").innerHTML = "";
+        document.getElementById("spirit-posts").innerHTML = "";
+        document.getElementById("limited-edition-posts").innerHTML = "";
+        document.getElementById("gift-card-posts").innerHTML = "";
 
-            // Parse the JSON data from the response
-            const postData = await postApiResponse.json();
-
-            // Count the total posts and display it
-            const postCount = postData.length || 0;
-            document.getElementById('count').innerHTML = `<h2>Count: ${postCount}</h2>`;
-
-            // Get the details div
-            const detailsDiv = document.getElementById('details');
-            detailsDiv.innerHTML = ''; // Clear previous posts
-
-            // Iterate over postData and create HTML elements for each item
-            postData.forEach(postItem => {
-                const postElement = document.createElement('div');
-                postElement.className = 'post-item';
-                postElement.innerHTML = `
-                    <h3>${postItem.title}</h3>
-                    <p><strong>Group:</strong> ${postItem.group_name}</p>
-                    <p><strong>User:</strong> ${postItem.user_name}</p>
-                    <p>${postItem.content}</p>
-                `;
-                detailsDiv.appendChild(postElement);
-            });
-
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+        // Loop through posts and categorize them
+        data.forEach(post => {
+          const postElement = document.createElement('div');
+          postElement.classList.add('post-item');
+          postElement.innerHTML = `
+            <p><strong>User:</strong> ${post.user_name}</p>
+            <p><strong>Comment:</strong> ${post.comment}</p>
+          `;          
+          if (post.channel_name === "Food and Drink") {
+            document.getElementById("food-drink-posts").appendChild(postElement);
+          } else if (post.channel_name === "Spirit") {
+            document.getElementById("spirit-posts").appendChild(postElement);
+          } else if (post.channel_name === "Limited Edition") {
+            document.getElementById("limited-edition-posts").appendChild(postElement);
+          } else if (post.channel_name === "Gift Cards") {
+            document.getElementById("gift-card-posts").appendChild(postElement);
+          }
+        });
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
     }
 
-    // Call the fetchData function to load all posts
-    fetchData();
+    fetchPosts();
 </script>
-
-
-
 
 <style>
-    .container {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        max-width: 1200px;
-        padding: 20px;
-        box-sizing: border-box;
-    }
-    .form-container {
-        display: flex;
-        flex-direction: column;
-        max-width: 800px;
-        width: 100%;
-        background-color: #2c3e50;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        color: #ecf0f1;
-    }
-    .form-container label {
-        margin-bottom: 5px;
-    }
-    .form-container input, .form-container textarea, .form-container select {
-        margin-bottom: 10px;
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-        width: 100%;
-    }
-    .form-container button {
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-        background-color: #34495e;
-        color: #ecf0f1;
-        cursor: pointer;
-    }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .left-side {
+    width: 48%;
+    padding-right: 20px;
+  }
+
+  .right-side {
+    width: 56%;
+    padding-left: 10px;
+  }
+
+  .category-row {
+    margin-bottom: 20px;
+    border: 1px solid #007BFF;
+    padding: 10px;
+  }
+
+  .category-row h3 {
+    background-color: #000;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .item-list-container {
+    display: none;
+  }
+
+  .item-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .item-list button {
+    margin: 5px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #007BFF;
+    cursor: pointer;
+  }
+
+  .post-form-container {
+    background-color: #020b40;
+    border: 2px solid #007BFF;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+
+  #details {
+    margin-top: 20px;
+  }
 </style>
-<div class="container">
-    <div class="form-container">
-        <h2>Add New Post</h2>
-        <form id="postForm">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required>
-            <label for="content">Content:</label>
-            <textarea id="content" name="content" required></textarea>
-            <label for="group_id">Group:</label>
-            <select id="group_id" name="group_id" required>
-                <option value="">Select a group</option>
-            </select>
-            <button type="submit">Add Post</button>
-        </form>
-    </div>
-</div>
-
-<script type="module">
-    // Import server URI and standard fetch options
-    import { pythonURI, fetchOptions } from '{{ site.baseurl }}/assets/js/api/config.js';
-
-    // Fetch groups for dropdown selection
-    async function fetchGroups() {
-        try {
-            const response = await fetch(`${pythonURI}/api/group`, fetchOptions);
-            if (!response.ok) {
-                throw new Error('Failed to fetch groups: ' + response.statusText);
-            }
-            const groups = await response.json();
-            const groupSelect = document.getElementById('group_id');
-            groups.forEach(group => {
-                const option = document.createElement('option');
-                option.value = group.id;
-                option.textContent = group.name;
-                groupSelect.appendChild(option);
-            });
-        } catch (error) {
-            console.error('Error fetching groups:', error);
-        }
-    }
-
-    // Handle form submission
-    document.getElementById('postForm').addEventListener('submit', async function(event) {
-        // Prevent default from submission
-        event.preventDefault();
-
-        // Extract data from form
-        const title = document.getElementById('title').value;
-        const content = document.getElementById('content').value;
-        const group_id = document.getElementById('group_id').value;
-
-        // Create API payload
-        const postData = {
-            title: title,
-            content: content,
-            group_id: group_id
-        };
-
-        // Trap errors
-        try {
-            // Send POST request to backend, purpose is to write to database
-            const response = await fetch(`${pythonURI}/api/post`, {
-                ...fetchOptions,
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(postData)
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to add post: ' + response.statusText);
-            }
-
-            // Succesfull post
-            const result = await response.json();
-            alert('Post added successfully!');
-            document.getElementById('postForm').reset();
-        } catch (error) {
-            // Present alert on error from backend
-            console.error('Error adding post:', error);
-            alert('Error adding post: ' + error.message);
-        }
-    });
-
-    // Fetch groups when the page loads
-    fetchGroups();
-</script>

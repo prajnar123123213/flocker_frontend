@@ -58,8 +58,23 @@ menu: nav/create_and_compete.html
 </div>
 
 <div class="group-theme">
+
+**Riddle Room!**
+
+Welcome to the Riddle Room, where critical thinking and collaboration come together for an engaging challenge! Each day, a new riddle will be presented, which you can pin to the top of our channel for easy access. Answers will be revealed at the end of the day, giving you time to discuss and strategize with your fellow members in our dedicated chat box. If someone solves the riddle, our AI will promptly share the answer; otherwise, it will be revealed at day’s end to keep the suspense alive. To ensure a friendly atmosphere, any profanity will be automatically censored. Join us for a fun and thought-provoking experience! <a href="{{site.baseurl}}/create_and_compete/riddle">Our page!</a> Presented to you by Kush, Tarun, Nolan, Vincent
+
+</div>
+
+<div class="group-theme">
     **Doodle Game!** 
     The **Doodle Game** is a place where people can explore themselves creatively and compete to see who has the best doodle. This allows for players to collaborate over their artistic abilities. Our room includes a chat room where players can converse about their creations, a doodle compete area, a place where people can post their art, and winners get crowned every week. This will help add to our classes page by making a fun artistic environment where everyone can collaborate. <a href="{{site.baseurl}}/create_and_compete/doodle">Our page!</a> Coded by Arshia Deb Roy, Prajna Raj, Mirabelle Anderson, Alex Rubio
 </div>
+
+<div class="group-theme">
+    **TAKE OR MAKE?!??!?!!?!**
+    The Culinary Page is designed to take recipes or make recipes from a plethora of ingredients and recipes available. Users can interact and collaborate with other users to share recipes they find interesting and intriguing to others. Our room includes a user friendly interface that users can use to find recipes and then collaborate on our posts page seamlessely. This adds a nice touch to the page while also allowing users to collaborate and have fun with recipes they may enjor or indulge in. <a href="{{site.baseurl}}/create_and_compete/culinary">Here is our page!</a> Presented to you by Daksha, Darsh, Zach, Alex
+</div>
+
+
 
 

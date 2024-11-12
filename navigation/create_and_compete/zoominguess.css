@@ -1,23 +1,49 @@
+/* Full-Page Background with Strong Glowing Effect */
+body {
+    background: linear-gradient(135deg, #1254f0, hsla(277, 87%, 54%, 0.632), #0ee070, #5a67d8);
+    background-size: 400% 400%;
+    animation: glowingBackground 20s ease infinite;
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+
+/* Glowing Animation for Background */
+@keyframes glowingBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 /* General container for Zoom N Guess game */
 .zoomnguess-container {
     width: 80%;
     max-width: 600px;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.9);
     border: 2px solid #007BFF;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 15px rgba(0, 123, 255, 0.5);
     margin: 20px auto;
     text-align: center;
-    color: #007BFF; /* Text color to contrast with light background */
+    color: #007BFF;
 }
 
 h1, h2 {
-    color: #007BFF; /* Standout color for headings */
+    color: #007BFF;
+    text-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
 }
 
 p, label, .info-box, .leaderboard-box li {
-    color: #555; /* Slightly dark color for main text content */
+    color: #333;
+}
+
+/* Image of the Day Text */
+.image-of-day-text {
+    font-size: 2em;
+    color: rgb(28, 44, 218);
+    margin-bottom: 15px;
+    text-align: center;
+    color: #007BFF;
 }
 
 /* Zoom Image Display Section */
@@ -32,16 +58,13 @@ p, label, .info-box, .leaderboard-box li {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px;
+    height: 265px;
     background-color: #f9f9f9;
+    box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.3);
 }
 
-.zoom-image {
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-}
+/* Additional styles omitted for brevity */
+
 
 /* Guess Input Box */
 .guess-box {
@@ -59,11 +82,12 @@ p, label, .info-box, .leaderboard-box li {
     border-radius: 5px;
     color: #007BFF; /* Text color to stand out against white */
     background-color: #f9f9f9;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .guess-box input:focus {
     border-color: #0056b3;
+    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.6); /* Blue glow on focus */
 }
 
 /* Explanation Box */
@@ -83,11 +107,12 @@ p, label, .info-box, .leaderboard-box li {
     height: 80px;
     color: #2874a7;
     background-color: #f9f9f9;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .explanation-box textarea:focus {
     border-color: #216088;
+    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
 }
 
 /* Submit Button */
@@ -100,16 +125,58 @@ p, label, .info-box, .leaderboard-box li {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s ease;
     margin-top: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.5); /* Glowing shadow */
 }
 
 .submit-button:hover {
     background-color: #0056b3;
     transform: scale(1.03);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 6px 12px rgba(0, 123, 255, 0.6);
 }
+
+/* Feedback Button */
+.feedback-button {
+   width: 100%;
+   background-color: #007BFF;
+   color: #ffffff;
+   font-size: 18px;
+   padding: 12px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s ease;
+   margin-top: 10px;
+   box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.5);
+}
+
+.feedback-button:hover {
+   background-color: #0056b3;
+   transform: scale(1.03);
+   box-shadow: 0px 6px 12px rgba(0, 123, 255, 0.6);
+}
+
+/* Comment Button */
+.Comment-button {
+    width: 100%;
+    background-color: #007BFF;
+    color: #ffffff;
+    font-size: 18px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s ease;
+    margin-top: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.5);
+ }
+ 
+ .Comment-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.03);
+    box-shadow: 0px 6px 12px rgba(0, 123, 255, 0.6);
+ }
 
 /* Feedback Section */
 #feedback-section {
@@ -125,6 +192,7 @@ p, label, .info-box, .leaderboard-box li {
     background-color: #e6d6d6;
     color: #d9534f; /* Red color for feedback text */
     font-weight: bold;
+    box-shadow: 0px 2px 6px rgba(217, 83, 79, 0.5); /* Red shadow */
 }
 
 /* Leaderboard Styling */
@@ -171,7 +239,7 @@ p, label, .info-box, .leaderboard-box li {
     border-radius: 10px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
     text-align: center;
-    color: #333; /* Dark text color for modal content */
+    color: #333;
 }
 
 .close-button {

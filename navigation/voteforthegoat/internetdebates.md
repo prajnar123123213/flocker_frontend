@@ -1,19 +1,25 @@
 ---
 layout: post
-title: Internet debates
-description: internet debates
+title: Internet Debates
+description: internet Debates
 permalink: /voteforthegoat/internetdebates
 menu: nav/vote_for_the_goat.html
 comments: true
 ---
+<script type="module" src="{{site.baseurl}}/navigation/voteforthegoat/debate.js"></script>
 
 <div class="sidebar">
     <h3>Debate Topics</h3>
-    <button class="debate-btn" data-debate="Milk or Cereal First?">Milk or Cereal First?</button>
-    <button class="debate-btn" data-debate="Is a Hot Dog a Sandwich?">Is a Hot Dog a Sandwich?</button>
-    <button class="debate-btn" data-debate="Pineapple on Pizza?">Pineapple on Pizza?</button>
-    <button class="debate-btn" data-debate="Cats or Dogs?">Cats or Dogs?</button>
-    <button class="debate-btn" data-debate="Coffee or Tea?">Coffee or Tea?</button>
+    <button class="debate-btn" data-debate="Milk or Cereal First?" data-channel-id="17">Milk or Cereal First?</button>
+    <button class="debate-btn" data-debate="Is a Hot Dog a Sandwich?" data-channel-id="18">Is a Hot Dog a Sandwich?</button>
+    <button class="debate-btn" data-debate="Pineapple on Pizza?" data-channel-id="19">Pineapple on Pizza?</button>
+    <button class="debate-btn" data-debate="Cats or Dogs?" data-channel-id="20">Cats or Dogs?</button>
+    <button class="debate-btn" data-debate="Coffee or Tea?" data-channel-id="21">Coffee or Tea?</button>
+</div>
+<div class="rulebar">
+    <a href="{{site.baseurl}}/voteforthegoat/internetdebatesrules">
+        <button class="rule-btn">Rules</button>
+    </a>
 </div>
 
 <div id="rules-popup" class="modal">
@@ -61,12 +67,23 @@ comments: true
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         position: fixed;
-        top: 100px; 
+        top: 50px; 
         left: 20px;
     }
 
     .sidebar h3 {
         color: #00e5ff;
+    }
+    .rulebar {
+        width: 200px;
+        height: 80px;
+        background: #000000;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        position: fixed;
+        top: 650px; 
+        left: 20px;
     }
 
     .debate-btn {
@@ -81,13 +98,26 @@ comments: true
         transition: background 0.3s ease;
     }
 
+    .rule-btn {
+        display: block;
+        background: #00e5ff;
+        color: #fff;
+        width:166px;
+        padding: 0.5rem;
+        margin: 0.5rem 0;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
     .debate-btn:hover {
         background: #0099cc;
     }
 
     body {
         font-family: 'Roboto', sans-serif;
-        background: linear-gradient(to right, #05aff7, #4b1f30);
+        background: linear-gradient(to right, #013b54, #4b1f30);
         color: #fff;
         margin: 0; /* Remove default margin */
         min-height: 100vh; /* Ensure the body takes full height */
@@ -196,120 +226,3 @@ comments: true
         display: none;
     }
 </style>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById('acknowledge-rules').onclick = () => {
-        document.getElementById('rules-popup').style.display = 'none';
-    };
-
-    const argumentSection = document.getElementById('argument-section');
-    const argumentsList = document.getElementById('arguments-list');
-    const argumentInput = document.getElementById('argument-input');
-    const submitButton = document.getElementById('submit-argument');
-    const argumentContainer = document.getElementById('argument-container');
-    const selectedSideText = document.getElementById('selected-side');
-    const currentDebateText = document.getElementById('current-debate');
-    const side1Button = document.getElementById('side1');
-    const side2Button = document.getElementById('side2');
-
-    let selectedSide = '';
-    const debates = {
-        'Milk or Cereal First?': ['Milk First', 'Cereal First'],
-        'Is a Hot Dog a Sandwich?': ['Yes', 'No'],
-        'Pineapple on Pizza?': ['Yes', 'No'],
-        'Cats or Dogs?': ['Cats', 'Dogs'],
-        'Coffee or Tea?': ['Coffee', 'Tea']
-    };
-    let currentDebate = 'Milk or Cereal First?';
-    const chatHistory = {
-        'Milk or Cereal First?': [],
-        'Is a Hot Dog a Sandwich?': [],
-        'Pineapple on Pizza?': [],
-        'Cats or Dogs?': [],
-        'Coffee or Tea?': []
-    };
-
-    document.querySelectorAll('.debate-btn').forEach(button => {
-        button.onclick = () => {
-            currentDebate = button.getAttribute('data-debate');
-            currentDebateText.textContent = `Current Debate: ${currentDebate}`;
-            side1Button.textContent = debates[currentDebate][0];
-            side2Button.textContent = debates[currentDebate][1];
-            argumentContainer.innerHTML = '';
-            loadChatHistory();
-        };
-    });
-
-    side1Button.onclick = () => { selectedSide = side1Button.textContent; showArgumentSection(); };
-    side2Button.onclick = () => { selectedSide = side2Button.textContent; showArgumentSection(); };
-
-    function showArgumentSection() {
-        argumentSection.classList.remove('hidden');
-        selectedSideText.textContent = `Your Side: ${selectedSide}`;
-    }
-
-    function loadChatHistory() {
-        const history = chatHistory[currentDebate];
-        history.forEach(argument => {
-            const argumentElement = document.createElement('li');
-            argumentElement.innerHTML = argument;
-            argumentContainer.appendChild(argumentElement);
-        });
-        if (history.length > 0) argumentsList.classList.remove('hidden');
-    }
-
-    submitButton.onclick = () => {
-        const argumentText = argumentInput.value.trim();
-        if (argumentText) {
-            const argumentElement = document.createElement('li');
-            argumentElement.innerHTML = `<p><strong>${selectedSide}:</strong> ${argumentText}</p>
-                <div class="rate">
-                    <button class="upvote">👍 <span class="upvote-count">0</span></button>
-                    <button class="downvote">👎 <span class="downvote-count">0</span></button>
-                    <button class="remove-vote">Remove Vote</button>
-                </div>`;
-            argumentContainer.appendChild(argumentElement);
-            argumentInput.value = '';
-            chatHistory[currentDebate].push(argumentElement.outerHTML);
-            argumentsList.classList.remove('hidden');
-            addVoteFunctionality(argumentElement);
-        }
-    };
-
-    function addVoteFunctionality(argumentElement) {
-        const upvoteButton = argumentElement.querySelector('.upvote');
-        const downvoteButton = argumentElement.querySelector('.downvote');
-        const removeVoteButton = argumentElement.querySelector('.remove-vote');
-        const upvoteCount = argumentElement.querySelector('.upvote-count');
-        const downvoteCount = argumentElement.querySelector('.downvote-count');
-
-        let hasUpvoted = false;
-        let hasDownvoted = false;
-
-        upvoteButton.onclick = () => {
-            if (!hasUpvoted && !hasDownvoted) {
-                upvoteCount.textContent = parseInt(upvoteCount.textContent) + 1;
-                hasUpvoted = true;
-            }
-        };
-
-        downvoteButton.onclick = () => {
-            if (!hasUpvoted && !hasDownvoted) {
-                downvoteCount.textContent = parseInt(downvoteCount.textContent) + 1;
-                hasDownvoted = true;
-            }
-        };
-
-        removeVoteButton.onclick = () => {
-            if (hasUpvoted) {
-                upvoteCount.textContent = parseInt(upvoteCount.textContent) - 1;
-                hasUpvoted = false;
-            } else if (hasDownvoted) {
-                downvoteCount.textContent = parseInt(downvoteCount.textContent) - 1;
-                hasDownvoted = false;
-            }
-        };
-    }
-});
-</script>

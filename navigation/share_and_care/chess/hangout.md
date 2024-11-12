@@ -6,6 +6,318 @@ comments: true
 authors: Ahaan, Xavier, Spencer, Vasanth
 ---
 
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chess Hangout Zone - Chess Game with Chat</title>
+    <style>
+      /* General Styles */
+      body {
+        background-color: #2c3e50; /* Dark background for modern look */
+        color: #ecf0f1; /* Lighter text color for contrast */
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .container {
+        text-align: center;
+        margin-top: 20px;
+        width: 100%;
+        max-width: 1200px;
+        padding: 20px;
+      }
+
+      h2 {
+        color: #e67e22;
+        font-size: 2em;
+        margin-bottom: 10px;
+      }
+
+      /* Buttons */
+      .btn {
+        padding: 12px 24px;
+        margin: 10px;
+        cursor: pointer;
+        background-color: #2980b9;
+        color: #ecf0f1;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+      
+      .btn:hover {
+        background-color: #3498db;
+      }
+
+      /* Chessboard */
+      .chessboard {
+        display: grid;
+        grid-template-columns: repeat(8, 70px);
+        grid-template-rows: repeat(8, 70px);
+        border: 3px solid #34495e;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+      }
+      
+      .chessboard div {
+        width: 70px;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      
+      .yellow {
+        background-color: #f7c6a5;
+      }
+      
+      .orange {
+        background-color: #e67e22;
+      }
+
+      /* Piece Colors */
+      .white-piece {
+        color: #f0f0f0; /* White pieces */
+      }
+      
+      .black-piece {
+        color: #333; /* Black pieces */
+      }
+
+      /* Chat Container */
+      .chat-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 1200px;
+        gap: 20px;
+        margin-top: 20px;
+      }
+      
+      .chat-box {
+        width: 45%;
+        background-color: #34495e;
+        padding: 20px;
+        border-radius: 12px;
+        border: 2px solid #2c3e50;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .chat-messages {
+        height: 300px;
+        overflow-y: auto;
+        background-color: #2c3e50;
+        padding: 12px;
+        border-radius: 10px;
+        border: 2px solid #34495e;
+      }
+      
+      .message {
+        margin: 8px 0;
+        padding: 8px;
+        font-size: 15px;
+        color: #ecf0f1;
+        border-radius: 10px;
+      }
+      
+      .message.user-message {
+        background-color: #2980b9;
+        text-align: right;
+      }
+      
+      .message.bot-message {
+        background-color: #e67e22;
+        text-align: left;
+      }
+      
+      .channel-select {
+        margin: 15px 0;
+      }
+      
+      .message-input {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+      }
+      
+      .message-input input[type="text"] {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #34495e;
+        border-radius: 8px;
+        background-color: #2c3e50;
+        color: #ecf0f1;
+        font-size: 16px;
+        margin-right: 10px;
+      }
+
+      .message-input input[type="text"]::placeholder {
+        color: #95a5a6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+   
+      <div class="game-mode">
+        <button onclick="startGame('human')" class="btn">
+          Play Against Human
+        </button>
+        <button onclick="startGame('bot')" class="btn">Play Against Bot</button>
+      </div>
+
+      <div class="chat-container">
+        <div class="chessboard" id="chessboard"></div>
+        <div class="chat-box">
+          <h4>Chess-Themed Chat Room</h4>
+          <div class="channel-select">
+            <label for="channel">Channel:</label>
+            <select id="channel" onchange="changeChannel()">
+              <option value="general">General</option>
+              <option value="chess-tips">Chess Tips</option>
+              <option value="game-updates">Game Updates</option>
+            </select>
+          </div>
+          <div id="chatMessages" class="chat-messages"></div>
+          <div class="message-input">
+            <input
+              type="text"
+              id="messageInput"
+              placeholder="Type your message"
+            />
+            <button id="sendBtn" class="btn">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const pieces = {
+        R: "♖",
+        N: "♘",
+        B: "♗",
+        Q: "♕",
+        K: "♔",
+        P: "♙",
+        r: "♜",
+        n: "♞",
+        b: "♝",
+        q: "♛",
+        k: "♚",
+        p: "♟",
+      };
+      const boardLayout = [
+        ["r", "n", "b", "q", "k", "b", "n", "r"],
+        ["p", "p", "p", "p", "p", "p", "p", "p"],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["P", "P", "P", "P", "P", "P", "P", "P"],
+        ["R", "N", "B", "Q", "K", "B", "N", "R"],
+      ];
+
+      let selectedSquare = null;
+      let gameMode = "human";
+      const chatMessages = document.getElementById("chatMessages");
+      const chessboard = document.getElementById("chessboard");
+      let currentChannel = "general";
+
+      function drawBoard() {
+        chessboard.innerHTML = "";
+        boardLayout.forEach((row, rowIndex) => {
+          row.forEach((piece, colIndex) => {
+            const square = document.createElement("div");
+            square.classList.add((rowIndex + colIndex) % 2 === 0 ? "yellow" : "orange");
+            square.textContent = pieces[piece] || "";
+            
+            // Apply the color class based on piece case
+            if (piece === piece.toUpperCase()) {
+              square.classList.add("white-piece"); // White pieces (uppercase)
+            } else if (piece === piece.toLowerCase()) {
+              square.classList.add("black-piece"); // Black pieces (lowercase)
+            }
+            
+            square.addEventListener("click", () => selectSquare(rowIndex, colIndex));
+            chessboard.appendChild(square);
+          });
+        });
+      }
+
+      function startGame(mode) {
+        gameMode = mode;
+        drawBoard();
+        addMessage("bot", `Starting game against ${mode === "human" ? "Human" : "Bot"}!`);
+      }
+
+      function selectSquare(row, col) {
+        const piece = boardLayout[row][col];
+        if (selectedSquare) {
+          movePiece(row, col);
+          selectedSquare = null;
+        } else if (piece) {
+          selectedSquare = { row, col, piece };
+        }
+      }
+
+      function movePiece(newRow, newCol) {
+        const { row, col, piece } = selectedSquare;
+        if (isMoveValid(row, col, newRow, newCol)) {
+          boardLayout[newRow][newCol] = piece;
+          boardLayout[row][col] = "";
+          drawBoard();
+          addMessage("bot", `Moved ${piece} to (${newRow}, ${newCol})`);
+          if (gameMode === "bot") botMove();
+        }
+      }
+
+      function isMoveValid(fromRow, fromCol, toRow, toCol) {
+        // Placeholder for more advanced validation
+        return boardLayout[toRow][toCol] === ""; // Basic rule: allow moves to empty squares only
+      }
+
+      function botMove() {
+        // Placeholder: Bot will make a random move
+        addMessage("bot", "Bot made a move.");
+      }
+
+      function addMessage(sender, message) {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `message ${sender === "user" ? "user-message" : "bot-message"}`;
+        messageDiv.textContent = message;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function changeChannel() {
+        currentChannel = document.getElementById("channel").value;
+        addMessage("bot", `Switched to channel: ${currentChannel}`);
+      }
+
+      document.getElementById("sendBtn").addEventListener("click", () => {
+        const messageInput = document.getElementById("messageInput");
+        const message = messageInput.value.trim();
+        if (message) {
+          addMessage("user", `[${currentChannel}] ${message}`);
+          messageInput.value = "";
+          if (gameMode === "bot") addMessage("bot", "I'm thinking...");
+        }
+      });
+
+      drawBoard();
+    </script>
+  </body>
+</html>
 
 
 
@@ -14,228 +326,149 @@ authors: Ahaan, Xavier, Spencer, Vasanth
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chess Hangout Zone - Chess Game with Chat</title>
+    <title>Create Post with Group Selection</title>
     <style>
-        /* Styles */
-        body {
-            background-color: #1B1B1B;
-            color: #F0F0F0;
-            font-family: Arial, sans-serif;
-        }
-        .container { margin-top: 30px; }
-        .chessboard {
-            display: grid;
-            grid-template-columns: repeat(8, 100px);
-            grid-template-rows: repeat(8, 100px);
-            border: 2px solid #444;
-            margin: 20px auto;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-        }
-        .chessboard div {
-            width: 100px;
-            height: 100px;
+        /* Container and form styling */
+        .container {
             display: flex;
             justify-content: center;
-            align-items: center;
-            font-size: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            color: #3E3E3E;
-        }
-        .orange { background-color: #F39C12; }
-        .yellow { background-color: #F7DC6F; }
-        .chat-container { display: flex; justify-content: space-between; }
-        .chat-box {
-            width: 40%;
-            background-color: #1A1A1A;
+            width: 100%;
+            max-width: 1200px;
             padding: 20px;
-            border-radius: 8px;
-            border: 2px solid #444;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
         }
-        .chat-box h4 { color: #F7DC6F; font-weight: bold; text-align: center; margin-bottom: 15px; }
-        .chat-messages {
-            height: 400px;
-            overflow-y: scroll;
-            background-color: #1B1B1B;
-            border: 2px solid #444;
-            margin-bottom: 15px;
-            padding: 10px;
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            max-width: 800px;
+            width: 100%;
+            background-color: #2c3e50;
+            padding: 20px;
             border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #ecf0f1;
         }
-        .message { padding: 10px 15px; border-radius: 10px; margin: 8px 0; font-size: 16px; display: inline-block; max-width: 80%; color: #F0F0F0; border: 1px solid #444; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); }
-        .user-message { text-align: right; margin-left: auto; border-radius: 15px 15px 0 15px; }
-        .bot-message { background-color: #B29800; text-align: left; margin-right: auto; border-radius: 15px 15px 15px 0; }
-        .message-input { display: flex; gap: 5px; }
-        .message-input input { flex-grow: 1; background-color: #2A2A2A; border: 1px solid #555; color: #F0F0F0; }
-        .send-btn { background-color: #444; color: #F0F0F0; }
-        .send-btn:hover { background-color: #555; }
-        .captured-pieces { text-align: center; margin-top: 20px; }
-        .turn-popup { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); padding: 10px 20px; background-color: #444; color: #F0F0F0; border: 2px solid #F39C12; border-radius: 5px; font-size: 18px; font-weight: bold; display: none; }
-        .game-mode { text-align: center; margin-top: 20px; }
+        .form-container label {
+            margin-bottom: 5px;
+        }
+        /* Style for the dropdown */
+        .form-container select {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            width: 100%;
+            background-color: #34495e;
+            color: #ecf0f1;
+            font-size: 16px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            outline: none;
+        }
+        /* Button styling */
+        .form-container button {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #34495e;
+            color: #ecf0f1;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center">Chess Hangout Zone</h2>
-        <div class="game-mode">
-            <button onclick="startGame('human')" class="btn btn-primary">Play Against Human</button>
-            <button onclick="startGame('bot')" class="btn btn-secondary">Play Against Bot</button>
+        <div class="form-container">
+            <h2>Select Group and Create Post</h2>
+            <form id="postForm">
+                <label for="group_id">Group:</label>
+                <select id="group_id" name="group_id" required>
+                    <option value="">Select a group</option>
+                </select>
+                
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+                
+                <label for="content">Content:</label>
+                <textarea id="content" name="content" required></textarea>
+                
+                <button type="submit">Add Post</button>
+            </form>
+            <div id="details"></div>
         </div>
-        <div class="captured-pieces">
-            <h4>White's Captured Pieces</h4>
-            <div id="whiteCaptured"></div>
-            <h4>Black's Captured Pieces</h4>
-            <div id="blackCaptured"></div>
-        </div>
-        <div class="chat-container">
-            <div class="chessboard" id="chessboard"></div>
-            <div class="chat-box">
-                <h4>Chess-Themed Chat Room</h4>
-                <div id="chatMessages" class="chat-messages"></div>
-                <div class="message-input">
-                    <input type="text" id="messageInput" class="form-control" placeholder="Type your message">
-                    <button id="sendBtn" class="btn send-btn">Send</button>
-                </div>
-            </div>
-        </div>
-        <div class="turn-popup" id="turnPopup">White's Turn</div>
     </div>
 
-    <script>
-        const pieces = { 'R': '&#9814;', 'N': '&#9816;', 'B': '&#9815;', 'Q': '&#9813;', 'K': '&#9812;', 'P': '&#9817;', 'r': '&#9820;', 'n': '&#9822;', 'b': '&#9821;', 'q': '&#9819;', 'k': '&#9818;', 'p': '&#9823;' };
-        const boardLayout = [
-            ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
-            ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
-            ['', '', '', '', '', '', '', ''],
-            ['', '', '', '', '', '', '', ''],
-            ['', '', '', '', '', '', '', ''],
-            ['', '', '', '', '', '', '', ''],
-            ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
-            ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
-        ];
-        const chessboard = document.getElementById('chessboard');
-        const turnPopup = document.getElementById('turnPopup');
-        const whiteCaptured = document.getElementById('whiteCaptured');
-        const blackCaptured = document.getElementById('blackCaptured');
-        const chatMessages = document.getElementById('chatMessages');
-        const messageInput = document.getElementById('messageInput');
-        const sendBtn = document.getElementById('sendBtn');
-        let selectedSquare = null;
-        let turn = 'white';
-        let gameMode = 'human';
-        let botMessages = ["Nice move!", "You're doing great!", "Keep it up!", "This is a tough game!", "Impressive!"];
-        
-        function startGame(mode) {
-            gameMode = mode;
-            generateBoard();
-            displayTurnPopup();
-            addMessage(`You are playing against ${mode === 'bot' ? 'the bot!' : 'another player!'}`, 'bot-message');
-        }
-        
-        function generateBoard() {
-            chessboard.innerHTML = '';
-            let isYellow = true;
-            for (let row = 0; row < 8; row++) {
-                for (let col = 0; col < 8; col++) {
-                    const square = document.createElement('div');
-                    square.className = isYellow ? 'yellow' : 'orange';
-                    square.dataset.row = row;
-                    square.dataset.col = col;
-                    if (boardLayout[row][col]) {
-                        square.innerHTML = pieces[boardLayout[row][col]];
-                    }
-                    square.addEventListener('click', () => handleSquareClick(row, col, square));
-                    chessboard.appendChild(square);
-                    isYellow = !isYellow;
+    <script type="module">
+        // Import server URI and standard fetch options
+        const pythonURI = "https://flocker.nighthawkcodingsociety.com";
+        const fetchOptions = {
+            headers: {
+                'Authorization': 'Bearer YOUR_AUTH_TOKEN' // Replace with actual auth token if required
+            }
+        };
+
+        // Function to fetch groups for dropdown selection
+        async function fetchGroups() {
+            try {
+                const response = await fetch(`${pythonURI}/api/groups`, fetchOptions);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch groups: ' + response.statusText);
                 }
-                isYellow = !isYellow;
+                const groups = await response.json();
+                const groupSelect = document.getElementById('group_id');
+                groups.forEach(group => {
+                    const option = document.createElement('option');
+                    option.value = group.id;
+                    option.textContent = group.name;
+                    groupSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching groups:', error);
             }
         }
 
-        function handleSquareClick(row, col, square) {
-            if (selectedSquare) {
-                movePiece(selectedSquare, row, col);
-                selectedSquare = null;
-            } else if (boardLayout[row][col]) {
-                selectedSquare = { row, col, square };
-            }
-        }
+        // Handle form submission
+        document.getElementById('postForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
 
-        function movePiece(selected, row, col) {
-            const piece = boardLayout[selected.row][selected.col];
-            const target = boardLayout[row][col];
-            if (target) {
-                if (turn === 'white') {
-                    blackCaptured.innerHTML += pieces[target];
-                } else {
-                    whiteCaptured.innerHTML += pieces[target];
+            // Extract data from form
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const group_id = document.getElementById('group_id').value;
+
+            // Create API payload
+            const postData = {
+                title: title,
+                content: content,
+                group_id: group_id
+            };
+
+            try {
+                // Send POST request to backend to add the new post
+                const response = await fetch(`${pythonURI}/api/post`, {
+                    ...fetchOptions,
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(postData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to add post: ' + response.statusText);
                 }
-            }
-            boardLayout[selected.row][selected.col] = '';
-            boardLayout[row][col] = piece;
-            turn = turn === 'white' ? 'black' : 'white';
-            generateBoard();
-            displayTurnPopup();
-            if (gameMode === 'bot' && turn === 'black') {
-                setTimeout(botMove, 5000); // 5 seconds delay for bot move
-            }
-        }
 
-        function botMove() {
-            let validMoves = [];
-            for (let row = 0; row < 8; row++) {
-                for (let col = 0; col < 8; col++) {
-                    const piece = boardLayout[row][col];
-                    if (piece && piece === piece.toLowerCase()) {
-                        validMoves.push(...getLegalMoves(piece, row, col));
-                    }
-                }
-            }
-            if (validMoves.length > 0) {
-                const move = validMoves[Math.floor(Math.random() * validMoves.length)];
-                movePiece({ row: move.startRow, col: move.startCol }, move.endRow, move.endCol);
-                sendBotMessage();
-            }
-        }
-
-        function getLegalMoves(piece, startRow, startCol) {
-            const moves = [];
-            // Add move logic here
-            return moves.filter(move => isLegalMove(move));
-        }
-
-        function isLegalMove(move) {
-            return true; // Add legality check
-        }
-
-        function sendBotMessage() {
-            addMessage(botMessages[Math.floor(Math.random() * botMessages.length)], 'bot-message');
-        }
-
-        function addMessage(text, type) {
-            const message = document.createElement('div');
-            message.className = `message ${type}`;
-            message.textContent = text;
-            chatMessages.appendChild(message);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        sendBtn.addEventListener('click', () => {
-            const text = messageInput.value.trim();
-            if (text) {
-                addMessage(text, 'user-message');
-                messageInput.value = '';
+                alert('Post added successfully!');
+                document.getElementById('postForm').reset();
+            } catch (error) {
+                console.error('Error adding post:', error);
+                alert('Error adding post: ' + error.message);
             }
         });
 
-        function displayTurnPopup() {
-            turnPopup.textContent = turn === 'white' ? "White's Turn" : "Black's Turn";
-            turnPopup.style.display = 'block';
-            setTimeout(() => turnPopup.style.display = 'none', 2000);
-        }
-
-        generateBoard();
+        // Fetch groups when the page loads
+        fetchGroups();
     </script>
 </body>
 </html>

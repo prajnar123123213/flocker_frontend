@@ -12,17 +12,33 @@ menu: nav/create_and_compete.html
 <p>Share your feedback, discuss guesses, and chat with others in real time!</p>
 
 <!-- Chat Box -->
-<div id="chat-box" class="chat-box">
-    <!-- Chat messages will be displayed here -->
-    <div class="message">User1: This is a sample message.</div>
-    <div class="message">User2: This is another sample message.</div>
-</div>
+<div id="chat-box" class="chat-box"></div>
 
 <!-- Chat Input -->
 <div class="chat-input">
     <input type="text" id="chat-message" placeholder="Type your message here...">
     <button id="send-message" class="send-button">Send</button>
 </div>
+</div>
+
+<!-- Username Modal -->
+<div id="username-modal" class="modal">
+    <div class="modal-content">
+        <h2>Enter Your Username</h2>
+        <input type="text" id="username-input" placeholder="Enter username..." required>
+        <button id="username-submit">Enter Chat</button>
+    </div>
+</div>
+
+<!-- Chat Room Container (Initially Hidden) -->
+<div class="chat-room-container" style="display: none;">
+    <p class="chat-header">Interactive Chat Room</p>
+    <div id="chat-box" class="chat-box"></div>
+    <div class="chat-input">
+        <input type="text" id="chat-message" placeholder="Type your message here...">
+        <button id="send-message" class="send-button">Send</button>
+        <button id="clear-chat" class="send-button">Clear Chat</button>
+    </div>
 </div>
 
 <script src="{{site.baseurl}}/navigation/create_and_compete/chat.js"></script>
@@ -55,7 +71,7 @@ menu: nav/create_and_compete.html
   overflow-y: scroll;
   padding: 15px;
   font-size: 1.2em;
-  background-color: #fff;
+  background-color: #000;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -65,7 +81,8 @@ menu: nav/create_and_compete.html
   padding: 5px 10px;
   border-radius: 5px;
   background-color: #eef2f7;
-  color: #444;
+  color: #f5f0f0
+;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
