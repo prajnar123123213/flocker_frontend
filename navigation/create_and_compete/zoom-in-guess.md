@@ -317,13 +317,13 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
 
 <div class="container">
     <div class="form-container">
-        <h2>Add New Post</h2>
+        <h2>Submit your Guess</h2>
         <form id="postForm">
-            <label for="title">Title:</label>
+            <label for="title">Who is your guess?:</label>
             <input type="text" id="title" name="title" required>
-            <label for="comment">Comment:</label>
+            <label for="comment">Why do you believe this?:</label>
             <textarea id="comment" name="comment" required></textarea>
-            <button type="submit">Add Post</button>
+            <button type="submit">Add Guess</button>
         </form>
     </div>
 </div>
