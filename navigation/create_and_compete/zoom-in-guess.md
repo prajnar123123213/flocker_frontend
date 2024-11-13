@@ -21,29 +21,238 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
        </div>
    </div>
 
-   <!-- Guess Input Section -->
-   <div class="guess-box">
-       <label for="guess-input">Your Guess:</label>
-       <input type="text" id="guess-input" placeholder="Enter the name of the person">
-   </div>
+   <div class="container">
+    <div class="form-container">
+        <h2>Select your Guesses</h2>
+        <form id="selectionForm">
+            <label for="group_id">Group:</label>
+            <select id="group_id" name="group_id" required>
+                <option value="">Select a group</option>
+            </select>
+            <label for="channel_id">What day image are you guessing?:</label>
+            <select id="channel_id" name="channel_id" required>
+                <option value="">Select a channel</option>
+            </select>
+            <button type="submit">Select</button>
+        </form>
+    </div>
+</div>
 
-   <!-- Reasoning Input Section -->
-   <div class="explanation-box">
-       <label for="reasoning-input">Explain Your Reasoning:</label>
-       <textarea id="reasoning-input" placeholder="Why do you think it's that person?"></textarea>
-   </div>
+<div class="container">
+    <div class="form-container">
+        <h2>Submit your Guess</h2>
+        <form id="postForm">
+            <label for="title">Who is your guess?:</label>
+            <input type="text" id="title" name="title" required>
+            <label for="comment">Why do you believe this?:</label>
+            <textarea id="comment" name="comment" required></textarea>
+            <button type="submit">Add Guess</button>
+        </form>
+    </div>
+</div>
 
-   <!-- Submit Button -->
-   <button id="submit-guess" class="submit-button">Submit Guess</button>
+<div class="container">
+    <div id="data" class="data">
+        <div class="left-side">
+            <p id="count"></p>
+        </div>
+        <div class="details" id="details">
+        </div>
+    </div>
+</div>
 
-   <!-- Separate Feedback Sections -->
-   <div id="feedback-section">
-       <h2>Your Guess</h2>
-       <div id="guess-feedback" class="info-box">Your guess will appear here after submission.</div>
+<script type="module">
+    // Import server URI and standard fetch options
+    import { pythonURI, fetchOptions } from '{{ site.baseurl }}/assets/js/api/config.js';
 
-       <h2>Your Explanation</h2>
-       <div id="explanation-feedback" class="info-box">Your explanation will appear here after submission.</div>
-   </div>
+    /**
+     * Fetch groups for dropdown selection
+     * User picks from dropdown
+     */
+    async function fetchGroups() {
+        try {
+            const response = await fetch(`${pythonURI}/api/groups/filter`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ section_name: "Create and Compete" }) // Adjust the section name as needed
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch groups: ' + response.statusText);
+            }
+            const groups = await response.json();
+            const groupSelect = document.getElementById('group_id');
+            groups.forEach(group => {
+                const option = document.createElement('option');
+                option.value = group.name; // Use group name for payload
+                option.textContent = group.name;
+                groupSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error fetching groups:', error);
+        }
+    }
+
+    /**
+     * Fetch channels based on selected group
+     * User picks from dropdown
+     */
+    async function fetchChannels(groupName) {
+        try {
+            const response = await fetch(`${pythonURI}/api/channels/filter`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ group_name: groupName })
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch channels: ' + response.statusText);
+            }
+            const channels = await response.json();
+            const channelSelect = document.getElementById('channel_id');
+            channelSelect.innerHTML = '<option value="">Select a channel</option>'; // Reset channels
+            channels.forEach(channel => {
+                const option = document.createElement('option');
+                option.value = channel.id;
+                option.textContent = channel.name;
+                channelSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error fetching channels:', error);
+        }
+    }
+
+    /**
+      * Handle group selection change
+      * Channel Dropdown refresh to match group_id change
+      */
+    document.getElementById('group_id').addEventListener('change', function() {
+        const groupName = this.value;
+        if (groupName) {
+            fetchChannels(groupName);
+        } else {
+            document.getElementById('channel_id').innerHTML = '<option value="">Select a channel</option>'; // Reset channels
+        }
+    });
+
+    /**
+     * Handle form submission for selection
+     * Select Button: Computer fetches and displays posts
+     */
+    document.getElementById('selectionForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const groupId = document.getElementById('group_id').value;
+        const channelId = document.getElementById('channel_id').value;
+        if (groupId && channelId) {
+            fetchData(channelId);
+        } else {
+            alert('Please select both group and channel.');
+        }
+    });
+
+    /**
+     * Handle form submission for adding a post
+     * Add Form Button: Computer handles form submission with request
+     */
+    document.getElementById('postForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        // Extract data from form
+        const title = document.getElementById('title').value;
+        const comment = document.getElementById('comment').value;
+        const channelId = document.getElementById('channel_id').value;
+
+        // Create API payload
+        const postData = {
+            title: title,
+            comment: comment,
+            channel_id: channelId
+        };
+
+        // Trap errors
+        try {
+            // Send POST request to backend, purpose is to write to database
+            const response = await fetch(`${pythonURI}/api/post`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add post: ' + response.statusText);
+            }
+
+            // Successful post
+            const result = await response.json();
+            alert('Guess Submitted successfully!');
+            document.getElementById('postForm').reset();
+            fetchData(channelId);
+        } catch (error) {
+            // Present alert on error from backend
+            console.error('Error adding guess:', error);
+            alert('Error adding guess: ' + error.message);
+        }
+    });
+
+    /**
+     * Fetch posts based on selected channel
+     * Handle response: Fetch and display posts
+     */
+    async function fetchData(channelId) {
+        try {
+            const response = await fetch(`${pythonURI}/api/posts/filter`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ channel_id: channelId })
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch posts: ' + response.statusText);
+            }
+
+            // Parse the JSON data
+            const postData = await response.json();
+
+            // Extract posts count
+            const postCount = postData.length || 0;
+
+            // Update the HTML elements with the data
+            document.getElementById('count').innerHTML = `<h2>Count ${postCount}</h2>`;
+
+            // Get the details div
+            const detailsDiv = document.getElementById('details');
+            detailsDiv.innerHTML = ''; // Clear previous posts
+
+            // Iterate over the postData and create HTML elements for each item
+            postData.forEach(postItem => {
+                const postElement = document.createElement('div');
+                postElement.className = 'post-item';
+                postElement.innerHTML = `
+                    <h3>${postItem.title}</h3>
+                    <p><strong>Channel:</strong> ${postItem.channel_name}</p>
+                    <p><strong>User:</strong> ${postItem.user_name}</p>
+                    <p>${postItem.comment}</p>
+                `;
+                detailsDiv.appendChild(postElement);
+            });
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    // Fetch groups when the page loads
+    fetchGroups();
+</script>
 
    <!-- Feedback Button -->
    <button id="feedback-button" class="feedback-button" onclick="window.location.href='{{site.baseurl}}/create_and_compete/feedback'">Interactive Chat</button>
@@ -298,235 +507,3 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
     }
 </style>
 
-<div class="container">
-    <div class="form-container">
-        <h2>Select your Guesses</h2>
-        <form id="selectionForm">
-            <label for="group_id">Group:</label>
-            <select id="group_id" name="group_id" required>
-                <option value="">Select a group</option>
-            </select>
-            <label for="channel_id">What day image are you guessing?:</label>
-            <select id="channel_id" name="channel_id" required>
-                <option value="">Select a channel</option>
-            </select>
-            <button type="submit">Select</button>
-        </form>
-    </div>
-</div>
-
-<div class="container">
-    <div class="form-container">
-        <h2>Submit your Guess</h2>
-        <form id="postForm">
-            <label for="title">Who is your guess?:</label>
-            <input type="text" id="title" name="title" required>
-            <label for="comment">Why do you believe this?:</label>
-            <textarea id="comment" name="comment" required></textarea>
-            <button type="submit">Add Guess</button>
-        </form>
-    </div>
-</div>
-
-<div class="container">
-    <div id="data" class="data">
-        <div class="left-side">
-            <p id="count"></p>
-        </div>
-        <div class="details" id="details">
-        </div>
-    </div>
-</div>
-
-<script type="module">
-    // Import server URI and standard fetch options
-    import { pythonURI, fetchOptions } from '{{ site.baseurl }}/assets/js/api/config.js';
-
-    /**
-     * Fetch groups for dropdown selection
-     * User picks from dropdown
-     */
-    async function fetchGroups() {
-        try {
-            const response = await fetch(`${pythonURI}/api/groups/filter`, {
-                ...fetchOptions,
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ section_name: "Create and Compete" }) // Adjust the section name as needed
-            });
-            if (!response.ok) {
-                throw new Error('Failed to fetch groups: ' + response.statusText);
-            }
-            const groups = await response.json();
-            const groupSelect = document.getElementById('group_id');
-            groups.forEach(group => {
-                const option = document.createElement('option');
-                option.value = group.name; // Use group name for payload
-                option.textContent = group.name;
-                groupSelect.appendChild(option);
-            });
-        } catch (error) {
-            console.error('Error fetching groups:', error);
-        }
-    }
-
-    /**
-     * Fetch channels based on selected group
-     * User picks from dropdown
-     */
-    async function fetchChannels(groupName) {
-        try {
-            const response = await fetch(`${pythonURI}/api/channels/filter`, {
-                ...fetchOptions,
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ group_name: groupName })
-            });
-            if (!response.ok) {
-                throw new Error('Failed to fetch channels: ' + response.statusText);
-            }
-            const channels = await response.json();
-            const channelSelect = document.getElementById('channel_id');
-            channelSelect.innerHTML = '<option value="">Select a channel</option>'; // Reset channels
-            channels.forEach(channel => {
-                const option = document.createElement('option');
-                option.value = channel.id;
-                option.textContent = channel.name;
-                channelSelect.appendChild(option);
-            });
-        } catch (error) {
-            console.error('Error fetching channels:', error);
-        }
-    }
-
-    /**
-      * Handle group selection change
-      * Channel Dropdown refresh to match group_id change
-      */
-    document.getElementById('group_id').addEventListener('change', function() {
-        const groupName = this.value;
-        if (groupName) {
-            fetchChannels(groupName);
-        } else {
-            document.getElementById('channel_id').innerHTML = '<option value="">Select a channel</option>'; // Reset channels
-        }
-    });
-
-    /**
-     * Handle form submission for selection
-     * Select Button: Computer fetches and displays posts
-     */
-    document.getElementById('selectionForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const groupId = document.getElementById('group_id').value;
-        const channelId = document.getElementById('channel_id').value;
-        if (groupId && channelId) {
-            fetchData(channelId);
-        } else {
-            alert('Please select both group and channel.');
-        }
-    });
-
-    /**
-     * Handle form submission for adding a post
-     * Add Form Button: Computer handles form submission with request
-     */
-    document.getElementById('postForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
-
-        // Extract data from form
-        const title = document.getElementById('title').value;
-        const comment = document.getElementById('comment').value;
-        const channelId = document.getElementById('channel_id').value;
-
-        // Create API payload
-        const postData = {
-            title: title,
-            comment: comment,
-            channel_id: channelId
-        };
-
-        // Trap errors
-        try {
-            // Send POST request to backend, purpose is to write to database
-            const response = await fetch(`${pythonURI}/api/post`, {
-                ...fetchOptions,
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(postData)
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to add post: ' + response.statusText);
-            }
-
-            // Successful post
-            const result = await response.json();
-            alert('Post added successfully!');
-            document.getElementById('postForm').reset();
-            fetchData(channelId);
-        } catch (error) {
-            // Present alert on error from backend
-            console.error('Error adding post:', error);
-            alert('Error adding post: ' + error.message);
-        }
-    });
-
-    /**
-     * Fetch posts based on selected channel
-     * Handle response: Fetch and display posts
-     */
-    async function fetchData(channelId) {
-        try {
-            const response = await fetch(`${pythonURI}/api/posts/filter`, {
-                ...fetchOptions,
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ channel_id: channelId })
-            });
-            if (!response.ok) {
-                throw new Error('Failed to fetch posts: ' + response.statusText);
-            }
-
-            // Parse the JSON data
-            const postData = await response.json();
-
-            // Extract posts count
-            const postCount = postData.length || 0;
-
-            // Update the HTML elements with the data
-            document.getElementById('count').innerHTML = `<h2>Count ${postCount}</h2>`;
-
-            // Get the details div
-            const detailsDiv = document.getElementById('details');
-            detailsDiv.innerHTML = ''; // Clear previous posts
-
-            // Iterate over the postData and create HTML elements for each item
-            postData.forEach(postItem => {
-                const postElement = document.createElement('div');
-                postElement.className = 'post-item';
-                postElement.innerHTML = `
-                    <h3>${postItem.title}</h3>
-                    <p><strong>Channel:</strong> ${postItem.channel_name}</p>
-                    <p><strong>User:</strong> ${postItem.user_name}</p>
-                    <p>${postItem.comment}</p>
-                `;
-                detailsDiv.appendChild(postElement);
-            });
-
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
-
-    // Fetch groups when the page loads
-    fetchGroups();
-</script>
