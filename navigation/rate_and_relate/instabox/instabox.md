@@ -85,7 +85,7 @@ author: Aadi, Aaditya, Aditya, Kanhay
         margin: 10px 0;
     }
 
-    .chatinput {
+    .chatinput, .questionButton {
         background-color: #121212;
         resize: none;
         width: 100%;
@@ -155,6 +155,8 @@ author: Aadi, Aaditya, Aditya, Kanhay
                 <p>Chat Messages: </p>
                 <div id="messages-container"></div>
             </div>
+            <br>
+            <button onclick="getTriviaQuestion()" class="questionButton"> Get new question</button>
             <br>
             <div class="chatinput" id="chatinput" contenteditable="true"></div>
             <br>
@@ -240,6 +242,29 @@ author: Aadi, Aaditya, Aditya, Kanhay
 <script type="module">
     import { pythonURI, fetchOptions } from '{{ site.baseurl }}/assets/js/api/config.js';
     // fetch and display chat messages
+
+    function getTriviaQuestion() {
+        fetch(`${pythonURI}/api/trivia`, {
+            ...fetchMessages,
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+            // body: JSON.stringify({ channel_id: 2 })
+        }) // fetch
+            .then(response => response.json())
+            .then(data => {
+                const messagesContainer = document.getElementById('messages-container'); //in the id defined earlier
+                messagesContainer.innerHTML = '';
+                let question = data["question"];
+                const messageDiv = document.createElement('div');
+                messageDiv.textContent = question;
+                messagesContainer.appendChild(messageDiv);
+            });
+    }
+
+    window.getTriviaQuestion = getTriviaQuestion;
+
     function fetchMessages() {
         fetch(`${pythonURI}/api/messages`, {
             ...fetchMessages,
@@ -285,6 +310,7 @@ author: Aadi, Aaditya, Aditya, Kanhay
         });
     }
 
-
     window.onload = fetchMessages; // use and run the script
+
+
 </script>

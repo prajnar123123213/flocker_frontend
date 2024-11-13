@@ -212,11 +212,13 @@ menu: nav/shared_interests.html
         flex-direction: column;
         max-width: 800px;
         width: 100%;
-        background-color: #2c3e50;
+        background-color: #008504;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        color: #ecf0f1;
+        color: #FFD700;
+        border: 2px solid #C5B358;
+        border-radius: 8px;
     }
     .form-container label {
         margin-bottom: 5px;
@@ -233,7 +235,7 @@ menu: nav/shared_interests.html
         border-radius: 5px;
         border: none;
         background-color: #34495e;
-        color: #ecf0f1;
+        color: #FFD700;
         cursor: pointer;
     }
 </style>

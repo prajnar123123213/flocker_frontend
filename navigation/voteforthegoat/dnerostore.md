@@ -8,7 +8,7 @@ author: Risha Guha, Vibha Mandayam, Ava Shalon
 comments: true
 ---
 
-<img src="{{ site.baseurl }}/images/dnerostore/Dnero_Store_Header.png" alt="Dnero Store Header" style="width: 100%; height: auto;">
+<img src="{{ site.baseurl }}/images/dnerostore/Dnero_Store_Header_Updated.png" alt="Dnero Store Header" style="width: 100%; height: auto;">
 <h2><a href="{{ site.baseurl }}/dnerostore-mod/" class="mod-rules-button"> Mod Rules </a></h2> 
 
 <details>
@@ -249,14 +249,15 @@ comments: true
 
 
 <style>
-    .container {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        max-width: 1200px;
-        padding: 20px;
-        box-sizing: border-box;
-    }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    box-sizing: border-box;
+  }
     .data {
         display: flex;
         align-items: flex-start;
@@ -279,11 +280,11 @@ comments: true
         align-items: flex-start;
     }
     .post-item {
-        background-color: #34495e;
+        background-color: #0e4184;
         padding: 10px;
         margin-bottom: 10px;
         border-radius: 5px;
-        color: #ecf0f1;
+        color: #ffffff;
     }
     .post-item h3 {
         margin: 0 0 5px 0;
@@ -292,11 +293,13 @@ comments: true
         margin: 0;
     }
     .category-box {
-  width: 90%; /* Adjust to your preference for box size */
+  width: 100%; /* Set a consistent width */
+  max-width: 800px; /* Adjust based on desired box width */
   background-color: #000000;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 10px 0; /* Add space between boxes */
 }
 
 .category-box h3 {
@@ -305,6 +308,13 @@ comments: true
   color: white;
   padding: 10px;
 }
+body {
+  background-image: url("{{ site.baseurl }}/images/dnerostore/bkgd.png");
+  background-size: cover; /* Ensures the image covers the entire screen */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+}
+
 </style>
 
 
@@ -382,7 +392,7 @@ comments: true
 
   .category-row {
     margin-bottom: 20px;
-    border: 1px solid #007BFF;
+    border: 1px solid #45abf5;
     padding: 10px;
   }
 
