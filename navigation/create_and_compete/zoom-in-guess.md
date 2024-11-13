@@ -15,7 +15,7 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
 
    <!-- Static Image Section with "Image of the Day" Label -->
    <div class="zoom-image-section">
-       <div id="image-of-day" class="image-of-day-text">Image of the Day</div>
+       <div id="image-of-day" class="image-of-day-text">Thursday's Image</div>
        <div id="image-display" class="zoom-image-box">
            <img id="zoomed-image" src="{{site.baseurl}}/images/zoomin-guess/ryangosling.jpg" alt="Zoomed Image" class="zoom-image">
        </div>
@@ -300,13 +300,13 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
 
 <div class="container">
     <div class="form-container">
-        <h2>Select Group and Channel</h2>
+        <h2>Select your Guesses</h2>
         <form id="selectionForm">
             <label for="group_id">Group:</label>
             <select id="group_id" name="group_id" required>
                 <option value="">Select a group</option>
             </select>
-            <label for="channel_id">Channel:</label>
+            <label for="channel_id">What day image are you guessing?:</label>
             <select id="channel_id" name="channel_id" required>
                 <option value="">Select a channel</option>
             </select>
