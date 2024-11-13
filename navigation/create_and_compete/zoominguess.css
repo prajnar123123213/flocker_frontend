@@ -40,8 +40,10 @@ p, label, .info-box, .leaderboard-box li {
 /* Image of the Day Text */
 .image-of-day-text {
     font-size: 2em;
-    color: black;
+    color: rgb(28, 44, 218);
     margin-bottom: 15px;
+    text-align: center;
+    color: #007BFF;
 }
 
 /* Zoom Image Display Section */

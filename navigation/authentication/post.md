@@ -95,7 +95,7 @@ search_exclude: true
      */
     async function fetchGroups() {
         try {
-            const response = await fetch(${pythonURI}/api/groups/filter, {
+            const response = await fetch(`${pythonURI}/api/groups/filter`, {
                 ...fetchOptions,
                 method: 'POST',
                 headers: {
@@ -125,7 +125,7 @@ search_exclude: true
      */
     async function fetchChannels(groupName) {
         try {
-            const response = await fetch(${pythonURI}/api/channels/filter, {
+            const response = await fetch(`${pythonURI}/api/channels/filter`, {
                 ...fetchOptions,
                 method: 'POST',
                 headers: {
@@ -200,7 +200,7 @@ search_exclude: true
         // Trap errors
         try {
             // Send POST request to backend, purpose is to write to database
-            const response = await fetch(${pythonURI}/api/post, {
+            const response = await fetch(`${pythonURI}/api/post`, {
                 ...fetchOptions,
                 method: 'POST',
                 headers: {
@@ -231,7 +231,7 @@ search_exclude: true
      */
     async function fetchData(channelId) {
         try {
-            const response = await fetch(${pythonURI}/api/posts/filter, {
+            const response = await fetch(`${pythonURI}/api/posts/filter`, {
                 ...fetchOptions,
                 method: 'POST',
                 headers: {
@@ -250,7 +250,7 @@ search_exclude: true
             const postCount = postData.length || 0;
 
             // Update the HTML elements with the data
-            document.getElementById('count').innerHTML = <h2>Count ${postCount}</h2>;
+            document.getElementById('count').innerHTML = `<h2>Count ${postCount}</h2>`;
 
             // Get the details div
             const detailsDiv = document.getElementById('details');
@@ -277,9 +277,3 @@ search_exclude: true
     // Fetch groups when the page loads
     fetchGroups();
 </script>
-
-
-
-
-
-

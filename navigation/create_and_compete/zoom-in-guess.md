@@ -12,7 +12,6 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
 
 <div class="zoomnguess-container">
    <h1>Zoom N Guess</h1>
-   <p>Look at the closely zoomed-in image below and guess who it is. Explain why you think it's that person!</p>
 
    <!-- Static Image Section with "Image of the Day" Label -->
    <div class="zoom-image-section">

@@ -6,30 +6,55 @@ permalink: /voteforthegoat/nighthawkCars/luxuryCars/
 ---
 
 
-<table>
-    <tr>
-        <td id="homepage"><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars">Nighthawk Cars (Home Page)</a></td>
-        <td id="internetdebates"><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/luxuryCars">Luxury Cars</a></td>
-        <td id="calicovote"><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/vintageCars">Vintage Cars</a></td>
-        <td id="dnerostore"><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/studentCars">Student Cars</a></td>
-        <td id="Beveragedebates"><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/economyCars">Economy Cars</a></td>
-    </tr>
-</table>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Bar</title>
+</head>
+<body>
+    <table style="width: 100%; text-align: center; border-collapse: separate; border-spacing: 10px;">
+        <tr>
+            <td id="homepage" style="background-color: #ff4d4d; border-radius: 20px; padding: 15px 20px;">
+                <a href="{{site.baseurl}}/voteforthegoat/nighthawkCars" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif; display: block; border-radius: 20px;">Nighthawk Cars (Home Page)</a>
+            </td>
+            <td id="internetdebates" style="background-color: #ff4d4d; border-radius: 20px; padding: 15px 20px;">
+                <a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/studentCars" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif; display: block; border-radius: 20px;">Student Cars</a>
+            </td>
+            <td id="calicovote" style="background-color: #ff4d4d; border-radius: 20px; padding: 15px 20px;">
+                <a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/vintageCars" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif; display: block; border-radius: 20px;">Vintage Cars</a>
+            </td>
+            <td id="dnerostore" style="background-color: #ff4d4d; border-radius: 20px; padding: 15px 20px;">
+                <a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/luxuryCars" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif; display: block; border-radius: 20px;">Luxury Cars</a>
+            </td>
+            <td id="Beveragedebates" style="background-color: #ff4d4d; border-radius: 20px; padding: 15px 20px;">
+                <a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/economyCars" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif; display: block; border-radius: 20px;">Economy Cars</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxury Cars</title>
+    <title>Student Cars</title>
     <style>
         body {
-            background-color: white;
-            color: rgb(255, 80, 80);
+            background: linear-gradient(135deg, #333333, #ff4d4d, #ffffff); /* 180deg for top-to-bottom gradient */
+            color: #ffffff;
             font-family: Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
         }
         h2, h3 {
             color: rgb(255, 80, 80);
-            border-bottom: 2px solid rgb(255, 80, 80);
+            border-bottom: 4px solid #000000;
             font-weight: bold; /* Bold text */
             text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.8),  /* White shadow */
                          2px 2px 0 rgba(255, 255, 255, 0.6); /* Lighter shadow */
@@ -37,67 +62,117 @@ permalink: /voteforthegoat/nighthawkCars/luxuryCars/
             padding: 10px; /* Space around the text */
         }
         p {
-            color: rgb(255, 80, 80);
-            font-weight: bold; /* Bold text */
-            text-shadow: 1px 0 rgba(255, 255, 255, 0.8),  /* White shadow */
-                         1px 0 rgba(255, 255, 255, 0.6); /* Lighter shadow */
-            border-radius: 10px; /* Rounded effect */
-            padding: 10px; /* Space around the text */
+            color: white;   
         }
         button {
-            background-color: rgb(255, 80, 80);
+            background-color: #000000;
             color: white;
             border: none;
-            padding: 10px 15px;
-            margin: 5px;
+            font-size: 14px;
+            padding: 5px 10px;
+            border: 3px solid #C0C0C0;
             cursor: pointer;
-            border-radius: 15px; /* Rounded corners */
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
         }
         button:hover {
-            background-color: rgb(220, 60, 60); /* Slightly darker on hover */
+            background-color: #ffffff; /* Slightly darker on hover */
         }
         div {
             margin: 20px 0;
         }
         .message-box {
-            border: 1px solid rgb(200, 200, 200); /* Light gray border */
-            border-radius: 10px; /* Rounded corners */
+            background-color: #000000;
+            border: 4px solid #ffffff; /* Light gray border */
             padding: 10px; /* Padding inside the box */
             height: 150px; /* Fixed height */
+            overflow-y: auto; /* Scrollable */
+            margin-top: 40px; /* Space above message box */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle; /* Centers content vertically */
+        }
+        /* Images will adjust in size up to a maximum width and height */
+        img {
+            max-width: 1000px; /* Adjust maximum width as desired */
+            max-height: 1000px; /* Adjust maximum height as desired */
+            object-fit: contain; /* Keeps images within the max dimensions without cropping */
+        }
+        .image-gallery {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 10px;
+        }
+        .image-gallery img {
+            max-height: 150px;
+            object-fit: cover;
+        }
+        .message-box1 {
+            background-color: #000000;
+            border: 4px solid #ffffff; /* Light gray border */
+            padding: 10px; /* Padding inside the box */
+            height: 150px; /* Fixed height */
+            overflow-y: auto; /* Scrollable */
+            margin-top: 40px; /* Space above message box */
+        }
+        .message-box1p{
+            background-color: #000000;
+            border: 4px solid #ffffff; /* Light gray border */
+            padding: 10px; /* Padding inside the box */
+            height: 150px; /* Fixed height */
+            overflow-y: auto; /* Scrollable */
+            margin-top: 40px; /* Space above message box */
+        }
+        .box11{
+            background-color: #000000;
+            border: 4px solid #ffffff; /* Light gray border */
+            padding: 10px; /* Padding inside the box */
+            max-height: 200px; /* Maximum height */
             overflow-y: auto; /* Scrollable */
             margin-top: 10px; /* Space above message box */
         }
         #comment {
-            width: 100%;
-            height: 80px;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-            resize: vertical;
+            width: 100%;      /* Full width of the container */
+            height: 200px;    /* Height of the textarea */
+            padding: 15px;    /* Padding inside the box */
+            font-size: 16px;  /* Larger font size for better readability */
+            border-radius: 8px; /* Rounded corners */
+            border: 3px solid #C0C0C0; /* Border color */
+            resize: vertical; /* Allows users to adjust height but not width */
         }
-        button {
-            margin-top: 10px;
-            padding: 8px 16px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            background-color: rgb(255, 80, 80);
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        #commentInput {
+            width: 100%;      /* Full width of the container */
+            height: 90px;    /* Height of the textarea */
+            padding: 15px;    /* Padding inside the box */
+            font-size: 16px;  /* Larger font size for better readability */
+            border-radius: 8px; /* Rounded corners */
+            border: 3px solid #C0C0C0; /* Border color */
+            resize: vertical; /* Allows users to adjust height but not width */
         }
-        button:hover {
-            background-color: #45a049;
+        #nameInput {
+            width: 100%;      /* Full width of the container */
+            height: 59px;    /* Height of the textarea */
+            padding: 15px;    /* Padding inside the box */
+            font-size: 16px;  /* Larger font size for better readability */
+            border-radius: 8px; /* Rounded corners */
+            border: 3px solid #C0C0C0; /* Border color */
+            resize: vertical; /* Allows users to adjust height but not width */
         }
-        .message-box {
-            margin-top: 20px;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            background-color: rgb(255, 80, 80);
+        #optionSelect {
+            width: 50%;      /* Full width of the container */
+            height: 58px;    /* Height of the textarea */
+            padding: 15px;    /* Padding inside the box */
+            font-size: 16px;  /* Larger font size for better readability */
+            border-radius: 8px; /* Rounded corners */
+            border: 3px solid #C0C0C0; /* Border color */
+            resize: vertical; /* Allows users to adjust height but not width */
         }
     </style>
 </head>

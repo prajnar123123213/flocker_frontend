@@ -173,7 +173,6 @@ menu: nav/shared_interests.html
     <div class="posts-wrapper" id="postsWrapper">
         <!-- Posts will be dynamically loaded here -->
     </div>
-
     <!-- Chatroom Section on the Right -->
     <div class="chatroom-container">
         <header class="chatroom-header">
@@ -189,134 +188,285 @@ menu: nav/shared_interests.html
     </div>
 </div>
 
-<!-- Post Submission Form -->
-<div class="post-form-container">
-    <h3>Add a New Post</h3>
-    <form id="postForm">
-        <select id="roleSelect" required>
-            <option value="" disabled selected>Select your role</option>
-            <option value="Captain">Captain</option>
-            <option value="Player">Player</option>
-            <option value="Coach">Coach</option>
-        </select>
-        <textarea id="postInput" placeholder="What's on your mind?" required></textarea>
-        <button type="submit">Post</button>
-    </form>
+
+
+
+
+<!-- POST -->
+
+
+
+
+
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-width: 1200px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 800px;
+        width: 100%;
+        background-color: #2c3e50;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        color: #ecf0f1;
+    }
+    .form-container label {
+        margin-bottom: 5px;
+    }
+    .form-container input, .form-container textarea, .form-container select {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        width: 100%;
+    }
+    .form-container button {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #34495e;
+        color: #ecf0f1;
+        cursor: pointer;
+    }
+</style>
+
+<div class="container">
+    <div class="form-container">
+        <h2>Select Group and Channel</h2>
+        <form id="selectionForm">
+            <label for="group_id">Group:</label>
+            <select id="group_id" name="group_id" required>
+                <option value="">Select a group</option>
+            </select>
+            <label for="channel_id">Channel:</label>
+            <select id="channel_id" name="channel_id" required>
+                <option value="">Select a channel</option>
+            </select>
+            <button type="submit">Select</button>
+        </form>
+    </div>
 </div>
 
-<script>
-    function getReactions() {
-        const reactions = localStorage.getItem('reactions');
-        return reactions ? JSON.parse(reactions) : {};
-    }
+<div class="container">
+    <div class="form-container">
+        <h2>Add New Post</h2>
+        <form id="postForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+            <label for="comment">Comment:</label>
+            <textarea id="comment" name="comment" required></textarea>
+            <button type="submit">Add Post</button>
+        </form>
+    </div>
+</div>
 
-    function saveReactions(reactions) {
-        localStorage.setItem('reactions', JSON.stringify(reactions));
-    }
+<div class="container">
+    <div id="data" class="data">
+        <div class="left-side">
+            <p id="count"></p>
+        </div>
+        <div class="details" id="details">
+        </div>
+    </div>
+</div>
 
-    function getPosts() {
-        const posts = localStorage.getItem('posts');
-        return posts ? JSON.parse(posts) : [];
-    }
+<script type="module">
+    // Import server URI and standard fetch options
+    import { pythonURI, fetchOptions } from '{{ site.baseurl }}/assets/js/api/config.js';
 
-    function savePosts(posts) {
-        localStorage.setItem('posts', JSON.stringify(posts));
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const reactions = getReactions();
-        const posts = getPosts();
-
-        // Load posts from localStorage
-        posts.forEach(post => {
-            createPostElement(post.username, post.content, post.id);
-        });
-
-        document.querySelectorAll('.post').forEach(postElement => {
-            const postId = postElement.getAttribute('data-post-id');
-            const postReactions = reactions[postId] || { thumbsUp: 0, heart: 0, fire: 0 };
-
-            postElement.querySelector('.thumbsUp-count').textContent = postReactions.thumbsUp;
-            postElement.querySelector('.heart-count').textContent = postReactions.heart;
-            postElement.querySelector('.fire-count').textContent = postReactions.fire;
-        });
-    });
-
-    function addReaction(postId, reactionType) {
-        const reactions = getReactions();
-
-        if (!reactions[postId]) {
-            reactions[postId] = { thumbsUp: 0, heart: 0, fire: 0 };
+    /**
+     * Fetch groups for dropdown selection
+     * User picks from dropdown
+     */
+    async function fetchGroups() {
+        try {
+            const response = await fetch(`${pythonURI}/api/groups/filter`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ section_name: "Shared Interest" }) // Adjust the section name as needed
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch groups: ' + response.statusText);
+            }
+            const groups = await response.json();
+            const groupSelect = document.getElementById('group_id');
+            groups.forEach(group => {
+                const option = document.createElement('option');
+                option.value = group.name; // Use group name for payload
+                option.textContent = group.name;
+                groupSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error fetching groups:', error);
         }
-
-        reactions[postId][reactionType]++;
-        saveReactions(reactions);
-
-        const postElement = document.querySelector(`[data-post-id="${postId}"]`);
-        const countElement = postElement.querySelector(`.${reactionType}-count`);
-        countElement.textContent = reactions[postId][reactionType];
     }
 
-    function createPostElement(username, content, postId) {
-        // Create a new post element
-        const newPost = document.createElement('div');
-        newPost.className = 'post';
-        newPost.setAttribute('data-post-id', postId);
-        newPost.innerHTML = `
-            <div class="post-header">
-                <div class="post-icon"></div>
-                <span class="post-username">${username}</span>
-            </div>
-            <p>${content}</p>
-            <div class="reaction-icons">
-                <span class="emoji" onclick="addReaction('${postId}', 'thumbsUp')">👍 <span class="thumbsUp-count">0</span></span>
-                <span class="emoji" onclick="addReaction('${postId}', 'heart')">❤️ <span class="heart-count">0</span></span>
-                <span class="emoji" onclick="addReaction('${postId}', 'fire')">🔥 <span class="fire-count">0</span></span>
-            </div>
-        `;
-
-        // Append the new post to the posts wrapper
-        document.getElementById('postsWrapper').prepend(newPost); // Add to the top
+    /**
+     * Fetch channels based on selected group
+     * User picks from dropdown
+     */
+    async function fetchChannels(groupName) {
+        try {
+            const response = await fetch(`${pythonURI}/api/channels/filter`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ group_name: groupName })
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch channels: ' + response.statusText);
+            }
+            const channels = await response.json();
+            const channelSelect = document.getElementById('channel_id');
+            channelSelect.innerHTML = '<option value="">Select a channel</option>'; // Reset channels
+            channels.forEach(channel => {
+                const option = document.createElement('option');
+                option.value = channel.id;
+                option.textContent = channel.name;
+                channelSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error fetching channels:', error);
+        }
     }
 
-    // Handle post submission
-    document.getElementById('postForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent page refresh
-
-        const roleSelect = document.getElementById('roleSelect');
-        const postInput = document.getElementById('postInput');
-        const selectedRole = roleSelect.value; // Get selected role
-        const newPostContent = postInput.value;
-
-        // Create a unique ID based on timestamp
-        const newPostId = Date.now();
-
-        // Save the new post to localStorage
-        const posts = getPosts();
-        posts.push({ id: newPostId, username: selectedRole, content: newPostContent });
-        savePosts(posts);
-
-        // Create and display the new post
-        createPostElement(selectedRole, newPostContent, newPostId);
-
-        // Clear the input
-        // Clear the input fields
-        postInput.value = '';
-        roleSelect.selectedIndex = 0; // Reset to default
+    /**
+      * Handle group selection change
+      * Channel Dropdown refresh to match group_id change
+      */
+    document.getElementById('group_id').addEventListener('change', function() {
+        const groupName = this.value;
+        if (groupName) {
+            fetchChannels(groupName);
+        } else {
+            document.getElementById('channel_id').innerHTML = '<option value="">Select a channel</option>'; // Reset channels
+        }
     });
 
-    // Handle message submission
-    document.getElementById('messageForm').addEventListener('submit', function(event) {
+    /**
+     * Handle form submission for selection
+     * Select Button: Computer fetches and displays posts
+     */
+    document.getElementById('selectionForm').addEventListener('submit', function(event) {
         event.preventDefault();
-        const messageInput = document.getElementById('messageInput');
-        const messageContent = messageInput.value;
-
-        // Create a new message element
-        const newMessage = document.createElement('div');
-        newMessage.textContent = messageContent;
-        document.getElementById('chatArea').appendChild(newMessage);
-
-        // Clear the input field
-        messageInput.value = '';
+        const groupId = document.getElementById('group_id').value;
+        const channelId = document.getElementById('channel_id').value;
+        if (groupId && channelId) {
+            fetchData(channelId);
+        } else {
+            alert('Please select both group and channel.');
+        }
     });
+
+    /**
+     * Handle form submission for adding a post
+     * Add Form Button: Computer handles form submission with request
+     */
+    document.getElementById('postForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        // Extract data from form
+        const title = document.getElementById('title').value;
+        const comment = document.getElementById('comment').value;
+        const channelId = document.getElementById('channel_id').value;
+
+        // Create API payload
+        const postData = {
+            title: title,
+            comment: comment,
+            channel_id: channelId
+        };
+
+        // Trap errors
+        try {
+            // Send POST request to backend, purpose is to write to database
+            const response = await fetch(`${pythonURI}/api/post`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add post: ' + response.statusText);
+            }
+
+            // Successful post
+            const result = await response.json();
+            alert('Post added successfully!');
+            document.getElementById('postForm').reset();
+            fetchData(channelId);
+        } catch (error) {
+            // Present alert on error from backend
+            console.error('Error adding post:', error);
+            alert('Error adding post: ' + error.message);
+        }
+    });
+
+    /**
+     * Fetch posts based on selected channel
+     * Handle response: Fetch and display posts
+     */
+    async function fetchData(channelId) {
+        try {
+            const response = await fetch(`${pythonURI}/api/posts/filter`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ channel_id: channelId })
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch posts: ' + response.statusText);
+            }
+
+            // Parse the JSON data
+            const postData = await response.json();
+
+            // Extract posts count
+            const postCount = postData.length || 0;
+
+            // Update the HTML elements with the data
+            document.getElementById('count').innerHTML = `<h2>Count ${postCount}</h2>`;
+
+            // Get the details div
+            const detailsDiv = document.getElementById('details');
+            detailsDiv.innerHTML = ''; // Clear previous posts
+
+            // Iterate over the postData and create HTML elements for each item
+            postData.forEach(postItem => {
+                const postElement = document.createElement('div');
+                postElement.className = 'post-item';
+                postElement.innerHTML = `
+                    <h3>${postItem.title}</h3>
+                    <p><strong>Channel:</strong> ${postItem.channel_name}</p>
+                    <p><strong>User:</strong> ${postItem.user_name}</p>
+                    <p>${postItem.comment}</p>
+                `;
+                detailsDiv.appendChild(postElement);
+            });
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    // Fetch groups when the page loads
+    fetchGroups();
 </script>
