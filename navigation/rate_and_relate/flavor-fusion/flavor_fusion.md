@@ -318,38 +318,6 @@ author: Nolan, Jacob, Claire
   let mainCode = `
           <div class="left">
               <h2>Combos4U</h2>
-              <div class="combo">
-                  <h3>Timmy's Combo</h3>
-                  <p>A super cool food combo</p>
-                  <p>🍌 - 🍫 - 🌶️</p>
-                  <p><strong>Rating:</strong> ⭐⭐⭐⭐⭐</p>
-                  <p>Comments:</p>
-                  <ul>
-                      <li>This is dumb</li>
-                      <li>I hate Timmy &gt;:(</li>
-                  </ul>
-                  <form method="get" data-postid="123">
-                      <label for="commenttext">Add a comment</label>
-                      <input type="text" class="commenttext" placeholder="Comment">
-                      <button type="submit" onclick="addComment('123');">Submit</button>
-                  </form>
-              </div>
-              <div class="combo">
-                  <h3>Juan's Combo</h3>
-                  <p>A super sigma food combo ahaha</p>
-                  <p>🍌 - 🍫 - 🌶️</p>
-                  <p><strong>Rating:</strong> ⭐⭐⭐</p>
-                  <p>Comments:</p>
-                  <ul>
-                      <li>Juan is so hot!!!</li>
-                      <li>Congrats on getting a gf, Kanhay!</li>
-                  </ul>
-                  <form method="get" data-postid="456">
-                      <label for="commenttext">Add a comment</label>
-                      <input type="text" class="commenttext" placeholder="Comment">
-                      <button type="submit" onclick="addComment('456');">Submit</button>
-                  </form>
-              </div>
           </div>`;
 
   let leaderboardCode = `<table>
@@ -466,11 +434,6 @@ author: Nolan, Jacob, Claire
     document.getElementById("flavorflux").innerHTML = profileCode;
   }
 
-  function mainPage() {
-    document.getElementById("flavorflux").innerHTML = mainCode;
-  }
-
-  mainPage();
   let posts = [];
   async function getPosts() {
     const rawData = await fetch(`${pythonURI}/api/posts`, {
@@ -504,69 +467,88 @@ author: Nolan, Jacob, Claire
                   </form>
               </div>
               */
-              posts.forEach((post) => {
-                console.log("post:", post)
-                let comboDiv = document.createElement("div");
-                comboDiv.className = "combo";
+    posts.forEach((post) => {
+      console.log("post:", post);
+      let comboDiv = document.createElement("div");
+      comboDiv.className = "combo";
 
-                let comboTitle = document.createElement("h3");
-                comboTitle.textContent = post.title;
-                comboDiv.appendChild(comboTitle);
+      let comboTitle = document.createElement("h3");
+      comboTitle.textContent = post.title;
+      comboDiv.appendChild(comboTitle);
 
-                let comboDescription = document.createElement("p");
-                comboDescription.textContent = post.comment;
-                comboDiv.appendChild(comboDescription);
+      let comboDescription = document.createElement("p");
+      comboDescription.textContent = post.comment;
+      comboDiv.appendChild(comboDescription);
 
-                let comboIngredients = document.createElement("p");
-                comboIngredients.textContent = post.content.ingredients.join(" - ");
-                comboDiv.appendChild(comboIngredients);
+      let comboIngredients = document.createElement("p");
+      comboIngredients.textContent = post.content.ingredients;
+      comboDiv.appendChild(comboIngredients);
 
-                let comboRating = document.createElement("p");
-                comboRating.innerHTML = `<strong>Rating:</strong> ⭐⭐⭐⭐`; // Placeholder rating
-                comboDiv.appendChild(comboRating);
+      let comboRating = document.createElement("p");
+      if (post.content.ratings.length === 0) {
+        comboRating.innerHTML = `<strong>Rating:</strong> NONE`;
+      } else {
+        let sum = 0;
+        post.content.ratings.forEach((il) => {
+          sum += il;
+        });
+        let _rating = sum / post.content.ratings.length;
+        let stars = "";
+        for (let i = 0; i < Math.trunc(_rating); i++) {
+          stars += "⭐";
+        }
 
-                let commentsTitle = document.createElement("p");
-                commentsTitle.textContent = "Comments:";
-                comboDiv.appendChild(commentsTitle);
+        comboRating.innerHTML = `<strong>Rating:</strong> ${stars}`;
+      }
+      comboDiv.appendChild(comboRating);
 
-                let commentsList = document.createElement("ul");
-                post.content.comments.forEach((comment) => {
-                let commentItem = document.createElement("li");
-                commentItem.textContent = comment;
-                commentsList.appendChild(commentItem);
-                });
-                comboDiv.appendChild(commentsList);
+      let commentsTitle = document.createElement("p");
+      commentsTitle.textContent = "Comments:";
+      comboDiv.appendChild(commentsTitle);
 
-                let commentForm = document.createElement("form");
-                commentForm.method = "get";
-                commentForm.setAttribute("data-postid", post.id);
+      let commentsList = document.createElement("ul");
+      post.content.comments.forEach((comment) => {
+        let commentItem = document.createElement("li");
+        commentItem.textContent = comment;
+        commentsList.appendChild(commentItem);
+      });
+      comboDiv.appendChild(commentsList);
 
-                let commentLabel = document.createElement("label");
-                commentLabel.setAttribute("for", "commenttext");
-                commentLabel.textContent = "Add a comment";
-                commentForm.appendChild(commentLabel);
+      let commentForm = document.createElement("form");
+      commentForm.method = "get";
+      commentForm.setAttribute("data-postid", post.id);
 
-                let commentInput = document.createElement("input");
-                commentInput.type = "text";
-                commentInput.className = "commenttext";
-                commentInput.placeholder = "Comment";
-                commentForm.appendChild(commentInput);
+      let commentLabel = document.createElement("label");
+      commentLabel.setAttribute("for", "commenttext");
+      commentLabel.textContent = "Add a comment";
+      commentForm.appendChild(commentLabel);
 
-                let commentButton = document.createElement("button");
-                commentButton.type = "submit";
-                commentButton.textContent = "Submit";
-                commentButton.onclick = function (e) {
-                e.preventDefault();
-                addComment(post.id);
-                };
-                commentForm.appendChild(commentButton);
+      let commentInput = document.createElement("input");
+      commentInput.type = "text";
+      commentInput.className = "commenttext";
+      commentInput.placeholder = "Comment";
+      commentForm.appendChild(commentInput);
 
-                comboDiv.appendChild(commentForm);
-                main.appendChild(comboDiv);
-              });
+      let commentButton = document.createElement("button");
+      commentButton.type = "submit";
+      commentButton.textContent = "Submit";
+      commentButton.onclick = function (e) {
+        e.preventDefault();
+        addComment(post.id);
+      };
+      commentForm.appendChild(commentButton);
+
+      comboDiv.appendChild(commentForm);
+      main.appendChild(comboDiv);
+    });
   }
 
-  getPosts();
+  function mainPage() {
+    document.getElementById("flavorflux").innerHTML = mainCode;
+    getPosts();
+  }
+
+  mainPage();
 
   function leaderboard() {
     document.getElementById("flavorflux").innerHTML = leaderboardCode;
