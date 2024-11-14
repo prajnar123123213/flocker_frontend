@@ -325,7 +325,7 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
    #leaderboard-section {
        margin-top: 20px;
        padding: 15px;
-       background-color: #fff;
+       background-color: #333333;
        border-radius: 8px;
        box-shadow: 0 4px 6px rgba(0, 0, 255, 0.2); /* Blue shadow for sections */
    }
@@ -403,7 +403,7 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
 
 
    .modal-content {
-       background-color: #fefefe;
+       background-color: #000000;
        margin: auto;
        padding: 20px;
        border-radius: 10px;
@@ -485,7 +485,7 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        color: #ECF0F1;
+        color: #000000;
     }
     .form-container label {
         margin-bottom: 5px;
@@ -502,7 +502,7 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
         border-radius: 5px;
         border: none;
         background-color: #34495E;
-        color: #ECF0F1;
+        color: #000000;
         cursor: pointer;
     }
 </style>
