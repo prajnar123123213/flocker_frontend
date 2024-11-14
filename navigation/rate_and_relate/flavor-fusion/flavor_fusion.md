@@ -434,8 +434,9 @@ author: Nolan, Jacob, Claire
     document.getElementById("flavorflux").innerHTML = profileCode;
   }
 
-  let posts = [];
+  let posts;
   async function getPosts() {
+    posts = [];
     const rawData = await fetch(`${pythonURI}/api/posts`, {
       ...fetchOptions,
     });
