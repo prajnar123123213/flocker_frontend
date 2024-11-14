@@ -171,6 +171,7 @@ body {
     <div id="message" class="message">Please wait...</div>
     <button id="addPostButton" class="button">Add Post</button>
     <button id="backButton" class="button">Go Back</button>
+    <button id="clearPostsButton">Clear All Posts</button>
     <div id="postsContainer"></div>
 </div>
 
@@ -192,6 +193,8 @@ body {
         </form>
     </div>
 </div>
+
+
 
 <script>
         const groupId = "Calico Vote";
@@ -357,6 +360,25 @@ body {
         renderDefaultPage(); // Or redirect to a selection page if no house is selected
     }
 });
+
+// Select the button and posts container
+const clearPostsButton = document.getElementById('clearPostsButton');
+const postsContainer = document.getElementById('postsContainer');
+
+// Function to clear all posts
+clearPostsButton.addEventListener('click', function() {
+    // Clear the content inside the posts container
+    postsContainer.innerHTML = '';
+
+    // Clear the posts from localStorage
+    const savedHouse = localStorage.getItem('selectedHouse');
+    if (savedHouse) {
+        let postsByHouse = JSON.parse(localStorage.getItem('postsByHouse')) || {};
+        postsByHouse[savedHouse] = []; // Set the posts array for the current house to an empty array
+        localStorage.setItem('postsByHouse', JSON.stringify(postsByHouse));
+    }
+});
+
 
 </script>
 

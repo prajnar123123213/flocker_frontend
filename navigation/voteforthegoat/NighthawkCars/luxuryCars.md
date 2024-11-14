@@ -6,30 +6,45 @@ permalink: /voteforthegoat/nighthawkCars/luxuryCars/
 ---
 
 
-<table>
-    <tr>
-        <td id="homepage"><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars">Nighthawk Cars (Home Page)</a></td>
-        <td id="internetdebates"><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/luxuryCars">Luxury Cars</a></td>
-        <td id="calicovote"><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/vintageCars">Vintage Cars</a></td>
-        <td id="dnerostore"><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/studentCars">Student Cars</a></td>
-        <td id="Beveragedebates"><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/economyCars">Economy Cars</a></td>
-    </tr>
-</table>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Bar</title>
+</head>
+<body>
+        <table style="width: 100%; text-align: center; border-collapse: separate; border-spacing: 10px;">
+            <tr>
+                <td><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars" class="button">Nighthawk Cars (Home Page)</a></td>
+                <td><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/studentCars" class="button">Student Cars</a></td>
+                <td><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/vintageCars" class="button">Vintage Cars</a></td>
+                <td><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/luxuryCars" class="button">Luxury Cars</a></td>
+                <td><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/economyCars" class="button">Economy Cars</a></td>
+            </tr>
+        </table>
+</body>
+</html>
 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxury Cars</title>
+    <title>Student Cars</title>
     <style>
         body {
-            background-color: white;
-            color: rgb(255, 80, 80);
+            background: linear-gradient(135deg, #333333, #fff947, #ffffff); /* 180deg for top-to-bottom gradient */
+            color: #ffffff;
             font-family: Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
         }
         h2, h3 {
             color: rgb(255, 80, 80);
-            border-bottom: 2px solid rgb(255, 80, 80);
+            border-bottom: 4px solid #000000;
             font-weight: bold; /* Bold text */
             text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.8),  /* White shadow */
                          2px 2px 0 rgba(255, 255, 255, 0.6); /* Lighter shadow */
@@ -37,67 +52,152 @@ permalink: /voteforthegoat/nighthawkCars/luxuryCars/
             padding: 10px; /* Space around the text */
         }
         p {
-            color: rgb(255, 80, 80);
-            font-weight: bold; /* Bold text */
-            text-shadow: 1px 0 rgba(255, 255, 255, 0.8),  /* White shadow */
-                         1px 0 rgba(255, 255, 255, 0.6); /* Lighter shadow */
-            border-radius: 10px; /* Rounded effect */
-            padding: 10px; /* Space around the text */
+            color: white;   
         }
-        button {
-            background-color: rgb(255, 80, 80);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            margin: 5px;
-            cursor: pointer;
-            border-radius: 15px; /* Rounded corners */
-            transition: background-color 0.3s;
+        table {
+            width: 100%;
+            text-align: center;
+            border-collapse: separate;
+            border-spacing: 10px;
+            border: none; /* Remove any borders from the table */
         }
-        button:hover {
-            background-color: rgb(220, 60, 60); /* Slightly darker on hover */
+        td {
+            background-color: transparent !important; /* Remove background color */
+            padding: 0 !important; /* Remove padding */
+            border: none !important; /* Remove borders from table cells */
+        }
+        .button {
+            background-color: white; /* Light red */
+            color: black !important; /* White text */
+            text-decoration: none;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            display: inline-block;
+            padding: 15px 20px;
+            border-radius: 20px;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            text-align: center;
+        }
+        .button:hover {
+            transform: scale(1.05); /* Slightly larger on hover */
+            background-color: lightgrey; /* Darker red on hover */
+            color: black !important;
+        }
+        .button:active {
+            transform: scale(0.95); /* Shrinks a bit on click */
+            background-color: grey; /* Even darker red on click */
+            color: black !important;
         }
         div {
             margin: 20px 0;
         }
         .message-box {
-            border: 1px solid rgb(200, 200, 200); /* Light gray border */
-            border-radius: 10px; /* Rounded corners */
+            background-color: #000000;
+            border: 4px solid #ffffff; /* Light gray border */
             padding: 10px; /* Padding inside the box */
-            height: 150px; /* Fixed height */
+            height: 420px; /* Fixed height */
+            overflow-y: auto; /* Scrollable */
+            margin-top: 40px; /* Space above message box */
+        }
+        /* Images will adjust in size up to a maximum width and height */
+        img {
+            max-width: 1000px; /* Adjust maximum width as desired */
+            max-height: 1000px; /* Adjust maximum height as desired */
+            object-fit: contain; /* Keeps images within the max dimensions without cropping */
+        }
+        .image-gallery {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 10px;
+        }
+        .image-gallery img {
+            max-height: 150px;
+            object-fit: cover;
+        }
+        .message-box1 {
+            background-color: #000000;
+            border: 4px solid #ffffff; /* Light gray border */
+            padding: 10px; /* Padding inside the box */
+            height: 420px; /* Fixed height */
+            overflow-y: auto; /* Scrollable */
+            margin-top: 40px; /* Space above message box */
+        }
+        .message-box1p{
+            background-color: #000000;
+            border: 4px solid #ffffff; /* Light gray border */
+            padding: 10px; /* Padding inside the box */
+            height: 420px; /* Fixed height */
+            overflow-y: auto; /* Scrollable */
+            margin-top: 40px; /* Space above message box */
+        }
+        .box11{
+            background-color: #000000;
+            border: 4px solid #ffffff; /* Light gray border */
+            padding: 10px; /* Padding inside the box */
+            max-height: 200px; /* Maximum height */
             overflow-y: auto; /* Scrollable */
             margin-top: 10px; /* Space above message box */
         }
         #comment {
-            width: 100%;
-            height: 80px;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-            resize: vertical;
+            width: 100%;      /* Full width of the container */
+            height: 100px;    /* Height of the textarea */
+            padding: 15px;    /* Padding inside the box */
+            font-size: 16px;  /* Larger font size for better readability */
+            border-radius: 8px; /* Rounded corners */
+            border: 3px solid #C0C0C0; /* Border color */
+            resize: vertical; /* Allows users to adjust height but not width */
         }
-        button {
-            margin-top: 10px;
-            padding: 8px 16px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            background-color: rgb(255, 80, 80);
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        #commentInput {
+            width: 100%;      /* Full width of the container */
+            height: 90px;    /* Height of the textarea */
+            padding: 15px;    /* Padding inside the box */
+            font-size: 16px;  /* Larger font size for better readability */
+            border-radius: 8px; /* Rounded corners */
+            border: 3px solid #C0C0C0; /* Border color */
+            resize: vertical; /* Allows users to adjust height but not width */
         }
-        button:hover {
-            background-color: #45a049;
+        #nameInput {
+            width: 100%;      /* Full width of the container */
+            height: 59px;    /* Height of the textarea */
+            padding: 15px;    /* Padding inside the box */
+            font-size: 16px;  /* Larger font size for better readability */
+            border-radius: 8px; /* Rounded corners */
+            border: 3px solid #C0C0C0; /* Border color */
+            resize: vertical; /* Allows users to adjust height but not width */
         }
-        .message-box {
-            margin-top: 20px;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            background-color: rgb(255, 80, 80);
+        #optionSelect {
+            width: 50%;      /* Full width of the container */
+            height: 58px;    /* Height of the textarea */
+            padding: 15px;    /* Padding inside the box */
+            font-size: 16px;  /* Larger font size for better readability */
+            border-radius: 8px; /* Rounded corners */
+            border: 3px solid #C0C0C0; /* Border color */
+            resize: vertical; /* Allows users to adjust height but not width */
+        }
+        .regularButton {
+        all: unset; /* Removes all default styles */
+        background-color: white !important;
+        border: 2px solid #ccc;
+        border-radius: 12px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+        font-weight: bold;
+        color: black !important;
+        }
+        .regularButton:hover {
+            background-color: lightgray !important; /* Light gray on hover */
+            transform: scale(1.05);
+        }
+        .regularButton:active {
+            background-color: grey !important; /* Slightly darker gray when clicked */
+            transform: scale(0.95); /* Slight scale-down effect on click */
+        }
+        .buttonP {
+            all: unset !important;
+            color: black !important;
         }
     </style>
 </head>
@@ -153,39 +253,77 @@ permalink: /voteforthegoat/nighthawkCars/luxuryCars/
 
 <h3>Voting</h3>
 <div>
-    <button style="width:175px;"><p style="background-color: rgb(255, 80, 80);border: 2px solid #ddd;">Lamborghini</p></button>
-    <button style="width:175px"><p style="background-color: rgb(255, 80, 80);border: 2px solid #ddd">Bugatti</p></button>
-    <button style="width:175px"><p style="background-color: rgb(255, 80, 80);border: 2px solid #ddd">Ferrari</p></button>
-    <button style="width:175px"><p style="background-color: rgb(255, 80, 80);border: 2px solid #ddd">McLaren</p></button>
+    <button class="regularButton"><p class="buttonP">Lamborghini</p></button>
+    <button class="regularButton"><p class="buttonP">Bugatti</p></button>
+    <button class="regularButton"><p class="buttonP">Ferrari</p></button>
+    <button class="regularButton"><p class="buttonP">McLaren</p></button>
 </div>
 
 <h2>Discussion</h2>
 <textarea placeholder="Enter your thoughts or comments here..." id="comment"></textarea>
-<button onclick="addComment()"><p style="background-color: rgb(255, 80, 80);border: 2px solid #ddd">Add Comment</p></button>
+<button class="regularButton" onclick="addComment()"><p class="buttonP">Add Comment</p></button>
 
 <div class="message-box" id="messageBox">
     <p><strong>Messages:</strong></p>
 </div>
 
-<script>
-function addComment() {
-    // Get the value of the textarea
-    const comment = document.getElementById("comment").value;
-
-    // Check if the comment is not empty
-    if (comment.trim() !== "") {
-        // Create a new paragraph element for the comment
-        const newComment = document.createElement("p");
-        newComment.textContent = `- You: ${comment}`;
-
-        // Add the new comment to the message box
-        document.getElementById("messageBox").appendChild(newComment);
-
-        // Clear the textarea
-        document.getElementById("comment").value = "";
+ <script type="module">
+        import { pythonURI, fetchOptions } from '../../../assets/js/api/config.js';
+        const channelID = 23;
+        const commentTitle = "luxuryCars";
+async function addComment() {
+    const argumentText = document.getElementById('comment').value.trim();
+    if (!argumentText) {
+        alert('Please enter a comment.');
+        return;
     }
-    else {
-        alert("Please say something")
+    const argumentData = {
+        title: commentTitle,
+        comment: argumentText,
+        channel_id: channelID,
+        user_name: localStorage.getItem('username') || 'Guest'
+    };
+    try {
+        const response = await fetch(`${pythonURI}/api/post`, {
+            ...fetchOptions,
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(argumentData)
+        });
+        if (!response.ok) throw new Error('Failed to submit comment: ' + response.statusText);
+        document.getElementById('comment').value = ''; // Clear input field
+        fetchComments(); // Refresh comments list
+    } catch (error) {
+        console.error('Error submitting comment:', error);
+        alert('Error submitting comment: ' + error.message);
     }
 }
-</script>
+async function fetchComments() {
+    try {
+        const response = await fetch(`${pythonURI}/api/posts/filter`, {
+            ...fetchOptions,
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ channel_id: channelID })
+        });
+        if (!response.ok) throw new Error('Failed to fetch comments: ' + response.statusText);
+        const argumentsData = await response.json();
+        // Reverse the order of the comments so the latest comes first
+        argumentsData.reverse();
+        const messageBox = document.getElementById('messageBox');
+        messageBox.innerHTML = "<p><strong>Messages :</strong></p>"; // Clear existing comments
+        argumentsData.forEach(arg => {
+            const commentElement = document.createElement("p");
+            commentElement.textContent = `${arg.user_name}: ${arg.comment}`;
+            messageBox.appendChild(commentElement);
+        });
+    } catch (error) {
+        console.error('Error fetching comments:', error);
+        alert('Error fetching comments: ' + error.message);
+    }
+}
+window.addEventListener('load', () => {
+    fetchComments(channelID); // Fetch initial comments on page load
+});
+window.addComment = addComment; // Expose the function globally
+    </script>
