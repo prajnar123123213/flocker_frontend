@@ -415,7 +415,7 @@ author: Nolan, Jacob, Claire
   function profile() {
     document.getElementById("flavorflux").innerHTML = profileCode;
 
-    fetch(`${pythonURI}/api/user`, {
+    fetch(`${pythonURI}/api/post/user`, {
       method: "GET",
       ...fetchOptions,
     })
