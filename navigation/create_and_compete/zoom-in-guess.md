@@ -10,6 +10,7 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
 <link rel="stylesheet" href="{{site.baseurl}}/navigation/create_and_compete/zoominguess.css">
 <script src="{{site.baseurl}}/navigation/create_and_compete/scripted.js"></script>
 
+
 <div class="zoomnguess-container">
    <h1>Zoom N Guess</h1>
 
@@ -226,7 +227,7 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
             const postCount = postData.length || 0;
 
             // Update the HTML elements with the data
-            document.getElementById('count').innerHTML = `<h2>Count ${postCount}</h2>`;
+            document.getElementById('count').innerHTML = `<h2>View Your Previous Guesses. You currenrly have: ${postCount}</h2>`;
 
             // Get the details div
             const detailsDiv = document.getElementById('details');
@@ -325,7 +326,7 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
    #leaderboard-section {
        margin-top: 20px;
        padding: 15px;
-       background-color: #333333;
+       background-color: #fff;
        border-radius: 8px;
        box-shadow: 0 4px 6px rgba(0, 0, 255, 0.2); /* Blue shadow for sections */
    }
@@ -403,7 +404,7 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
 
 
    .modal-content {
-       background-color: #000000;
+       background-color: #fefefe;
        margin: auto;
        padding: 20px;
        border-radius: 10px;
@@ -485,7 +486,7 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        color: #000000;
+        color: #ECF0F1;
     }
     .form-container label {
         margin-bottom: 5px;
@@ -502,7 +503,7 @@ author: Arhaan, Akshaj, Mihir, and Keerthan
         border-radius: 5px;
         border: none;
         background-color: #34495E;
-        color: #000000;
+        color: #ECF0F1;
         cursor: pointer;
     }
 </style>
