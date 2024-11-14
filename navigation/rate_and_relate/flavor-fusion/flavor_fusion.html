@@ -420,7 +420,45 @@ author: Nolan, Jacob, Claire
       ...fetchOptions,
     })
       .then((res) => res.json())
-      .then((json) => console.log("user res", json));
+      .then((json) => {
+        json.forEach((po) => {
+          if (po.channel_name !== "Combos") return;
+
+          let comboDiv = document.createElement("div");
+          comboDiv.className = "combo";
+          
+          let comboTitle = document.createElement("h3");
+          let comboDescription = document.createElement("p");
+          let comboIngredients = document.createElement("p");
+          let comboRating = document.createElement("p");
+
+          comboTitle.textContent = po.title;
+          comboDescription.textContent = po.comment;
+          comboIngredients.textContent = po.content.ingredients;
+          if (po.content.ratings.length === 0) {
+            comboRating.innerHTML = `<strong>Rating:</strong> NONE`;
+          } else {
+            let sum = 0;
+            po.content.ratings.forEach((il) => {
+              sum += il;
+            });
+            let _rating = sum / po.content.ratings.length;
+            let stars = "";
+            for (let i = 0; i < Math.trunc(_rating); i++) {
+              stars += "⭐";
+            }
+
+            comboRating.innerHTML = `<strong>Rating:</strong> ${stars}`;
+          }
+
+          comboDiv.appendChild(comboTitle);
+          comboDiv.appendChild(comboDescription);
+          comboDiv.appendChild(comboIngredients);
+          comboDiv.appendChild(comboRating);
+
+          document.getElementsByClassName("left")[0].appendChild(comboDiv);
+        });
+      });
   }
 
   let posts;
