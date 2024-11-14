@@ -161,6 +161,7 @@ author: Nolan, Jacob, Claire
   }
 </style>
 
+<h1>test</h1>
 <div id="flavorflux"></div>
 <div id="dock">
   <div class="dock-icon" onclick="mainPage()">
@@ -252,14 +253,7 @@ author: Nolan, Jacob, Claire
   }
 
   function addComment(id) {
-    let element = document.querySelector(`form[data-postid="${id}"]`);
-    let comment = element.getElementsByClassName("commenttext")[0];
-    let newComment = {
-      comboId: id,
-      comment: comment.value,
-      html,
-    };
-    console.log(newComment);
+    console.log("adding comment to post", id);
   }
 
   const msgStyles = [
@@ -538,6 +532,41 @@ author: Nolan, Jacob, Claire
         addComment(post.id);
       };
       commentForm.appendChild(commentButton);
+
+      let ratingLabel = document.createElement("label");
+      ratingLabel.setAttribute("for", "ratinginput");
+      ratingLabel.textContent = "Add a rating (1-5)";
+      comboDiv.appendChild(ratingLabel);
+
+      let ratingInput = document.createElement("input");
+      ratingInput.type = "text";
+      ratingInput.className = "ratinginput";
+      ratingInput.placeholder = "Rating";
+      comboDiv.appendChild(ratingInput);
+      let rateButton = document.createElement("button");
+      rateButton.type = "submit";
+      rateButton.textContent = "Rate";
+      rateButton.onclick = function (e) {
+        e.preventDefault();
+        //addComment(post.id);
+        fetch(`${pythonURI}/api/post`, {
+          ...fetchOptions,
+          method: "put",
+          body: JSON.stringify({
+            ...post,
+            channel_id: window.channel_id,
+            content: {
+              ...post.content,
+              ratings: [...post.content.ratings, Number(ratingInput.value)],
+            },
+          }),
+        })
+          .then((res) => res.json())
+          .then((json) => {
+            console.log(json);
+          });
+      };
+      comboDiv.appendChild(rateButton);
 
       comboDiv.appendChild(commentForm);
       main.appendChild(comboDiv);
