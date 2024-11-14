@@ -161,7 +161,6 @@ author: Nolan, Jacob, Claire
   }
 </style>
 
-<h1>test</h1>
 <div id="flavorflux"></div>
 <div id="dock">
   <div class="dock-icon" onclick="mainPage()">
@@ -412,20 +411,16 @@ author: Nolan, Jacob, Claire
           <p><strong>Username:</strong> timmy</p>
           <p><strong>Total Combos:</strong> 412</p>
           <h2>Current Combos:</h2>
-          <div class="combo">
-              <h3>Timmy's Combo</h3>
-              <p>A super cool food combo</p>
-              <p>🍌 - 🍫 - 🌶️</p>
-              <p><strong>Rating:</strong> ⭐⭐⭐⭐⭐</p>
-              <p>Comments:</p>
-              <ul>
-                  <li>This is dumb</li>
-                  <li>I hate Timmy &gt;:(</li>
-              </ul>
-          </div>
       </div>`;
   function profile() {
     document.getElementById("flavorflux").innerHTML = profileCode;
+
+    fetch(`${pythonURI}/api/user`, {
+      method: "GET",
+      ...fetchOptions,
+    })
+      .then((res) => res.json())
+      .then((json) => console.log("user res", json));
   }
 
   let posts;
@@ -529,7 +524,7 @@ author: Nolan, Jacob, Claire
       commentButton.textContent = "Submit";
       commentButton.onclick = function (e) {
         e.preventDefault();
-        addComment(post.id);
+        addComment(post.id, commentInput.value, post.content);
       };
       commentForm.appendChild(commentButton);
 
@@ -548,23 +543,33 @@ author: Nolan, Jacob, Claire
       rateButton.textContent = "Rate";
       rateButton.onclick = function (e) {
         e.preventDefault();
-        //addComment(post.id);
-        fetch(`${pythonURI}/api/post`, {
-          ...fetchOptions,
-          method: "put",
-          body: JSON.stringify({
-            ...post,
-            channel_id: window.channel_id,
-            content: {
-              ...post.content,
-              ratings: [...post.content.ratings, Number(ratingInput.value)],
-            },
-          }),
-        })
-          .then((res) => res.json())
-          .then((json) => {
-            console.log(json);
-          });
+
+        if (
+          isNaN(ratingInput.value) ||
+          ratingInput.value < 1 ||
+          ratingInput.value > 5
+        ) {
+          alert("Please enter a number between 1 and 5");
+          return;
+        } else {
+          fetch(`${pythonURI}/api/post`, {
+            ...fetchOptions,
+            method: "put",
+            body: JSON.stringify({
+              ...post,
+              channel_id: window.channel_id,
+              content: {
+                ...post.content,
+                ratings: [...post.content.ratings, Number(ratingInput.value)],
+              },
+            }),
+          })
+            .then((res) => res.json())
+            .then((json) => {
+              console.log(json);
+              window.location.reload();
+            });
+        }
       };
       comboDiv.appendChild(rateButton);
 
