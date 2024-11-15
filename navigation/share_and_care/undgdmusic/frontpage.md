@@ -163,32 +163,6 @@ permalink: /undgdmusic/
     <p>Chat with others in real-time!</p>
 
 </header>
-
-<div class="chatroom-container">
-    <h2>Flocker Chatroom</h2>
-    <div class="chat-area" id="messages">
-        <!-- Messages will appear here -->
-    </div>
-    <form class="message-form" id="chat-form">
-        <input type="text" id="username" placeholder="Your Name" required>
-        <input type="text" id="message" placeholder="Type a message..." maxlength="200" required>
-        <button type="submit">Send</button>
-    </form>
-</div>
-
-<script type="module">
-    document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('chat-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value || "Anonymous";
-            const message = document.getElementById('message').value;
-            const timestamp = new Date().toLocaleTimeString();
-            const messageHtml = `<p><span class="username">${username}</span>: ${message} <span class="timestamp">[${timestamp}]</span></p>`;
-            document.getElementById("messages").innerHTML += messageHtml;
-            event.target.reset();
-        });
-    });
-</script>
 <div class="container">
     <div class="form-container">
         <h2>Select Group and Channel</h2>
@@ -824,3 +798,146 @@ async function fetchChannels(groupName) {
         chatWindow.scrollTop = chatWindow.scrollHeight;
     }
 </script>
+
+<!-- Now Playing Section -->
+<div class="now-playing">
+    <h3>Now Playing</h3>
+    <div id="song-info">
+        <p><strong>Title:</strong> <span id="song-title">Loading...</span></p>
+        <p><strong>Artist:</strong> <span id="song-artist">Loading...</span></p>
+    </div>
+    <div id="player"></div>
+    <div class="controls">
+        <button onclick="prevSong()">⏮️ Previous</button>
+        <button onclick="playPause()">⏯️ Play/Pause</button>
+        <button onclick="nextSong()">⏭️ Next</button>
+    </div>
+</div>
+
+<style>
+    /* Now Playing Section Styling */
+    .now-playing {
+        position: fixed;
+        bottom: 100px;
+        right: 20px;
+        width: 300px;
+        background-color: #1A1A1A;
+        color: #FFD700;
+        border: 2px solid #FFD700;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        font-family: Arial, sans-serif;
+    }
+    .now-playing h3 {
+        margin: 0 0 10px 0;
+        color: #FFD700;
+        text-align: center;
+    }
+    #song-info p {
+        margin: 5px 0;
+    }
+    #player {
+        margin-top: 10px;
+    }
+    .controls {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+    .controls button {
+        background-color: #FFD700;
+        color: #000;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+    .controls button:hover {
+        background-color: #FFC700;
+    }
+</style>
+
+<script>
+    // List of YouTube videos with real song titles and artist names
+    const songs = [
+        {
+            title: "Dead Batteries",
+            artist: "Astrophysics",
+            videoId: "L0yzW9t2ixk" // Extracted from YouTube URL
+        },
+        {
+            title: "Miss U",
+            artist: "Watafami",
+            videoId: "wjDtTv0n0Fw" // Extracted from YouTube URL
+        },
+        {
+            title: "Galaxy 2002",
+            artist: "Astrophysics",
+            videoId: "-1TjqZC3TXo" // Extracted from YouTube URL
+        }
+    ];
+
+    let currentSongIndex = 0;
+    let player;
+
+    // Load the YouTube IFrame API
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            height: '0',  // Hidden initially
+            width: '0',
+            videoId: songs[currentSongIndex].videoId,
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    }
+
+    function onPlayerReady(event) {
+        loadSong(currentSongIndex);
+    }
+
+    function onPlayerStateChange(event) {
+        if (event.data === YT.PlayerState.ENDED) {
+            nextSong(); // Auto play next song
+        }
+    }
+
+    function loadSong(index) {
+        const song = songs[index];
+        document.getElementById('song-title').innerText = song.title;
+        document.getElementById('song-artist').innerText = song.artist;
+        player.loadVideoById(song.videoId);
+        player.playVideo();
+    }
+
+    function playPause() {
+        const playerState = player.getPlayerState();
+        if (playerState === YT.PlayerState.PLAYING) {
+            player.pauseVideo();
+        } else {
+            player.playVideo();
+        }
+    }
+
+    function nextSong() {
+        currentSongIndex = (currentSongIndex + 1) % songs.length;
+        loadSong(currentSongIndex);
+    }
+
+    function prevSong() {
+        currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+        loadSong(currentSongIndex);
+    }
+
+    // Automatically advance to the next song when the current one ends
+    audioPlayer.addEventListener('ended', nextSong);
+</script>
+
+<!-- YouTube IFrame API Script -->
+<script src="https://www.youtube.com/iframe_api"></script>
+
