@@ -163,32 +163,6 @@ permalink: /undgdmusic/
     <p>Chat with others in real-time!</p>
 
 </header>
-
-<div class="chatroom-container">
-    <h2>Flocker Chatroom</h2>
-    <div class="chat-area" id="messages">
-        <!-- Messages will appear here -->
-    </div>
-    <form class="message-form" id="chat-form">
-        <input type="text" id="username" placeholder="Your Name" required>
-        <input type="text" id="message" placeholder="Type a message..." maxlength="200" required>
-        <button type="submit">Send</button>
-    </form>
-</div>
-
-<script type="module">
-    document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('chat-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value || "Anonymous";
-            const message = document.getElementById('message').value;
-            const timestamp = new Date().toLocaleTimeString();
-            const messageHtml = `<p><span class="username">${username}</span>: ${message} <span class="timestamp">[${timestamp}]</span></p>`;
-            document.getElementById("messages").innerHTML += messageHtml;
-            event.target.reset();
-        });
-    });
-</script>
 <div class="container">
     <div class="form-container">
         <h2>Select Group and Channel</h2>
