@@ -159,6 +159,65 @@ Authors: Maryam, Nora, Kushi, Joanna
     }
 </style>
 
+
+ <div class="sidebar">
+        <a href = "{{site.baseurl}}/moderation/calico_critter/" class = "sidebar-button">Moderator rules</a>
+        <a href="{{site.baseurl}}/voteforthegoat/calicoworkflow" class="sidebar-button">Workflow diagram</a>
+    </div>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #8B3D8A;
+    color: #f9f9f9;
+    margin: 0;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 50px;
+    height: 200px;
+    width: 150px;
+    background-color: #FFDFF7 !important;
+    border: 4px solid #BBDB9B;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding-top: 20px;
+    margin-top: 150px;
+    overflow: hidden;
+}
+
+.sidebar-button {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #EBA9D9 !important;
+    font-weight: bold;
+    transition: box-shadow 0.3s, color 0.3s, border-radius 0.3s;
+}
+
+.sidebar-button:hover {
+    box-shadow: 0 0 15px 5px #5E8636; 
+    color: #9C5F8C !important;
+    border-radius: 15px; 
+}
+
+a {
+    text-decoration: none !important;
+}
+</style>
+
+
+<div>
+<img src="{{site.baseurl}}/images/calicocritters/voteheading.png" alt="Calico Critters Voting header">
+</div>
+
+<p class="header-text">Click on a critter below to vote!</p>
+<br>
+
+
 <div class="container">
     <div class="critter-container" onclick="selectCritter(this)" data-critter="Mizuki" data-house="Adventure Play">
         <div class="image-container">
