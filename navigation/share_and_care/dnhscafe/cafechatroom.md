@@ -1,14 +1,11 @@
 ---
-layout: post
-title: DNHS Study Room
-permalink: /dnhscafestudyroom
-menu: nav/home.html
-search_exclude: true
+layout: page
+title: DNHS Cafe Study Room
+description: Help out your peers with school work to earn d'neros!
+permalink: /dnhscafestudyroom/
 ---
-<h2> Choose the share and care group, and select the subject channel you'd like to contribute to! </h2>
-
 <style>
-    body { 
+body { 
     background: linear-gradient(135deg, #a17a64, #452f22); /* Dark brown to light brown */
     background-attachment: fixed; /* Keeps background fixed */
     color: #333333; /* Darker text color for better readability */
@@ -19,6 +16,30 @@ search_exclude: true
     justify-content: center; 
     align-items: center; 
 }
+
+.collapsible {
+  background-color: #825B41;
+  color: #ffff;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+.active, .collapsible:hover {
+  background-color: #825B41;
+}
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #AB8265;
+}
+</style>
+
+<style>
     .container {
         display: flex;
         justify-content: center;
@@ -32,7 +53,7 @@ search_exclude: true
         flex-direction: column;
         max-width: 800px;
         width: 100%;
-        background-color: #ba9163;
+        background-color: #2C3E50;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -65,21 +86,15 @@ search_exclude: true
             <label for="group_id">Group:</label>
             <select id="group_id" name="group_id" required>
                 <option value="">Select a group</option>
-                <option value="">DNHS Cafe ☕️</option>
             </select>
             <label for="channel_id">Channel:</label>
             <select id="channel_id" name="channel_id" required>
                 <option value="">Select a channel</option>
-                 <option value="">Mathematics 📓📈</option>
-                <option value="">Chemistry 👩🏻‍🔬🧪</option>
-                <option value="">Biology 🧬🔬</option>
-                <option value="">English 🍎📝</option>
-                <option value="">Coding 💻👾</option>
-                <option value="">History 📚🏛️</option>
             </select>
-        <form>
             <button type="submit">Select</button>
         </form>
+    </div>
+</div>
 
 <div class="container">
     <div class="form-container">
@@ -296,9 +311,3 @@ search_exclude: true
     // Fetch groups when the page loads
     fetchGroups();
 </script>
-
-
-
-
-
-

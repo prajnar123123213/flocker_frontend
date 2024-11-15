@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: Nighthawk Cars
 description: A site all about cars
 permalink: /voteforthegoat/nighthawkCars/
@@ -12,27 +12,17 @@ comments: true
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigation Bar</title>
 </head>
-<body>
-    <table style="width: 100%; text-align: center; border-collapse: separate; border-spacing: 10px;">
-        <tr>
-            <td id="homepage" style="background-color: #ff4d4d; border-radius: 20px; padding: 15px 20px;">
-                <a href="{{site.baseurl}}/voteforthegoat/nighthawkCars" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif; display: block; border-radius: 20px;">Nighthawk Cars (Home Page)</a>
-            </td>
-            <td id="internetdebates" style="background-color: #ff4d4d; border-radius: 20px; padding: 15px 20px;">
-                <a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/studentCars" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif; display: block; border-radius: 20px;">Student Cars</a>
-            </td>
-            <td id="calicovote" style="background-color: #ff4d4d; border-radius: 20px; padding: 15px 20px;">
-                <a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/vintageCars" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif; display: block; border-radius: 20px;">Vintage Cars</a>
-            </td>
-            <td id="dnerostore" style="background-color: #ff4d4d; border-radius: 20px; padding: 15px 20px;">
-                <a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/luxuryCars" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif; display: block; border-radius: 20px;">Luxury Cars</a>
-            </td>
-            <td id="Beveragedebates" style="background-color: #ff4d4d; border-radius: 20px; padding: 15px 20px;">
-                <a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/economyCars" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif; display: block; border-radius: 20px;">Economy Cars</a>
-            </td>
-        </tr>
-    </table>
-</body>
+    <body>
+        <table style="width: 100%; text-align: center; border-collapse: separate; border-spacing: 10px;">
+            <tr>
+                <td><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars" class="button">Nighthawk Cars (Home Page)</a></td>
+                <td><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/studentCars" class="button">Student Cars</a></td>
+                <td><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/vintageCars" class="button">Vintage Cars</a></td>
+                <td><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/luxuryCars" class="button">Luxury Cars</a></td>
+                <td><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/economyCars" class="button">Economy Cars</a></td>
+            </tr>
+        </table>
+    </body>
 </html>
 
 <html lang="en">
@@ -80,7 +70,7 @@ comments: true
             cursor: pointer;
         }
         body {
-            background: linear-gradient(180deg, #333333, #ff4d4d, #ffffff); /* 180deg for top-to-bottom gradient */
+            background: linear-gradient(135deg, #333333, #ff4d4d, #ffffff); /* 180deg for top-to-bottom gradient */
             color: #ffffff;
             font-family: Arial, sans-serif;
             min-height: 100vh;
@@ -102,18 +92,39 @@ comments: true
         p {
             color: white;   
         }
-        button {
-            background-color: #000000;
-            color: white;
-            border: none;
-            font-size: 14px;
-            padding: 5px 10px;
-            border: 3px solid #C0C0C0;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        table {
+            width: 100%;
+            text-align: center;
+            border-collapse: separate;
+            border-spacing: 10px;
+            border: none; /* Remove any borders from the table */
         }
-        button:hover {
-            background-color: #ffffff; /* Slightly darker on hover */
+        td {
+            background-color: transparent !important; /* Remove background color */
+            padding: 0 !important; /* Remove padding */
+            border: none !important; /* Remove borders from table cells */
+        }
+        .button {
+            background-color: white; /* Light red */
+            color: black !important; /* White text */
+            text-decoration: none;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            display: inline-block;
+            padding: 15px 20px;
+            border-radius: 20px;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            text-align: center;
+        }
+        .button:hover {
+            transform: scale(1.05); /* Slightly larger on hover */
+            background-color: lightgrey; /* Darker red on hover */
+            color: black !important;
+        }
+        .button:active {
+            transform: scale(0.95); /* Shrinks a bit on click */
+            background-color: grey; /* Even darker red on click */
+            color: black !important;
         }
         div {
             margin: 20px 0;
@@ -125,10 +136,6 @@ comments: true
             height: 150px; /* Fixed height */
             overflow-y: auto; /* Scrollable */
             margin-top: 40px; /* Space above message box */
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
         }
         td {
             border: 1px solid #ddd;
@@ -192,7 +199,11 @@ Here is a game to keep you entertained:
 <script>
     // Show popup on page load
     window.onload = function() {
-        document.getElementById('popup').classList.add('active');
+        if (!localStorage.getItem("seenCarsPopup") || false) {
+            document.getElementById('popup').classList.add('active');
+            localStorage.setItem("seenCarsPopup", true)
+        }
+
     };
 
     // Close popup function

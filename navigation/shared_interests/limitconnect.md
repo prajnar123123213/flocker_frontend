@@ -104,20 +104,59 @@ menu: nav/shared_interests.html
     }
 </style>
 
+
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-width: 1200px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 800px;
+        width: 100%;
+        background-color: #2c3e50;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        color: #ecf0f1;
+    }
+    .form-container label {
+        margin-bottom: 5px;
+    }
+    .form-container input, .form-container textarea, .form-container select {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        width: 100%;
+    }
+    .form-container button {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #34495e;
+        color: #ecf0f1;
+        cursor: pointer;
+    }
+</style>
+
 <div class="container">
     <div class="form-container">
         <h2>Select Group and Channel</h2>
         <form id="selectionForm">
             <label for="group_id">Group:</label>
-            <select id="group_id" name="group_id" required>
+            <select id="group_id" name="group_id" required="">
                 <option value="">Select a group</option>
-                <option value="Captain">Admin</option>
-                <option value="Player">Student</option>
             </select>
-            <!-- <label for="channel_id">Channel:</label>
-            <select id="channel_id" name="channel_id" required>
+            <label for="channel_id">Channel:</label>
+            <select id="channel_id" name="channel_id" required="">
                 <option value="">Select a channel</option>
-            </select> -->
+            </select>
             <button type="submit">Select</button>
         </form>
     </div>
@@ -128,9 +167,9 @@ menu: nav/shared_interests.html
         <h2>Add New Post</h2>
         <form id="postForm">
             <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required>
+            <input type="text" id="title" name="title" required="" />
             <label for="comment">Comment:</label>
-            <textarea id="comment" name="comment" required></textarea>
+            <textarea id="comment" name="comment" required=""></textarea>
             <button type="submit">Add Post</button>
         </form>
     </div>
@@ -148,7 +187,7 @@ menu: nav/shared_interests.html
 
 <script type="module">
     // Import server URI and standard fetch options
-    import { pythonURI, fetchOptions } from '{{ site.baseurl }}/assets/js/api/config.js';
+    import { pythonURI, fetchOptions } from '/flocker_frontend/assets/js/api/config.js';
 
     /**
      * Fetch groups for dropdown selection

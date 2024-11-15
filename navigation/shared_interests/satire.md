@@ -40,7 +40,7 @@ author: Bailey, Travis, Leon, Anyi
   }
 
   /* Container to center everything */
-  .container {
+.container {
     width: 80%;
     margin: auto;
     display: flex;
@@ -60,6 +60,7 @@ author: Bailey, Travis, Leon, Anyi
     color: #ffffff;
     margin-bottom: 15px;
     border-radius: 10px;
+    box-shadow: 0px 0px 10px 5px #3b5998;
   }
 
   /* Intro Blurb */
@@ -70,6 +71,7 @@ author: Bailey, Travis, Leon, Anyi
     font-size: 18px;
     color: #cccccc;
     border-radius:10px;
+    box-shadow: 0px 0px 10px 5px #2b2b2b;
   }
 
   /* Main layout - Sidebar and Feed */
@@ -85,10 +87,12 @@ author: Bailey, Travis, Leon, Anyi
     display: flex;
     flex-direction: column;
     gap: 20px;
+    width: 200px;
     align-items: center;
     padding: 15px;
     background-color: #333333;
     border-radius: 8px;
+    box-shadow: 0px 0px 10px 5px #333333;
   }
 
   .add-post {
@@ -103,10 +107,12 @@ author: Bailey, Travis, Leon, Anyi
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    transition: background-color 0.5s;
+    transition: all 0.5s;
+    box-shadow: 0px 0px 10px 5px #3b5998;
   }
   .add-post:hover{
     background-color: #5c79f8 !important;
+    box-shadow: 0px 0px 15px 7.5px #5c79f8;
   }
 
   .search-bar input {
@@ -162,6 +168,7 @@ author: Bailey, Travis, Leon, Anyi
     border-radius: 8px;
     font-size: 18px;
     color: #e0e0e0;
+    box-shadow: 0px 0px 10px 5px #333333;
   }
 
   .post-actions {
@@ -199,6 +206,7 @@ author: Bailey, Travis, Leon, Anyi
     padding: 15px;
     background-color: #444444;
     border-radius: 8px;
+    box-shadow: 0px 0px 10px 5px #444444;
   }
 
   .profile {
@@ -207,6 +215,7 @@ author: Bailey, Travis, Leon, Anyi
     border-radius: 8px;
     text-align: center;
     color: #ffffff;
+    box-shadow: 0px 0px 5px 2.5px #d81b60;
   }
 
   .profile-pic {
@@ -235,38 +244,48 @@ author: Bailey, Travis, Leon, Anyi
     background-color: #333333;
     color: #ffffff;
     margin-bottom: 10px;
+    box-shadow: 0px 0px 10px 5px #333333;
   }
 
   #postButton{
     cursor: pointer;
-    transition: background-color 0.5s;
+    transition: all 0.5s;
+    background-color:#455545 !important;
+    box-shadow: 0px 0px 1px 1px #455545;
   }
   #postButton:hover{
     background-color:#407540 !important;
+    box-shadow: 0px 0px 5px 2.5px #407540;
   }
 
   .like{
-    transition: background-color 0.5s;
+    transition: all 0.5s;
     background-color:#555555 !important;
+    box-shadow: 0px 0px 1px 1px #555555;
   }
   .like:hover{
-    background-color:#655555 !important;
+    background-color:#705555 !important;
+    box-shadow: 0px 0px 5px 2.5px #705555;
   }
 
   .comment{
-    transition: background-color 0.5s;
+    transition: all 0.5s;
     background-color:#555555 !important;
+    box-shadow: 0px 0px 1px 1px #555555;
   }
   .comment:hover{
-    background-color:#606060 !important;
+    background-color:#656565 !important;
+    box-shadow: 0px 0px 5px 2.5px #656565;
   }
 
   .share{
-    transition: background-color 0.5s;
+    transition: all 0.5s;
     background-color:#555555 !important;
+    box-shadow: 0px 0px 1px 1px #555555;
   }
   .share:hover{
-    background-color:#555565 !important;
+    background-color:#555570 !important;
+    box-shadow: 0px 0px 5px 2.5px #555570;
   }
 
 
@@ -291,7 +310,7 @@ author: Bailey, Travis, Leon, Anyi
   <!-- Left Sidebar (Add Post and Search Bar) -->
   <div class="left-sidebar">
       <button class="add-post" onclick="togglePostForm()"><img src="{{site.baseurl}}//images/p1group5images/plusicon.png"></button>
-      <p>Add new post</p>
+      <p>Add new temporary post</p>
       <div class="search-bar">
         <input type="text" placeholder="Search...">
       </div>
@@ -501,19 +520,6 @@ author: Bailey, Travis, Leon, Anyi
                 <option value="">Select a channel</option>
             </select>
             <button type="submit">Select</button>
-        </form>
-    </div>
-</div>
-
-<div class="container">
-    <div class="form-container">
-        <h2>Add New Post</h2>
-        <form id="postForm">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required>
-            <label for="comment">Comment:</label>
-            <textarea id="comment" name="comment" required></textarea>
-            <button type="submit">Add Post</button>
         </form>
     </div>
 </div>
