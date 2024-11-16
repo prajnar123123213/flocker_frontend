@@ -8,6 +8,7 @@ authors: Ahaan, Xavier, Spencer, Vasanth
 
 
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -255,8 +256,6 @@ authors: Ahaan, Xavier, Spencer, Vasanth
       boardLayout[row][col] = "";
       drawBoard();
 
-      checkCheckAndCheckmate();
-
       turn = turn === "white" ? "black" : "white";
       turnIndicator.textContent = `Turn: ${turn.charAt(0).toUpperCase() + turn.slice(1)}`;
     }
@@ -271,8 +270,37 @@ authors: Ahaan, Xavier, Spencer, Vasanth
       }
     }
 
-    function checkCheckAndCheckmate() {
-      // Check and checkmate logic will be implemented here
+    // Chat functionality
+    const chatMessages = document.getElementById("chatMessages");
+    const messageInput = document.getElementById("messageInput");
+    const sendBtn = document.getElementById("sendBtn");
+
+    function addMessage(content, type = "user") {
+      const messageDiv = document.createElement("div");
+      messageDiv.classList.add("message", type === "user" ? "user-message" : "bot-message");
+      messageDiv.textContent = content;
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    sendBtn.addEventListener("click", () => {
+      const message = messageInput.value.trim();
+      if (message) {
+        addMessage(message, "user");
+        messageInput.value = "";
+        setTimeout(botResponse, 2000);
+      }
+    });
+
+    function botResponse() {
+      const motivationalMessages = [
+        "Keep it up! Your next move could be a game-changer.",
+        "Great effort! Remember, every master was once a beginner.",
+        "You're doing fantastic. Stay focused and enjoy the game!",
+      ];
+      const randomMessage =
+        motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
+      addMessage(randomMessage, "bot");
     }
 
     drawBoard();
