@@ -425,3 +425,402 @@ async function fetchChannels(groupName) {
     // Fetch groups when the page loads
     fetchGroups();
 </script>
+
+<!-- Discover New Artists Tab Content -->
+<div class="tab-content" id="discover">
+    <div class="chatroom-container">
+        <h2>Discover New Artists</h2>
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="searchQuery" placeholder="Search for more underground artists..." />
+            <button onclick="searchGoogle()">Search</button>
+        </div>
+        <ul class="artist-list">
+            <li class="artist-item">
+                <strong>Artist Name:</strong> Lil Xtra <br>
+                <span class="description">
+                    Most Listened Track: "Under Pressure"<br>
+                    Latest Album: *Lost in the Vibe*<br>
+                    Monthly Listeners: 150,000<br>
+                    Known for mixing emo with rap vibes.<br>
+                    <a href="https://open.spotify.com/track/47DlkXm0LgQcJcz4nry9Gw" target="_blank">Listen on Spotify</a>
+                </span>
+            </li>
+            <li class="artist-item">
+                <strong>Artist Name:</strong> Sad Frosty <br>
+                <span class="description">
+                    Most Listened Track: "ADHD"<br>
+                    Latest Album: *Graveyard Shift*<br>
+                    Monthly Listeners: 200,000<br>
+                    A unique sound with heavy beats and dark lyrics.<br>
+                    <a href="https://open.spotify.com/artist/4VQjfdCN5W8jvwy4AvEnin" target="_blank">Listen on Spotify</a>
+                </span>
+            </li>
+            <li class="artist-item">
+                <strong>Artist Name:</strong> Tokyo's Revenge <br>
+                <span class="description">
+                    Most Listened Track: "GOODMORNINGTOKYO!"<br>
+                    Latest Album: *From the Shadows*<br>
+                    Monthly Listeners: 500,000<br>
+                    Bringing aggressive energy and experimental rap.<br>
+                    <a href="https://open.spotify.com/artist/spotify-artist-link" target="_blank">Listen on Spotify</a>
+                </span>
+            </li>
+            <li class="artist-item">
+                <strong>Artist Name:</strong> Powfu <br>
+                <span class="description">
+                    Most Listened Track: "Death Bed"<br>
+                    Latest Album: *Poems of the Past*<br>
+                    Monthly Listeners: 3,000,000<br>
+                    Known for blending lo-fi beats with heartfelt lyrics.<br>
+                    <a href="https://open.spotify.com/artist/spotify-artist-link" target="_blank">Listen on Spotify</a>
+                </span>
+            </li>
+            <li class="artist-item">
+                <strong>Artist Name:</strong> Shinigami <br>
+                <span class="description">
+                    Most Listened Track: "Lovers and Friends"<br>
+                    Latest Album: *Eternal Nightmare*<br>
+                    Monthly Listeners: 100,000<br>
+                    Combines rap and emotional lyrics with a dark, gothic style.<br>
+                    <a href="https://open.spotify.com/artist/spotify-artist-link" target="_blank">Listen on Spotify</a>
+                </span>
+            </li>
+            <!-- Add more artists as needed -->
+        </ul>
+    </div>
+</div>
+
+<style>
+    .chatroom-container h2 {
+        font-size: 2rem;
+        color: #FFD700;
+        text-align: center;
+        margin-bottom: 20px;
+        text-shadow: 0 4px 12px rgba(255, 215, 0, 0.8);
+    }
+    /* Search Bar Styling */
+    .search-bar {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    .search-bar input[type="text"] {
+        padding: 10px;
+        width: 300px;
+        border: 1px solid #FFD700;
+        border-radius: 6px 0 0 6px;
+        background-color: #333;
+        color: #FFD700;
+        outline: none;
+    }
+    .search-bar button {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 0 6px 6px 0;
+        background-color: #FFD700;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .search-bar button:hover {
+        background-color: #FFC700;
+    }
+
+    .artist-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .artist-item {
+        background: rgba(15, 15, 15, 0.9); /* Dark background */
+        border: 1px solid #FFD700;
+        color: #FFD700;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        backdrop-filter: blur(4px); /* Adds slight blur to the background */
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .artist-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 215, 0, 0.1); /* Yellow overlay */
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .artist-item:hover::before {
+        opacity: 1;
+    }
+    .artist-item:hover {
+        transform: scale(1.05); /* Grows slightly on hover */
+        background: rgba(255, 215, 0, 0.1); /* Slight yellow tint on hover */
+        box-shadow: 0px 10px 20px rgba(255, 215, 0, 0.3); /* Glow effect */
+    }
+    .artist-item:hover .description {
+        opacity: 1;
+        transform: translateY(0); /* Slides in the description */
+    }
+    .description {
+        display: block;
+        margin-top: 5px;
+        color: #AAA; /* Slightly lighter color for description */
+        font-size: 0.9rem;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .description a {
+        color: #FFD700;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .description a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<script>
+    function searchGoogle() {
+        const query = document.getElementById('searchQuery').value;
+        if (query) {
+            const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}+underground+artists`;
+            window.open(googleSearchUrl, '_blank'); // Opens Google search in a new tab
+        } else {
+            alert("Please enter a search term."); // Alert if search is empty
+        }
+    }
+</script>
+
+<!-- Mini AI Assistant -->
+<div class="ai-assistant" id="aiAssistant">
+    <h3>Your Music Assistant</h3>
+    <div class="chat-window" id="chat-window">
+        <!-- Messages will appear here -->
+    </div>
+    <!-- Predefined Response Buttons -->
+    <div class="response-buttons">
+        <button onclick="sendPredefinedMessage('recommend a song')">Recommend a Song</button>
+        <button onclick="sendPredefinedMessage('suggest an artist')">Suggest an Artist</button>
+        <button onclick="sendPredefinedMessage('lo-fi recommendation')">Lo-fi Recommendation</button>
+        <button onclick="sendPredefinedMessage('recommend a rap artist')">Recommend a Rap Artist</button>
+        <button onclick="sendPredefinedMessage('dark theme music')">Dark Theme Music</button>
+        <button onclick="sendPredefinedMessage('tell me about underground music')">About Underground Music</button>
+        <button onclick="sendPredefinedMessage('good playlist')">Good Playlist</button>
+    </div>
+</div>
+
+<style>
+    /* AI Assistant Styling */
+    .ai-assistant {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        background-color: #1A1A1A;
+        color: #FFD700;
+        border: 2px solid #FFD700;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        font-family: Arial, sans-serif;
+        cursor: move; /* Indicate draggable area */
+    }
+    .ai-assistant h3 {
+        margin: 0 0 10px 0;
+        color: #FFD700;
+        text-align: center;
+        cursor: move;
+    }
+    .chat-window {
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: #333;
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+        color: #FFF;
+    }
+    .chat-window p {
+        margin: 5px 0;
+    }
+    .user-message {
+        color: #FFD700;
+        font-weight: bold;
+    }
+    .assistant-message {
+        color: #FFF;
+        margin-left: 10px;
+    }
+    /* Response Buttons Styling */
+    .response-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        justify-content: center;
+    }
+    .response-buttons button {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 6px;
+        background-color: #FFD700;
+        color: #000;
+        cursor: pointer;
+        font-size: 0.8rem;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+    .response-buttons button:hover {
+        background-color: #FFC700;
+    }
+    .follow-up-buttons {
+        margin-top: 5px;
+        display: flex;
+        gap: 5px;
+    }
+    .follow-up-buttons button {
+        padding: 4px 8px;
+        border: none;
+        border-radius: 4px;
+        background-color: #FFD700;
+        color: #000;
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: background-color 0.3s ease;
+    }
+    .follow-up-buttons button:hover {
+        background-color: #FFC700;
+    }
+</style>
+
+<script>
+    // Make the AI Assistant draggable
+    dragElement(document.getElementById("aiAssistant"));
+
+    function dragElement(el) {
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+        // Mouse down event on the header to start dragging
+        el.onmousedown = dragMouseDown;
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+
+            // Get the mouse cursor position at startup
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+
+            // Call a function whenever the cursor moves
+            document.onmousemove = elementDrag;
+            document.onmouseup = closeDragElement;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+
+            // Calculate the new cursor position
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+
+            // Set the element's new position
+            el.style.top = (el.offsetTop - pos2) + "px";
+            el.style.left = (el.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            // Stop moving when mouse button is released
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+
+    // Define possible responses for each type of question
+    const responses = {
+        "recommend a song": [
+            "I recommend checking out 'Under Pressure' by Lil Xtra!",
+            "How about 'Sad!' by XXXTentacion?",
+            "Try listening to 'Moonlight' by XXXTentacion."
+        ],
+        "suggest an artist": [
+            "You might like Sad Frosty if you're into dark lyrics with heavy beats.",
+            "Check out Powfu for lo-fi vibes and heartfelt lyrics.",
+            "Tokyo's Revenge has some aggressive energy and experimental rap."
+        ],
+        "lo-fi recommendation": [
+            "Try listening to Powfu's 'Death Bed' if you enjoy lo-fi vibes.",
+            "You might enjoy 'Lofi Beats' on Spotify for chill, relaxing tracks.",
+            "Check out 'Cold Nights' by Saib for some smooth lo-fi vibes."
+        ],
+        "recommend a rap artist": [
+            "Tokyo's Revenge brings a lot of energy and unique style in rap.",
+            "Sad Frosty has some unique dark rap beats.",
+            "Lil Darkie is experimental with a unique sound in underground rap."
+        ],
+        "dark theme music": [
+            "Shinigami's 'Lovers and Friends' has a dark, gothic style that fits the vibe.",
+            "'Stressed Out' by Twenty One Pilots has a melancholic, dark feel.",
+            "Try 'Hurt' by Oliver Tree for a darker theme."
+        ],
+        "tell me about underground music": [
+            "Underground music is often created by independent artists. It's a space for raw, unique styles!",
+            "Underground music is usually outside the mainstream, with artists experimenting with different sounds.",
+            "It's where unique sounds flourish, often without commercial influence."
+        ],
+        "good playlist": [
+            "Check out 'Chill Rap' on Spotify for some mellow beats and chill vibes.",
+            "'Lofi Chill & Study' on Spotify is great for relaxing background music.",
+            "Try 'Rap Caviar' on Spotify for a mix of popular and underground hits."
+        ]
+    };
+
+    // Track the current index of responses for each type of message
+    const responseIndex = {};
+
+    // Function to send a predefined message and cycle through responses
+    function sendPredefinedMessage(message) {
+        const chatWindow = document.getElementById('chat-window');
+        
+        // Display user message
+        const userMessage = document.createElement('p');
+        userMessage.className = 'user-message';
+        userMessage.innerText = "You: " + message;
+        chatWindow.appendChild(userMessage);
+        
+        // Get the response list and cycle through it
+        const responseList = responses[message];
+        if (!responseIndex[message]) responseIndex[message] = 0;
+        const response = responseList[responseIndex[message]];
+        responseIndex[message] = (responseIndex[message] + 1) % responseList.length; // Cycle to the next response
+
+        // Display AI response
+        const assistantMessage = document.createElement('p');
+        assistantMessage.className = 'assistant-message';
+        assistantMessage.innerHTML = "AI Assistant: " + response;
+        chatWindow.appendChild(assistantMessage);
+        
+        // Add follow-up options
+        const followUp = document.createElement('div');
+        followUp.className = 'follow-up-buttons';
+        followUp.innerHTML = `
+            <button onclick="sendPredefinedMessage('${message}')">Another suggestion</button>
+            <button onclick="sendPredefinedMessage('tell me about underground music')">Tell me about underground music</button>
+        `;
+        chatWindow.appendChild(followUp);
+        
+        // Scroll to the latest message
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+</script>
