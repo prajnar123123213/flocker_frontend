@@ -174,6 +174,9 @@ permalink: /undgdmusic/
             <label for="channel_id">Channel:</label>
             <select id="channel_id" name="channel_id" required>
                 <option value="">Select a channel</option>
+                <option value="">Artists</option>
+                <option value="">Songs</option>
+                <option value="">Genres</option>
             </select>
             <button type="submit">Select</button>
         </form>
