@@ -3,18 +3,181 @@ layout: post
 title: Vote for the GOATs of the NFL
 description: Made By Noah H, James E, and Zafeer A
 permalink: /voteforthegoat/nflgoats
-comments: true
+comments: false
 ---
 
+<style>
+/* Welcome Banner Styles */
+#welcomeBanner {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(135deg, #1e90ff, #ff4500);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    animation: fadeIn 2s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-# Welcome to "Vote for the GOAT"
+#welcomeBanner h1 {
+    font-size: 3rem;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
 
-This site allows you to vote for your favorite football players and engage in discussions. You can express your preferences on who you believe is the greatest of all time. After voting, feel free to leave comments and debate your selections with others!
+#welcomeBanner p {
+    font-size: 1.5rem;
+    margin: 10px 0 0;
+}
 
-There are five different polls where you vote for the greatest Quarterback, Wide Receiver, Defensive Player, Running Back, and NFL Division of all time. Each player (or division) has their own digitally crafted card with a picture and statistics from their career. You vote for the player by clicking on the card, then there should be a section below that allows you to submit a comment along with a username.
+#welcomeBanner .cta {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: white;
+    color: #1e90ff;
+    border-radius: 50px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+#welcomeBanner .cta:hover {
+    background: #ff4500;
+    color: white;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card Container Styles */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.card {
+    width: 250px;
+    background: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.card img {
+    width: 100%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.card h3 {
+    margin: 10px 0;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+/* Comment Section Styles */
+.comment-section {
+    margin: 20px 0;
+    padding: 20px;
+    background: #f1f1f1;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.comment-section h3 {
+    margin-bottom: 15px;
+    color: #1e90ff;
+    text-align: center;
+}
+
+.comment-section input,
+.comment-section textarea {
+    width: calc(100% - 20px);
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: block;
+}
+
+.comment-section button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #1e90ff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.comment-section button:hover {
+    background: #ff4500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #welcomeBanner h1 {
+        font-size: 2rem;
+    }
+
+    #welcomeBanner p {
+        font-size: 1rem;
+    }
+
+    .card {
+        width: 200px;
+    }
+}
+</style>
+
+<div id="welcomeBanner">
+    <h1>Welcome to NFL GOATs Voting</h1>
+    <p>The ultimate showdown to choose the greatest players in NFL history.</p>
+    <div class="cta" onclick="scrollToSection()">Cast Your Vote Now!</div>
+</div>
+
+<script>
+function scrollToSection() {
+    document.querySelector('.card-container').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
 
 
-## Quarterback Voting
+<div class="comment-section" id="commentSectionQB" style="display: none;">
+    <h3>Leave a Comment (Quarterbacks):</h3>
+    <input type="text" id="usernameInputQB" placeholder="Enter your username">
+    <textarea id="commentInputQB" placeholder="Enter your comment"></textarea>
+    <button onclick="addComment('QB')">Submit</button>
+    <div class="comment-list" id="commentListQB"></div>
+</div>
+
 
 <script>
   // Function to select a player and show the comment section for that category
@@ -53,69 +216,173 @@ There are five different polls where you vote for the greatest Quarterback, Wide
       commentInput.value = "";
   }
 </script>
+## Quarterback Voting
+<!-- Add this style for modal and animation -->
+<style>
+/* Modal Background */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
 
+/* Modal Content */
+.modal-content {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    animation: zoomIn 0.5s ease-in-out;
+}
 
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-  <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Tom Brady', 'QB')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Tom_Brady.png" alt="Tom Brady" style="width: 100%;">
-  </div>
-  
-  <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Joe Montana', 'QB')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Joe_Montana.png" alt="Joe Montana" style="width: 100%;">
-  </div>
-  
-  <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Johnny Unitas', 'QB')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Johnny_Unitas.png" alt="Johnny Unitas" style="width: 100%;">
-  </div>
-  
-  <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Peyton Manning', 'QB')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Peyton_Manning.png" alt="Peyton Manning" style="width: 100%;">
-  </div>
-  
-  <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Brett Favre', 'QB')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Brett_Farve.png" alt="Brett Favre" style="width: 100%;">
-  </div>
-  
-  <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Dan Marino', 'QB')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Dan_Marino.png" alt="Dan Marino" style="width: 100%;">
-  </div>
-  
-  <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Steve Young', 'QB')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Steve_Young.png" alt="Steve Young" style="width: 100%;">
-  </div>
-  
-  <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('John Elway', 'QB')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/John_Elway.png" alt="John Elway" style="width: 100%;">
-  </div>
-  
-  <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Drew Brees', 'QB')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Drew_Brees.png" alt="Drew Brees" style="width: 100%;">
-  </div>
-  
-  <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Aaron Rodgers', 'QB')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Aaron_Rodgers.png" alt="Aaron Rodgers" style="width: 100%;">
-  </div>
-  
-  <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Ben Roethlisberger', 'QB')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Ben_Roethlisberger.png" alt="Ben Roethlisberger" style="width: 100%;">
-  </div>
-  
-  <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Fran Tarkenton', 'QB')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Fran_Tarkenton.png" alt="Fran Tarkenton" style="width: 100%;">
-  </div>
-  
-  <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Patrick Mahomes', 'QB')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Patrick_Mahomes.png" alt="Patrick Mahomes" style="width: 100%;">
-  </div>
-  
-  <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Troy Aikman', 'QB')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Troy_Aikman.png" alt="Troy Aikman" style="width: 100%;">
-  </div>
-  
-  <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Eli Manning', 'QB')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Eli_Manning.png" alt="Eli Manning" style="width: 100%;">
-  </div>
+.modal-content img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Close Button */
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: white;
+    color: black;
+    border: none;
+    border-radius: 50%;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s;
+}
+
+.modal-close:hover {
+    background: #ff4500;
+    color: white;
+}
+
+/* Keyframe for zoom-in effect */
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+</style>
+
+<!-- Modal Structure -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content" id="modalContent">
+        <button class="modal-close" id="modalClose">×</button>
+        <img id="modalImage" src="" alt="Enlarged Image">
+    </div>
 </div>
+
+<!-- Add this script for modal functionality -->
+<script>
+    // Function to open modal with the clicked image
+    function openModal(imageSrc) {
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalImage = document.getElementById('modalImage');
+        modalImage.src = imageSrc; // Set the image source
+        modalOverlay.style.display = 'flex'; // Show the modal
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        const modalOverlay = document.getElementById('modalOverlay');
+        modalOverlay.style.display = 'none'; // Hide the modal
+    }
+
+    // Attach close event to the close button
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+
+    // Attach close event to the modal background
+    document.getElementById('modalOverlay').addEventListener('click', closeModal);
+</script>
+
+<!-- Updated card container for Tom Brady and Joe Montana -->
+<div class="card-container">
+    <!-- Tom Brady Card -->
+    <div class="card" onclick="openModal('{{site.baseurl}}/images/nfl-icons/Quarterbacks/Tom_Brady.png')">
+        <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Tom_Brady.png" alt="Tom Brady">
+        <h3>Tom Brady</h3>
+    </div>
+
+    <!-- Joe Montana Card -->
+    <div class="card" onclick="openModal('{{site.baseurl}}/images/nfl-icons/Quarterbacks/Joe_Montana.png')">
+        <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Joe_Montana.png" alt="Joe Montana">
+        <h3>Joe Montana</h3>
+    </div>
+</div>
+
+ <div class="quarterback-cards">
+    <div class="card-container">
+        <div class="card" onclick="openModal('{{site.baseurl}}/images/nfl-icons/Quarterbacks/Johnny_Unitas.png')">
+            <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Johnny_Unitas.png" alt="Johnny Unitas">
+            <h3>Johnny Unitas</h3>
+        </div>
+        <div class="card" onclick="openModal('{{site.baseurl}}/images/nfl-icons/Quarterbacks/Peyton_Manning.png')">
+            <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Peyton_Manning.png" alt="Peyton Manning">
+            <h3>Peyton Manning</h3>
+        </div>
+        <div class="card" onclick="openModal('{{site.baseurl}}/images/nfl-icons/Quarterbacks/Brett_Farve')">
+            <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Brett_Farve.png" alt="Brett Favre">
+            <h3>Brett Favre</h3>
+        </div>
+        <div class="card" onclick="openModal('{{site.baseurl}}/images/nfl-icons/Quarterbacks/Dan_Marino.png')">
+            <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Dan_Marino.png" alt="Dan Marino">
+            <h3>Dan Marino</h3>
+        </div>
+        <div class="card" onclick="openModal('{{site.baseurl}}/images/nfl-icons/Quarterbacks/Steve_Young.png')">
+            <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Steve_Young.png" alt="Steve Young">
+            <h3>Steve Young</h3>
+        </div>
+        <div class="card" onclick="openModal('{{site.baseurl}}/images/nfl-icons/Quarterbacks/John_Elway.png')">
+            <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/John_Elway.png" alt="John Elway">
+            <h3>John Elway</h3>
+        </div>
+        <div class="card" onclick="openModal('{{site.baseurl}}/images/nfl-icons/Quarterbacks/Drew_Brees.png')">
+            <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Drew_Brees.png" alt="Drew Brees">
+            <h3>Drew Brees</h3>
+        </div>
+        <div class="card" onclick="openModal('{{site.baseurl}}/images/nfl-icons/Quarterbacks/Aaron_Rodgers.png')">
+            <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Aaron_Rodgers.png" alt="Aaron Rodgers">
+            <h3>Aaron Rodgers</h3>
+        </div>
+        <div class="card" onclick="openModal('{{site.baseurl}}/images/nfl-icons/Quarterbacks/Ben_Roethlisberger.png')">
+            <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Ben_Roethlisberger.png" alt="Ben Roethlisberger">
+            <h3>Ben Roethlisberger</h3>
+        </div>
+        <div class="card" onclick="openModal('{{site.baseurl}}/images/nfl-icons/Quarterbacks/Fran_Tarkenton.png')">
+            <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Fran_Tarkenton.png" alt="Fran Tarkenton">
+            <h3>Fran Tarkenton</h3>
+        </div>
+        <div class="card" onclick="openModal('{{site.baseurl}}/images/nfl-icons/Quarterbacks/Patrick_Mahomes.png')">
+            <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Patrick_Mahomes.png" alt="Patrick Mahomes">
+            <h3>Patrick Mahomes</h3>
+        </div>
+        <div class="card" onclick="openModal('{{site.baseurl}}/images/nfl-icons/Quarterbacks/Troy_Aikman.png')">
+            <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Troy_Aikman.png" alt="Troy Aikman">
+            <h3>Troy Aikman</h3>
+        </div>
+        <div class="card" onclick="openModal('{{site.baseurl}}/images/nfl-icons/Quarterbacks/Eli_Manning.png')">
+            <img src="{{site.baseurl}}/images/nfl-icons/Quarterbacks/Eli_Manning.png" alt="Eli Manning">
+            <h3>Eli Manning</h3>
+        </div>
+    </div>
+</div>
+
 
 <div id="selectedPlayerQB" style="color: #333; margin-top: 20px;"></div>
 
@@ -179,7 +446,7 @@ There are five different polls where you vote for the greatest Quarterback, Wide
   </div>
   
   <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Davante Adams', 'WR')">
-    <img src="{{site.baseurl}}/images/nfl-icons/Wide Receivers/Davante_Adams.png" alt="Davante Adams" style="width: 100%;">
+    <img src="{{site.baseurl}}/images/nfl-icons/Wide Receivers/davante_adams.png" alt="Davante Adams" style="width: 100%;">
   </div>
   
   <div style="width: 30%; text-align: center; margin-bottom: 20px;" onclick="selectPlayer('Chris Carter', 'WR')">
@@ -515,3 +782,277 @@ There are five different polls where you vote for the greatest Quarterback, Wide
     <button onclick="addComment('D');" class="comment-button">Submit</button>
     <div class="comment-list" id="commentListD" style="margin-top: 10px;"></div>
 </div>
+
+
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-width: 1200px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 800px;
+        width: 100%;
+        background-color: #2c3e50;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        color: #ecf0f1;
+    }
+    .form-container label {
+        margin-bottom: 5px;
+    }
+    .form-container input, .form-container textarea, .form-container select {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        width: 100%;
+    }
+    .form-container button {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #34495e;
+        color: #ecf0f1;
+        cursor: pointer;
+    }
+</style>
+
+<div class="container">
+    <div class="form-container">
+        <h2>Select Group and Channel</h2>
+        <form id="selectionForm">
+            <label for="group_id">Group:</label>
+            <select id="group_id" name="group_id" required>
+                <option value="">Select a group</option>
+            </select>
+            <label for="channel_id">Channel:</label>
+            <select id="channel_id" name="channel_id" required>
+                <option value="">Select a channel</option>
+            </select>
+            <button type="submit">Select</button>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div class="form-container">
+        <h2>Add New Post</h2>
+        <form id="postForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+            <label for="comment">Comment:</label>
+            <textarea id="comment" name="comment" required></textarea>
+            <button type="submit">Add Post</button>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div id="data" class="data">
+        <div class="left-side">
+            <p id="count"></p>
+        </div>
+        <div class="details" id="details">
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    // Import server URI and standard fetch options
+    import { pythonURI, fetchOptions } from '{{ site.baseurl }}/assets/js/api/config.js';
+
+    /**
+     * Fetch groups for dropdown selection
+     * User picks from dropdown
+     */
+    async function fetchGroups() {
+        try {
+            const response = await fetch(`${pythonURI}/api/groups/filter`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ section_name: "Vote for the GOAT" }) // Adjust the section name as needed
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch groups: ' + response.statusText);
+            }
+            const groups = await response.json();
+            const groupSelect = document.getElementById('group_id');
+            groups.forEach(group => {
+                const option = document.createElement('option');
+                option.value = group.name; // Use group name for payload
+                option.textContent = group.name;
+                groupSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error fetching groups:', error);
+        }
+    }
+
+    /**
+     * Fetch channels based on selected group
+     * User picks from dropdown
+     */
+    async function fetchChannels(groupName) {
+        try {
+            const response = await fetch(`${pythonURI}/api/channels/filter`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ group_name: groupName })
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch channels: ' + response.statusText);
+            }
+            const channels = await response.json();
+            const channelSelect = document.getElementById('channel_id');
+            channelSelect.innerHTML = '<option value="">Select a channel</option>'; // Reset channels
+            channels.forEach(channel => {
+                const option = document.createElement('option');
+                option.value = channel.id;
+                option.textContent = channel.name;
+                channelSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error fetching channels:', error);
+        }
+    }
+
+    /**
+      * Handle group selection change
+      * Channel Dropdown refresh to match group_id change
+      */
+    document.getElementById('group_id').addEventListener('change', function() {
+        const groupName = this.value;
+        if (groupName) {
+            fetchChannels(groupName);
+        } else {
+            document.getElementById('channel_id').innerHTML = '<option value="">Select a channel</option>'; // Reset channels
+        }
+    });
+
+    /**
+     * Handle form submission for selection
+     * Select Button: Computer fetches and displays posts
+     */
+    document.getElementById('selectionForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const groupId = document.getElementById('group_id').value;
+        const channelId = document.getElementById('channel_id').value;
+        if (groupId && channelId) {
+            fetchData(channelId);
+        } else {
+            alert('Please select both group and channel.');
+        }
+    });
+
+    /**
+     * Handle form submission for adding a post
+     * Add Form Button: Computer handles form submission with request
+     */
+    document.getElementById('postForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        // Extract data from form
+        const title = document.getElementById('title').value;
+        const comment = document.getElementById('comment').value;
+        const channelId = document.getElementById('channel_id').value;
+
+        // Create API payload
+        const postData = {
+            title: title,
+            comment: comment,
+            channel_id: channelId
+        };
+
+        // Trap errors
+        try {
+            // Send POST request to backend, purpose is to write to database
+            const response = await fetch(`${pythonURI}/api/post`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add post: ' + response.statusText);
+            }
+
+            // Successful post
+            const result = await response.json();
+            alert('Post added successfully!');
+            document.getElementById('postForm').reset();
+            fetchData(channelId);
+        } catch (error) {
+            // Present alert on error from backend
+            console.error('Error adding post:', error);
+            alert('Error adding post: ' + error.message);
+        }
+    });
+
+    /**
+     * Fetch posts based on selected channel
+     * Handle response: Fetch and display posts
+     */
+    async function fetchData(channelId) {
+        try {
+            const response = await fetch(`${pythonURI}/api/posts/filter`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ channel_id: channelId })
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch posts: ' + response.statusText);
+            }
+
+            // Parse the JSON data
+            const postData = await response.json();
+
+            // Extract posts count
+            const postCount = postData.length || 0;
+
+            // Update the HTML elements with the data
+            document.getElementById('count').innerHTML = `<h2>Count ${postCount}</h2>`;
+
+            // Get the details div
+            const detailsDiv = document.getElementById('details');
+            detailsDiv.innerHTML = ''; // Clear previous posts
+
+            // Iterate over the postData and create HTML elements for each item
+            postData.forEach(postItem => {
+                const postElement = document.createElement('div');
+                postElement.className = 'post-item';
+                postElement.innerHTML = `
+                    <h3>${postItem.title}</h3>
+                    <p><strong>Channel:</strong> ${postItem.channel_name}</p>
+                    <p><strong>User:</strong> ${postItem.user_name}</p>
+                    <p>${postItem.comment}</p>
+                `;
+                detailsDiv.appendChild(postElement);
+            });
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    // Fetch groups when the page loads
+    fetchGroups();
+</script>

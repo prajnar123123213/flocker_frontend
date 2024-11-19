@@ -5,7 +5,7 @@ layout: post
 title: Entering The House
 Authors: Maryam, Nora, Kushi, Joanna
 ---
-<script type="module" src="{{site.baseurl}}/navigation/voteforthegoat/calico.js"></script>
+<!--<script type="module" src="{{site.baseurl}}/navigation/voteforthegoat/calico.js"></script>-->
 
 <style>
     /* Base Styles */
@@ -156,7 +156,7 @@ body {
     background-color: transparent;
     }
 </style>
-
+<!--
  <div class="sidebar">
         <button class="sidebar-button" data-house="Adventure Play House" data-channel-id="22" id="adventure-play-house">Adventure Play House</button>
         <button class="sidebar-button" data-house="Sylvanian Family Restraunt House" data-channel-id="23" id="sylvanian-restaurant-house">Sylvanian Family Restraunt House</button>
@@ -165,6 +165,8 @@ body {
         <button class="sidebar-button" data-house="Spooky Suprise Haunted House" data-channel-id="26" id="spooky-surprise-haunted">Spooky Suprise Haunted House</button>
         <button class="sidebar-button" data-house="Brick Oven Bakery House" data-channel-id="27" id="brick-oven-bakery">Brick Oven Bakery House</button>
     </div>
+-->
+<h1 id="pageTitle"></h1>
 
 <div class="content">
     <div id="houseInfo" class="house-info">Loading...</div>
@@ -173,32 +175,246 @@ body {
     <button id="backButton" class="button">Go Back</button>
     <button id="clearPostsButton">Clear All Posts</button>
     <div id="postsContainer"></div>
+    <div id="postForm"></div>
 </div>
 
 <div class="container">
     <div class="form-container">
         <form id="selectionForm">
-            <input type="hidden" id="group_id" name="group_id" value="Calico Vote">
+            <label for="group_id">Group:</label>
+            <select id="group_id" name="group_id">
+                <option value="Calico Vote">Calico Vote</option>
+            </select>            
             <label for="channel_id">Channel:</label>
             <select id="channel_id" name="channel_id" required>
                 <option value="">Select a channel</option>
-                <option value="" data-channel-id="22">Adventure Play House</option>
-                <option value="" data-channel-id="23">Sylvanian Family Restraunt House</option>
-                <option value="" data-channel-id="24">Magical Mermaid Castle House</option>
-                <option value="" data-channel-id="25">Woody School House</option>
-                <option value="" data-channel-id="26">Spooky Suprise Haunted House</option>
-                <option value="" data-channel-id="27">Brick Oven Bakery House</option>
+                <option value="Adventure Play" data-channel-id="22">Adventure Play House</option>
+                <option value="Sylvanian Family Restaurant" data-channel-id="23">Sylvanian Family Restaurant House</option>
+                <option value="Magical Mermaid Castle" data-channel-id="24">Magical Mermaid Castle House</option>
+                <option value="Woody School" data-channel-id="25">Woody School House</option>
+                <option value="Spooky Surprise Haunted" data-channel-id="26">Spooky Surprise Haunted House</option>
+                <option value="Brick Oven Bakery" data-channel-id="27">Brick Oven Bakery House</option>
             </select>
             <button type="submit">Select</button>
         </form>
     </div>
 </div>
 
+<div id="createPostForm" class="post-container" style="display: none;">
+    <!--<textarea id="postContent" class="textarea-container" placeholder="Write something..."></textarea>-->
+    <textarea id="postContent" class="textarea-container" placeholder="Write something..."></textarea>
+    <input type="file" id="imageInput" accept="image/*">
+    <img id="imagePreview" class="image-preview" alt="Image Preview">
+    <button id="submitPostButton" class="post-button">Post</button>
+</div>
+
+<div id="title">
+<div id="comment">
+
+<script type="module">
+    import { pythonURI, fetchOptions } from '../../assets/js/api/config.js';
+
+    console.log("calico.js accessed");
+
+    async function fetchGroups() {
+        try {
+            const response = await fetch(`${pythonURI}/api/groups/filter`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ section_name: "Vote for the GOAT" }) // Adjust the section name as needed
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch groups: ' + response.statusText);
+            }
+            const groups = await response.json();
+            const groupSelect = document.getElementById('group_id');
+            groups.forEach(group => {
+                const option = document.createElement('option');
+                option.value = group.name; // Use group name for payload
+                option.textContent = group.name;
+                groupSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error fetching groups:', error);
+        }
+    }
+
+    async function fetchChannels(groupName) {
+        try {
+            const response = await fetch(`${pythonURI}/api/channels/filter`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ group_name: groupName })
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch channels: ' + response.statusText);
+            }
+            const channels = await response.json();
+            const channelSelect = document.getElementById('channel_id');
+            channels.forEach(channel => {
+                const option = document.createElement('option');
+                option.value = channel.id;
+                option.textContent = channel.name;
+                channelSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error fetching channels:', error);
+        }
+    }
+
+    async function fetchData(channelId) {
+        try {
+            const response = await fetch(`${pythonURI}/api/posts/filter`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ channel_id: channelId })
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch posts: ' + response.statusText);
+            }
+
+            // Parse the JSON data
+            const postData = await response.json();
+
+            // Extract posts count
+            const postCount = postData.length || 0;
+
+            // Update the HTML elements with the data
+            document.getElementById('count').innerHTML = `<h2>Count ${postCount}</h2>`;
+
+            // Get the details div
+            const detailsDiv = document.getElementById('details');
+            detailsDiv.innerHTML = ''; // Clear previous posts
+
+            // Iterate over the postData and create HTML elements for each item
+            postData.forEach(postItem => {
+                const postElement = document.createElement('div');
+                postElement.className = 'post-item';
+                postElement.innerHTML = `
+                    <h3>${postItem.title}</h3>
+                    <p><strong>Channel:</strong> ${postItem.channel_name}</p>
+                    <p><strong>User:</strong> ${postItem.user_name}</p>
+                    <p>${postItem.comment}</p>
+                `;
+                detailsDiv.appendChild(postElement);
+            });
+            
+        } catch (error) {
+            //console.error('Error fetching data:', error);
+        }
+    }
+/*
+    document.querySelectorAll('.sidebar-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const houseName = button.getAttribute('data-house');
+            const channelId = button.getAttribute('value');
+            
+            // Call selectItem with the correct channel ID
+            selectItem(channelId);
+
+            // Store selected house in localStorage
+            localStorage.setItem('selectedHouse', houseName);
+            localStorage.setItem('selectedChannelId', channelId);
+
+            // Update the UI for the selected house
+            setBackground(houseName);
+            renderHousePage(houseName);
+            
+            // Fetch posts for the selected channel
+            fetchData(channelId);
+        });
+    });
+*/
+
+document.getElementById('selectionForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const groupId = document.getElementById('group_id').value;
+        const channelId = document.getElementById('channel_id').value;
+        if (groupId && channelId) {
+            fetchData(channelId);
+        } else {
+            alert('Please select both group and channel.');
+        }
+    });
+
+    console.log("right before postform")
+window.addEventListener('DOMContentLoaded', () => {
+    const postForm = document.getElementById('postForm');
+    if (postForm) {
+        postForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log("post form accessed");
+            const title = document.getElementById('title').value;
+            const comment = document.getElementById('comment').value;
+            const group = document.getElementById('group-select').value;
+            const savedHouse = localStorage.getItem('selectedHouse');
+            const channel = `${savedHouse}`;
+            const channelID = postForm.getAttribute('data-channel-id'); // Retrieve the saved channel ID
+            const groupname = "Calico Vote"; // Set the group name
+
+            const postData = {
+                title: title,
+                comment: comment,
+                channel_id: channelID
+            };
+
+            console.log("postdata accessed");
+
+            try {
+                const response = await fetch(`${pythonURI}/api/post`, {
+                    ...fetchOptions,
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(postData)
+                });
+
+                if (!response.ok) throw new Error('Failed to add post: ' + response.statusText);
+                alert("Post added successfully!");
+                console.log("post added successfully");
+                // Optionally, update the form or refresh posts
+            } catch (error) {
+                console.error('Error adding post:', error);
+                console.log("error adding post");
+            }
+        });
+    } else {
+        console.error("Post form not found in the DOM.");
+    }
+});
 
 
-<script>
-        const groupId = "Calico Vote";
-        window.onload = function() {
+    // Handle item selection
+    function selectItem(channelId) {
+        // Set the group ID and channel ID for posting
+        document.getElementById('group_id').value = "Calico Vote"; // Adjust if dynamic group setting is needed
+        document.getElementById('channel_id').value = channelId;
+
+        // Display the post form if hidden
+        const postForm = document.getElementById('postForm');
+        postForm.style.display = "block";
+    }
+
+    // Function Definitions for fetchGroups, fetchChannels, etc., go here
+
+    // Fetch groups when the page loads
+    //fetchGroups();
+
+    // On page load
+    const groupId = "Calico Vote";
+
+    document.getElementById('title').value = "Title here";
+    document.getElementById('comment').value = message;
+
+    window.onload = function() {
         const savedHouse = localStorage.getItem('selectedHouse');
         const houseInfo = document.getElementById('houseInfo');
         const message = document.getElementById('message');
@@ -216,8 +432,37 @@ body {
             houseInfo.textContent = "No house selected.";
             message.textContent = "Please go back and select a house.";
         }
-        fetchChannels(); // Fetch and populate channels dynamically
+
+        // Call fetchChannels with the correct groupId
+        fetchChannels(groupId); // Fetch and populate channels dynamically
+
         displayPosts(savedHouse);
+    };
+</script>
+
+
+<script>
+        const groupId = "Calico Vote";
+        window.onload = function() {
+            const savedHouse = localStorage.getItem('selectedHouse');
+            const houseInfo = document.getElementById('houseInfo');
+            const message = document.getElementById('message');
+            const pageTitle = document.getElementById('pageTitle');
+            console.log(`Stored house value: ${savedHouse}`);
+            if (savedHouse) {
+                console.log(`Setting background color and content for ${savedHouse}`);
+                setBackground(savedHouse);
+                renderHousePage(savedHouse);
+                houseInfo.textContent = `You selected: ${savedHouse} House`;
+                // Update page title and description based on the house
+                pageTitle.textContent = `${savedHouse} House Page`;
+                document.querySelector('meta[name="description"]').setAttribute('content', `Explore the ${savedHouse} House and its activities.`);
+            } else {
+                houseInfo.textContent = "No house selected.";
+                message.textContent = "Please go back and select a house.";
+            }
+            //fetchChannels(); // Fetch and populate channels dynamically
+            displayPosts(savedHouse);
     };
     function setBackground(house) {
     let color;
@@ -381,4 +626,3 @@ clearPostsButton.addEventListener('click', function() {
 
 
 </script>
-
