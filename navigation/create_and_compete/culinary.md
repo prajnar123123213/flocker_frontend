@@ -238,14 +238,12 @@ author: Daksha, Zach, Alex, Darsh
         background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
     }
 
-    /* Add a container for better content organization */
     .content-container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 20px;
     }
 
-    /* Style for recipe headings */
     .recipe h3 {
         color: #2c3e50;
         border-bottom: 2px solid #3498db;
@@ -253,13 +251,11 @@ author: Daksha, Zach, Alex, Darsh
         margin-bottom: 15px;
     }
 
-    /* Style for recipe description */
     .recipe p {
         color: #34495e;
         line-height: 1.6;
     }
 
-    /* Style for cooking time and ingredients */
     .recipe strong {
         color: #2980b9;
     }
