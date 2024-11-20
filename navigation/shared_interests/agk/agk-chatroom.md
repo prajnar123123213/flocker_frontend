@@ -2,7 +2,7 @@
 layout: post
 title: Shared Interests - AGK Chatroom
 search_exclude: true
-permalink: /shared_interests/agk/agk-chatroom
+permalink: /shared_interests/agk/agk-chatroom.html
 menu: nav/shared_interests.html
 author: Mihir, Pradyun, Derek, Ansh
 ---
@@ -17,19 +17,19 @@ author: Mihir, Pradyun, Derek, Ansh
         max-width: 600px;
         margin: 0 auto;
         padding: 20px;
-        border: 2px solid #C5B358;
+        border: 2px solid #360000;
         border-radius: 8px;
         background-color: #001F3F;
     }
     .chatroom-header {
         text-align: center;
-        color: #FFD700;
+        color: #ff4747;
     }
     .chat-area {
         height: 400px;
         overflow-y: auto;
-        background-color: #228B22;
-        border: 2px solid #C5B358;
+        background-color: #404040;
+        border: 2px solid #360000;
         border-radius: 8px;
         padding: 10px;
         margin-bottom: 20px;
@@ -45,7 +45,7 @@ author: Mihir, Pradyun, Derek, Ansh
         position: relative;
     }
     .message.sent {
-        background-color: #FFD700;
+        background-color: #ffd700;
         color: black;
         align-self: flex-end;
         position: relative;
@@ -57,7 +57,7 @@ author: Mihir, Pradyun, Derek, Ansh
     #messageInput {
         flex: 1;
         padding: 10px;
-        border: 2px solid #C5B358;
+        border: 2px solid #360000;
         border-radius: 5px;
     }
     button {
@@ -68,7 +68,20 @@ author: Mihir, Pradyun, Derek, Ansh
         cursor: pointer;
     }
     button:hover {
-        background-color: #C5B358;
+        background-color: #733f3f;
+    }
+    .chatroom-link {
+            display: block;
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #1A2A6C;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    .chatroom-link:hover {
+        background-color: #733f3f;
     }
 </style>
 <div class="chatroom-container">
@@ -83,6 +96,7 @@ author: Mihir, Pradyun, Derek, Ansh
             <input type="text" id="messageInput" placeholder="Enter your message..." required>
             <button type="submit">Send</button>
         </form>
+        <a href="{{site.baseurl}}/shared_interests/agk/agk.html" class="chatroom-link">Back to Home</a>
 </div>
 <script>
     const chatArea = document.getElementById('chatArea');

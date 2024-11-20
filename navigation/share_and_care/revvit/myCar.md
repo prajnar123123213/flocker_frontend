@@ -9,12 +9,13 @@ permalink: /share_and_care/revvit/mycar
 
 <html>
   <div class="card">
-    <h4><b>JOHN DOE</b></h4>
-    <img id="pfp" alt="Profile Picture" class="pfp">
+    <h4><b id="name">...</b></h4>
+    <img hidden id="pfp" alt="Profile Picture" class="pfp">
     <div class="container">
       <h5>MY RIDE</h5>
       <p>I will write more about my sick ride here! I will provide the MAKE, MODEL, and YEAR of my vehicle along with any other relavant information I would like to include!</p>
-      <img src="https://www.driving.co.uk/wp-content/uploads/sites/5/2010/08/Jeremy-Clarkson-reviews-the-Pagani-Zonda-R-1440.jpg" alt="Car" class="carpic">
+      <img id="car" src="https://www.driving.co.uk/wp-content/uploads/sites/5/2010/08/Jeremy-Clarkson-reviews-the-Pagani-Zonda-R-1440.jpg" alt="Car" class="carpic">
+      <input type="file" id="carPicture" accept="image/*" onchange="saveCarPhoto()">
     </div>
   </div>
 </html>

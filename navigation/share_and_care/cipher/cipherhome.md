@@ -92,8 +92,8 @@ permalink: /cipherhome/
 
 ## 🔗 Useful Links
 
-- [Cipher Resources](https://example.com/resources)
-- [Challenge Archive](https://example.com/archive)
+- [Cipher Information](https://www.cryptogram.org/resource-area/solve-a-cipher/)
+- [Cipher Resources](https://www.cryptogram.org/resource-area/solve-a-cipher/)
 - [Community Forum](/flocker_frontend/share_and_care/cipherdiscussion)
 
 ---

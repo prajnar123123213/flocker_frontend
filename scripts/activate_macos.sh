@@ -38,7 +38,7 @@ comment
 
 GITHUB_LOCATION=${1:-$(pwd)}
 #### Setup CompSci / GitHub Pages Tool Requirements
-$GITHUB_LOCATION/setup_macos.sh
+$GITHUB_LOCATION/scripts/setup_macos.sh
 #### Show instructions
 head -36 $GITHUB_LOCATION/activate_macos.sh
 echo "=== !!!Start a new Terminal!!! ==="

@@ -8,137 +8,210 @@ permalink: share_and_care/cipherdiscussion
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Post with Group Selection</title>
+    <title>Cipher Discussion</title>
     <style>
-        /* Container and form styling */
-        .container {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            max-width: 1200px;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .form-container {
+        /* General Styling */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #f0f0f0;
             display: flex;
             flex-direction: column;
-            max-width: 800px;
-            width: 100%;
-            background-color: #2C3E50;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        header { 
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            color: #ECF0F1;
-        }
-        .form-container label {
-            margin-bottom: 5px;
-        }
-        /* Style for the dropdown */
-        .form-container select {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
             width: 100%;
-            background-color: #34495E;
-            color: #ECF0F1;
-            font-size: 16px;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            outline: none;
+            max-width: 1000px;
+            background-color: #1a1a1a;
+            text-align: center;
+            border-bottom: 5px solid #d91e18;
         }
-        /* Button styling */
-        .form-container button {
+        header h1 { 
+            font-size: 2.8rem; 
+            color: #d91e18; 
+            text-shadow: 0px 2px 10px rgba(217, 30, 24, 0.7);
+        }
+        header p { 
+            color: #b0b0b0; 
+            font-size: 1rem; 
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 1000px;
+        }
+        .content-section {
+            width: 100%;
+            background-color: #1f1f1f;
+            padding: 20px;
+            border: 3px solid #d91e18;
+        }
+        .content-section h2 {
+            color: #d91e18;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 0px 2px 8px rgba(217, 30, 24, 0.7);
+        }
+        .content-section form input, .content-section form textarea, .content-section form button {
+            width: 100%;
+            margin-top: 10px;
             padding: 10px;
-            border-radius: 5px;
             border: none;
-            background-color: #34495E;
-            color: #ECF0F1;
+            background-color: #2e2e2e;
+            color: #f0f0f0;
+        }
+        .content-section form button {
+            background-color: #d91e18;
+            color: #1a1a1a;
+            font-weight: bold;
             cursor: pointer;
+        }
+        .posts-wrapper {
+            margin-bottom: 20px;
+        }
+        .chatroom-container .chat-area {
+            background-color: #2e2e2e;
+            padding: 15px;
+            height: 200px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+        .chatroom-container form input, .chatroom-container form button {
+            padding: 10px;
+            border: none;
+            background-color: #2e2e2e;
+            color: #f0f0f0;
+            margin-top: 5px;
+        }
+        .chatroom-container form button {
+            background-color: #d91e18;
+            color: #1a1a1a;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .post {
+            background-color: #2e2e2e;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        .post-header {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #d91e18;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="form-container">
-            <h2>Select Group and Create Post</h2>
-            <form id="postForm">
-                <label for="group_id">Group:</label>
-                <select id="group_id" name="group_id" required>
-                    <option value="">Select a group</option>
-                </select>
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title" required>
-                <label for="content">Content:</label>
-                <textarea id="content" name="content" required></textarea>
-                <button type="submit">Add Post</button>
-            </form>
-            <div id="details"></div>
-        </div>
+
+<header>
+    <h1>Welcome to Cipher Discussion!</h1>
+    <p>Share ideas, solve ciphers, and connect with others!</p>
+</header>
+
+<div class="main-container">
+    <div class="content-section posts-wrapper" id="postsWrapper">
+        <h2>Community Posts</h2>
+        <!-- Posts will be dynamically loaded here -->
     </div>
-    <script type="module">
-        // Import server URI and standard fetch options
-        const pythonURI = "https://flocker.nighthawkcodingsociety.com";
-        const fetchOptions = {
-            headers: {
-                'Authorization': 'Bearer YOUR_AUTH_TOKEN' // Replace with actual auth token if required
+    <div class="content-section">
+        <h2>Add a New Post</h2>
+        <form id="postForm">
+            <input type="text" id="usernameInput" placeholder="Enter your username" required>
+            <textarea id="postInput" placeholder="What's on your mind?" required></textarea>
+            <button type="submit">Post</button>
+        </form>
+    </div>
+</div>
+
+<div class="content-section chatroom-container">
+    <h2>Live Chatroom</h2>
+    <div class="chat-area" id="messages">
+        <!-- Messages will appear here -->
+    </div>
+    <form id="chat-form">
+        <input type="text" id="username" placeholder="Your Name" required>
+        <input type="text" id="message" placeholder="Type a message..." maxlength="200" required>
+        <button type="submit">Send</button>
+    </form>
+</div>
+
+<script type="module">
+    import { pythonURI, fetchOptions } from '../assets/js/api/config.js';
+
+    async function fetchPosts() {
+        try {
+            const response = await fetch(`${pythonURI}/api/posts`, fetchOptions);
+            if (!response.ok) {
+                throw new Error("Failed to fetch posts from the backend.");
             }
-        };
-        // Function to fetch groups for dropdown selection
-        async function fetchGroups() {
-            try {
-                const response = await fetch(`${pythonURI}/api/groups`, fetchOptions);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch groups: ' + response.statusText);
-                }
-                const groups = await response.json();
-                const groupSelect = document.getElementById('group_id');
-                groups.forEach(group => {
-                    const option = document.createElement('option');
-                    option.value = group.id;
-                    option.textContent = group.name;
-                    groupSelect.appendChild(option);
-                });
-            } catch (error) {
-                console.error('Error fetching groups:', error);
-            }
+            const posts = await response.json();
+            renderPosts(posts);
+        } catch (error) {
+            console.error("Error fetching posts:", error);
         }
-        // Handle form submission
-        document.getElementById('postForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            // Extract data from form
-            const title = document.getElementById('title').value;
-            const content = document.getElementById('content').value;
-            const group_id = document.getElementById('group_id').value;
-            // Create API payload
-            const postData = {
-                title: title,
-                content: content,
-                group_id: group_id
-            };
-            try {
-                // Send POST request to backend to add the new post
-                const response = await fetch(`${pythonURI}/api/post`, {
-                    ...fetchOptions,
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(postData)
-                });
-                if (!response.ok) {
-                    throw new Error('Failed to add post: ' + response.statusText);
-                }
-                alert('Post added successfully!');
-                document.getElementById('postForm').reset();
-            } catch (error) {
-                console.error('Error adding post:', error);
-                alert('Error adding post: ' + error.message);
+    }
+
+    function renderPosts(posts) {
+        document.getElementById('postsWrapper').innerHTML = posts.map(post => {
+            const username = post.username || "Anonymous"; 
+            const content = typeof post.content === 'string' ? post.content : JSON.stringify(post.content);
+
+            return `
+                <div class="post" data-post-id="${post.id}">
+                    <div class="post-header">${username}</div>
+                    <p>${content}</p>
+                </div>`;
+        }).join('');
+    }
+
+    async function addPost(event) {
+        event.preventDefault();
+        const username = document.getElementById('usernameInput').value || "Anonymous";
+        const content = document.getElementById('postInput').value;
+        const postData = { username, content };
+
+        try {
+            const response = await fetch(`${pythonURI}/api/posts`, {
+                ...fetchOptions,
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(postData)
+            });
+            if (!response.ok) {
+                throw new Error("Failed to add post to the backend.");
             }
+            document.getElementById('postForm').reset();
+            fetchPosts(); // Refresh posts after adding a new one
+        } catch (error) {
+            console.error("Error adding post:", error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchPosts();
+        
+        document.getElementById('postForm').addEventListener('submit', addPost);
+
+        document.getElementById('chat-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value || "Anonymous";
+            const message = document.getElementById('message').value;
+            const timestamp = new Date().toLocaleTimeString();
+            const messageHtml = `<p><span class="username">${username}</span>: ${message} <span class="timestamp">[${timestamp}]</span></p>`;
+            document.getElementById("messages").innerHTML += messageHtml;
+            event.target.reset();
         });
-        // Fetch groups when the page loads
-        fetchGroups();
-    </script>
+    });
+
+</script>
+
 </body>
 </html>

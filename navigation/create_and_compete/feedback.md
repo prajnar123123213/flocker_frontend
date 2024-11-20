@@ -6,6 +6,17 @@ permalink: /create_and_compete/feedback
 menu: nav/create_and_compete.html
 ---
 
+<script>
+const response = await fetch(`${pythonURI}/api/post`, {
+    ...fetchOptions,
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ section_name: "Home Page" })
+});
+</script>
+
 <link rel="stylesheet" href="{{site.baseurl}}/navigation/create_and_compete/feedback.css">
 
 <div class="chat-room-container">
