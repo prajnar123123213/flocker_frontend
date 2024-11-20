@@ -5,10 +5,7 @@ description: Check out other peoples cars!
 permalink: /share_and_care/revvit/allcars
 ---
 
-{%- include nav/revvit.html -%}
-
 <html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Car Showcase | Revvit</title>
@@ -120,8 +117,7 @@ permalink: /share_and_care/revvit/allcars
             border-radius: 10px;
         }
     </style>
-</head>
-<body>
+
 
 <!-- Garage Door Overlay -->
 <div id="garage-door">
@@ -142,7 +138,7 @@ permalink: /share_and_care/revvit/allcars
     </div>
 
     <div class="car-post">
-        <img src="https://toprankglobal.jp/picture/vehicle/95776_44.jpg" alt="Car Image" class="car-image">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/2019_Toyota_Corolla_Icon_Tech_VVT-i_Hybrid_1.8.jpg" alt="Car Image" class="car-image">
         <div class="car-info">
             <p><strong>Make & Model:</strong> Nissan Silvia S15</p>
             <p><strong>Year:</strong> </p>
@@ -153,7 +149,7 @@ permalink: /share_and_care/revvit/allcars
 
     <!-- Car Post 3 -->
     <div class="car-post">
-        <img src="https://toprankglobal.jp/picture/vehicle/95776_44.jpg" class="car-image">
+        <img src="https://www.extremecustoms.com/inc.store/images/gallery/2019_subaru_crosstrek_base_black_rhino_boxer_15x7_toyo_open_country_at3_225-75r15_2in_ironman4x4_suspension_lift_pic10.jpg" class="car-image">
         <div class="car-info">
             <p><strong>Make & Model:</strong> Example Car 3</p>
             <p><strong>Year:</strong> 2021</p>
@@ -193,6 +189,3 @@ permalink: /share_and_care/revvit/allcars
         document.getElementById("car-showcase").classList.add("showcase-visible");
     }
 </script>
-
-</body>
-</html>

@@ -205,19 +205,15 @@ author: Nolan, Jacob, Claire
   window.channel_id = 2;
 
   async function getChannelID() {
-    console.log("getting id");
+    //console.log("getting id");
 
-    const __response = await fetch(`${pythonURI}/api/channels/filter`, {
+    const __response = await fetch(`${pythonURI}/api/channels`, {
       ...fetchOptions,
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ group_name: "Flavor Fusion" }),
+      method: "GET",
     });
 
     let channels = await __response.json();
-    console.log(channels);
+    //console.log(channels);
 
     channels.forEach((channel) => {
       if (channel.name === "Combos") window.channel_id = channel.id;
@@ -227,7 +223,20 @@ author: Nolan, Jacob, Claire
   getChannelID();
 
   async function createPost(postStuff) {
-    console.log("bob!");
+    //console.log("bob!");
+    let bodyData = {
+      channel_id: window.channel_id,
+      title: postStuff.title,
+      comment: postStuff.description,
+      content: {
+        ratings: [],
+        comments: [],
+        ingredients: postStuff.ingr,
+      },
+    };
+
+    console.log("bodydata", bodyData);
+
     let url = `${pythonURI}/api/post`;
     let __data = await fetch(url, {
       ...fetchOptions,
@@ -235,47 +244,15 @@ author: Nolan, Jacob, Claire
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        channel_id: window.channel_id,
-        title: postStuff.title,
-        comment: postStuff.description,
-        content: {
-          ratings: [],
-          comments: [],
-          ingredients: postStuff.ingr,
-        },
-      }),
+      body: JSON.stringify(bodyData),
     });
 
-    console.log(__data);
+    console.log("reloading now ...");
+    window.location.reload();
   }
-
-  let posts = [];
-  async function getPosts() {
-    const rawData = await fetch(`${pythonURI}/api/posts`, {
-      ...fetchOptions,
-    });
-
-    let dat = await rawData.json();
-    console.log("dat", dat);
-
-    dat.forEach(da => {
-      if(da.channel_name === "Combos") posts.push(da);
-    })
-  }
-
-  console.log("getting posts (fix) 2x");
-  getPosts();
 
   function addComment(id) {
-    let element = document.querySelector(`form[data-postid="${id}"]`);
-    let comment = element.getElementsByClassName("commenttext")[0];
-    let newComment = {
-      comboId: id,
-      comment: comment.value,
-      html,
-    };
-    console.log(newComment);
+    console.log("adding comment to post", id);
   }
 
   const msgStyles = [
@@ -334,38 +311,6 @@ author: Nolan, Jacob, Claire
   let mainCode = `
           <div class="left">
               <h2>Combos4U</h2>
-              <div class="combo">
-                  <h3>Timmy's Combo</h3>
-                  <p>A super cool food combo</p>
-                  <p>🍌 - 🍫 - 🌶️</p>
-                  <p><strong>Rating:</strong> ⭐⭐⭐⭐⭐</p>
-                  <p>Comments:</p>
-                  <ul>
-                      <li>This is dumb</li>
-                      <li>I hate Timmy &gt;:(</li>
-                  </ul>
-                  <form method="get" data-postid="123">
-                      <label for="commenttext">Add a comment</label>
-                      <input type="text" class="commenttext" placeholder="Comment">
-                      <button type="submit" onclick="addComment('123');">Submit</button>
-                  </form>
-              </div>
-              <div class="combo">
-                  <h3>Juan's Combo</h3>
-                  <p>A super sigma food combo ahaha</p>
-                  <p>🍌 - 🍫 - 🌶️</p>
-                  <p><strong>Rating:</strong> ⭐⭐⭐</p>
-                  <p>Comments:</p>
-                  <ul>
-                      <li>Juan is so hot!!!</li>
-                      <li>Congrats on getting a gf, Kanhay!</li>
-                  </ul>
-                  <form method="get" data-postid="456">
-                      <label for="commenttext">Add a comment</label>
-                      <input type="text" class="commenttext" placeholder="Comment">
-                      <button type="submit" onclick="addComment('456');">Submit</button>
-                  </form>
-              </div>
           </div>`;
 
   let leaderboardCode = `<table>
@@ -447,7 +392,7 @@ author: Nolan, Jacob, Claire
     const _slot2 = document.getElementById("slot2");
     const _slot3 = document.getElementById("slot3");
     let _creariv = _slot1.innerText + _slot2.innerText + _slot3.innerText;
-    console.log(_creariv);
+    //console.log(_creariv);
     document.getElementById("flavorflux").innerHTML = submissionCode;
     document.getElementById("beingCreated").innerText += _creariv;
   }
@@ -466,24 +411,214 @@ author: Nolan, Jacob, Claire
           <p><strong>Username:</strong> timmy</p>
           <p><strong>Total Combos:</strong> 412</p>
           <h2>Current Combos:</h2>
-          <div class="combo">
-              <h3>Timmy's Combo</h3>
-              <p>A super cool food combo</p>
-              <p>🍌 - 🍫 - 🌶️</p>
-              <p><strong>Rating:</strong> ⭐⭐⭐⭐⭐</p>
-              <p>Comments:</p>
-              <ul>
-                  <li>This is dumb</li>
-                  <li>I hate Timmy &gt;:(</li>
-              </ul>
-          </div>
       </div>`;
   function profile() {
     document.getElementById("flavorflux").innerHTML = profileCode;
+
+    fetch(`${pythonURI}/api/post/user`, {
+      method: "GET",
+      ...fetchOptions,
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        json.forEach((po) => {
+          if (po.channel_name !== "Combos") return;
+
+          let comboDiv = document.createElement("div");
+          comboDiv.className = "combo";
+          
+          let comboTitle = document.createElement("h3");
+          let comboDescription = document.createElement("p");
+          let comboIngredients = document.createElement("p");
+          let comboRating = document.createElement("p");
+
+          comboTitle.textContent = po.title;
+          comboDescription.textContent = po.comment;
+          comboIngredients.textContent = po.content.ingredients;
+          if (po.content.ratings.length === 0) {
+            comboRating.innerHTML = `<strong>Rating:</strong> NONE`;
+          } else {
+            let sum = 0;
+            po.content.ratings.forEach((il) => {
+              sum += il;
+            });
+            let _rating = sum / po.content.ratings.length;
+            let stars = "";
+            for (let i = 0; i < Math.trunc(_rating); i++) {
+              stars += "⭐";
+            }
+
+            comboRating.innerHTML = `<strong>Rating:</strong> ${stars}`;
+          }
+
+          comboDiv.appendChild(comboTitle);
+          comboDiv.appendChild(comboDescription);
+          comboDiv.appendChild(comboIngredients);
+          comboDiv.appendChild(comboRating);
+
+          document.getElementsByClassName("left")[0].appendChild(comboDiv);
+        });
+      });
+  }
+
+  let posts;
+  async function getPosts() {
+    posts = [];
+    const rawData = await fetch(`${pythonURI}/api/posts`, {
+      ...fetchOptions,
+    });
+
+    let dat = await rawData.json();
+    console.log("raw posts", dat);
+
+    dat.forEach((da) => {
+      if (da.channel_name === "Combos") posts.push(da);
+    });
+
+    let main = document.getElementsByClassName("left")[0];
+
+    /*
+               <div class="combo">
+                  <h3>Juan's Combo</h3>
+                  <p>A super sigma food combo ahaha</p>
+                  <p>🍌 - 🍫 - 🌶️</p>
+                  <p><strong>Rating:</strong> ⭐⭐⭐</p>
+                  <p>Comments:</p>
+                  <ul>
+                      <li>Juan is so hot!!!</li>
+                      <li>Congrats on getting a gf, Kanhay!</li>
+                  </ul>
+                  <form method="get" data-postid="456">
+                      <label for="commenttext">Add a comment</label>
+                      <input type="text" class="commenttext" placeholder="Comment">
+                      <button type="submit" onclick="addComment('456');">Submit</button>
+                  </form>
+              </div>
+              */
+    posts.forEach((post) => {
+      console.log("post:", post);
+      let comboDiv = document.createElement("div");
+      comboDiv.className = "combo";
+
+      let comboTitle = document.createElement("h3");
+      comboTitle.textContent = post.title;
+      comboDiv.appendChild(comboTitle);
+
+      let comboDescription = document.createElement("p");
+      comboDescription.textContent = post.comment;
+      comboDiv.appendChild(comboDescription);
+
+      let comboIngredients = document.createElement("p");
+      comboIngredients.textContent = post.content.ingredients;
+      comboDiv.appendChild(comboIngredients);
+
+      let comboRating = document.createElement("p");
+      if (post.content.ratings.length === 0) {
+        comboRating.innerHTML = `<strong>Rating:</strong> NONE`;
+      } else {
+        let sum = 0;
+        post.content.ratings.forEach((il) => {
+          sum += il;
+        });
+        let _rating = sum / post.content.ratings.length;
+        let stars = "";
+        for (let i = 0; i < Math.trunc(_rating); i++) {
+          stars += "⭐";
+        }
+
+        comboRating.innerHTML = `<strong>Rating:</strong> ${stars}`;
+      }
+      comboDiv.appendChild(comboRating);
+
+      let commentsTitle = document.createElement("p");
+      commentsTitle.textContent = "Comments:";
+      comboDiv.appendChild(commentsTitle);
+
+      let commentsList = document.createElement("ul");
+      post.content.comments.forEach((comment) => {
+        let commentItem = document.createElement("li");
+        commentItem.textContent = comment;
+        commentsList.appendChild(commentItem);
+      });
+      comboDiv.appendChild(commentsList);
+
+      let commentForm = document.createElement("form");
+      commentForm.method = "get";
+      commentForm.setAttribute("data-postid", post.id);
+
+      let commentLabel = document.createElement("label");
+      commentLabel.setAttribute("for", "commenttext");
+      commentLabel.textContent = "Add a comment";
+      commentForm.appendChild(commentLabel);
+
+      let commentInput = document.createElement("input");
+      commentInput.type = "text";
+      commentInput.className = "commenttext";
+      commentInput.placeholder = "Comment";
+      commentForm.appendChild(commentInput);
+
+      let commentButton = document.createElement("button");
+      commentButton.type = "submit";
+      commentButton.textContent = "Submit";
+      commentButton.onclick = function (e) {
+        e.preventDefault();
+        addComment(post.id, commentInput.value, post.content);
+      };
+      commentForm.appendChild(commentButton);
+
+      let ratingLabel = document.createElement("label");
+      ratingLabel.setAttribute("for", "ratinginput");
+      ratingLabel.textContent = "Add a rating (1-5)";
+      comboDiv.appendChild(ratingLabel);
+
+      let ratingInput = document.createElement("input");
+      ratingInput.type = "text";
+      ratingInput.className = "ratinginput";
+      ratingInput.placeholder = "Rating";
+      comboDiv.appendChild(ratingInput);
+      let rateButton = document.createElement("button");
+      rateButton.type = "submit";
+      rateButton.textContent = "Rate";
+      rateButton.onclick = function (e) {
+        e.preventDefault();
+
+        if (
+          isNaN(ratingInput.value) ||
+          ratingInput.value < 1 ||
+          ratingInput.value > 5
+        ) {
+          alert("Please enter a number between 1 and 5");
+          return;
+        } else {
+          fetch(`${pythonURI}/api/post`, {
+            ...fetchOptions,
+            method: "put",
+            body: JSON.stringify({
+              ...post,
+              channel_id: window.channel_id,
+              content: {
+                ...post.content,
+                ratings: [...post.content.ratings, Number(ratingInput.value)],
+              },
+            }),
+          })
+            .then((res) => res.json())
+            .then((json) => {
+              console.log(json);
+              window.location.reload();
+            });
+        }
+      };
+      comboDiv.appendChild(rateButton);
+
+      comboDiv.appendChild(commentForm);
+      main.appendChild(comboDiv);
+    });
   }
 
   function mainPage() {
     document.getElementById("flavorflux").innerHTML = mainCode;
+    getPosts();
   }
 
   mainPage();
