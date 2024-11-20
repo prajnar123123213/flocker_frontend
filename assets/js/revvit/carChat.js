@@ -48,6 +48,7 @@ async function sendMessage() {
     }
 
     // 3. Return the data
+    updateMessageDisplay();
     return response.json();
     // 4. If we had an error anywhere in the try (stuff above), we will log an error.
   } catch (error) {
@@ -72,9 +73,6 @@ async function getMessages() {
       throw new Error(`Failed to get Messages: ${response.status}`);
     }
 
-    getMessages().then((messages) => {
-      displayMessages(messages);
-    });
     // 3. Return the data
     return response.json();
     // 4. If we had an error anywhere in the try (stuff above), we will log an error.
@@ -97,8 +95,14 @@ function displayMessages(messages) {
   });
 }
 
-getMessages().then((messages) => {
-  displayMessages(messages);
-});
+updateMessageDisplay();
+
+function updateMessageDisplay() {
+  getMessages().then((messages) => {
+    displayMessages(messages);
+  });
+}
 
 sendBtn.addEventListener("click", sendMessage);
+
+setInterval(updateMessageDisplay, 1000); // Update the message display every second
