@@ -238,14 +238,12 @@ author: Daksha, Zach, Alex, Darsh
         background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
     }
 
-    /* Add a container for better content organization */
     .content-container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 20px;
     }
 
-    /* Style for recipe headings */
     .recipe h3 {
         color: #2c3e50;
         border-bottom: 2px solid #3498db;
@@ -253,13 +251,11 @@ author: Daksha, Zach, Alex, Darsh
         margin-bottom: 15px;
     }
 
-    /* Style for recipe description */
     .recipe p {
         color: #34495e;
         line-height: 1.6;
     }
 
-    /* Style for cooking time and ingredients */
     .recipe strong {
         color: #2980b9;
     }
@@ -1074,26 +1070,23 @@ function displayFilteredRecipes(filteredRecipes) {
 }
     function getRandomIngredients() {
 const ingredients = [
-'Chicken', 'Broccoli', 'Rice', 'Tomatoes', 'Pasta', 'Beans', 'Corn', 'Avocado', 'Mushrooms', 'Spinach', 
-'Peppers', 'Carrots', 'Lentils', 'Quinoa', 'Eggplant', 'Zucchini', 'Cabbage', 'Cauliflower', 'Potatoes', 'Onion', 
-'Garlic', 'Ginger', 'Beef', 'Pork', 'Salmon', 'Tuna', 'Shrimp', 'Tofu', 'Chickpeas', 'Black Beans',
-'Asparagus', 'Green Beans', 'Sweet Potatoes', 'Bell Peppers', 'Kale', 'Arugula', 'Olives', 'Cheese', 'Bread', 'Tortillas', 
-'Yogurt', 'Milk', 'Cream', 'Butter', 'Almonds', 'Cashews', 'Peanuts', 'Pumpkin Seeds', 'Flax Seeds', 'Sunflower Seeds', 
-'Basil', 'Thyme', 'Rosemary', 'Oregano', 'Sage', 'Chives', 'Mint', 'Parsley', 'Cilantro', 'Tarragon',
-'Caraway', 'Cumin', 'Paprika', 'Chili Powder', 'Turmeric', 'Curry Powder', 'Cinnamon', 'Nutmeg', 'Cloves', 'Vanilla', 
-'Honey', 'Maple Syrup', 'Brown Sugar', 'Granulated Sugar', 'Baking Powder', 'Baking Soda', 'Yeast', 'Flour', 'Cornstarch', 'Rice Vinegar', 
-'Balsamic Vinegar', 'Apple Cider Vinegar', 'Soy Sauce', 'Olive Oil', 'Vegetable Oil', 'Sesame Oil', 'Butter', 'Cream Cheese', 'Sour Cream', 'Pesto',
-'Chili Sauce', 'Mustard', 'Ketchup', 'Mayonnaise', 'Pickles', 'Relish', 'Nuts', 'Dried Fruit', 'Seeds', 'Coconut Milk',
-'Vegetable Broth', 'Chicken Broth', 'Beef Broth', 'Tomato Sauce', 'Pasta Sauce', 'Salsa', 'Taco Seasoning', 'Coconut Flakes', 'Chocolate Chips', 'Marshmallows',
-'Bacon', 'Eggs', 'Parmesan Cheese', 'Mozzarella', 'Feta Cheese', 'Goat Cheese', 'Blue Cheese', 'Provolone', 'Cheddar Cheese', 'Swiss Cheese',
-'Pineapple', 'Mango', 'Papaya', 'Peaches', 'Plums', 'Apricots', 'Grapes', 'Strawberries', 'Blueberries', 'Raspberries',
-'Blackberries', 'Cranberries', 'Watermelon', 'Cantaloupe', 'Honeydew', 'Oranges', 'Lemons', 'Limes', 'Apples', 'Pears',
-'Pomegranate', 'Kiwi', 'Guava', 'Lychee', 'Starfruit', 'Dragonfruit', 'Passion Fruit', 'Cactus Pear', 'Banana', 'Coconut',
-'Artichokes', 'Brussels Sprouts', 'Leeks', 'Scallions', 'Radishes', 'Turnips', 'Parsnips', 'Beets', 'Rutabaga', 'Bok Choy',
-'Napa Cabbage', 'Fennel', 'Butternut Squash', 'Acorn Squash', 'Spaghetti Squash', 'Yellow Squash', 'Hemp Seeds', 'Chia Seeds', 'Buckwheat', 'Millet',
-'Sorghum', 'Farro', 'Barley', 'Bulgur', 'Polenta', 'Couscous', 'Macadamia Nuts', 'Hazelnuts', 'Brazil Nuts', 'Pecans',
-'Walnuts', 'Poppy Seeds', 'Saffron', 'Fenugreek', 'Allspice', 'Cardamom', 'Wasabi', 'Lemongrass', 'Galangal', 'Horseradish',
-'Sriracha', 'Hot Sauce', 'Hoisin Sauce', 'Oyster Sauce', 'Fish Sauce', 'Anchovies', 'Capers', 'Sundried Tomatoes', 'Tomato Paste', 'Clam Juice'
+'Chicken', 'Broccoli', 'Carrots', 'Soy Sauce', 'Garlic', 'Ground Beef', 'Taco Seasoning', 
+'Tortillas', 'Lettuce', 'Cheese', 'Coconut Milk', 'Mixed Vegetables', 'Curry Powder', 'Onion', 
+'Pasta', 'Tomato Sauce', 'Tomatoes', 'Mozzarella', 'Basil', 'Olive Oil', 'Balsamic Vinegar', 'Shrimp', 
+'Rice', 'Egg', 'Peas', 'Quinoa', 'Cucumber', 'Feta Cheese', 'Bell Peppers', 'Romaine Lettuce', 'Grilled Chicken', 
+'Caesar Dressing', 'Croutons', 'Parmesan Cheese', 'Ziti Pasta', 'Ginger', 'Salmon', 'Dill', 'Lemon', 'Arborio Rice', 
+'Mushrooms', 'Chicken Broth', 'Sweet Potatoes', 'Paprika', 'Salt', 'Pepper', 'Eggplant', 'Butter', 'Parsley', 'Flour', 
+'Brown Sugar', 'Chocolate Chips', 'Eggs', 'Brussels Sprouts', 'Vegetable Broth', 'Cream', 'Nutmeg', 'Sour Cream', 
+'Egg Noodles', 'Chickpeas', 'Lemon Juice', 'Sugar', 'Baking Powder', 'Celery', 'Basil Pesto', 'Pine Nuts', 'Cherry Tomatoes', 
+'Tahini', 'BBQ Sauce', 'Garlic Powder', 'Apples', 'Oats', 'Cinnamon', 'Ground Turkey', 'Beans', 'Chili Powder', 'Olives', 
+'Honey', 'Ice', 'Spinach', 'Alfredo Sauce', 'Beets', 'Goat Cheese', 'Walnuts', 'Arugula', 'Balsamic Vinaigrette', 
+'Jumbo Pasta Shells', 'Ricotta Cheese', 'Marinara Sauce', 'Zucchini', 'Teriyaki Sauce', 'Sesame Seeds', 'Green Onions', 
+'Mint', 'Whole Chicken', 'Herbs', 'Cilantro', 'Jalapeño', 'Dark Chocolate', 'Vanilla Extract', 'Lasagna Noodles', 
+'Kidney Beans', 'Cod Fillets', 'Potatoes', 'Beer', 'Oil', 'Breadcrumbs', 'Parsley', 'Chocolate Cake', 'Vanilla Ice Cream', 
+'Whipped Cream', 'Chocolate Syrup', 'Sprinkles', 'Sushi Rice', 'Seaweed', 'Avocado', 'Crab', 'Pork', 'Cream Cheese', 
+'Pie Crust', 'Cabbage', 'Burger Buns', 'Ketchup', 'Mustard', 'Maple Syrup', 'Whole Grain Bread', 'Spices', 'Peaches', 
+'Rosemary', 'Heavy Cream', 'Egg Yolks', 'Granulated Sugar', 'Artichokes', 'Spinach', 'Pie Crust', 'Butter', 'Egg Whites', 
+'Powdered Sugar', 'Lemons', 'Cornstarch', 'Italian Sausage', 'Green Bell Peppers', 'Oregano', 'Coconut', 'Sugar', 'Cocoa Powder'
 ];
      
 
@@ -1126,3 +1119,13 @@ document.getElementById('randomRecipeButton').addEventListener('click', () => {
 
 </script>
 
+---
+### Feedback (Temporary)
+
+<script src="https://utteranc.es/client.js"
+        repo="nighthawkcoders/flocker_frontend"
+        issue-term="/flocker_frontend"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
