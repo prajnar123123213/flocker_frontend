@@ -10,17 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("Credentials data:", data); // Debugging line
             const loginArea = document.getElementById('loginArea');
             if (data) { // Update the login area based on the data
-                // User is authenticated, replace "Login" with User's name
-                loginArea.innerHTML = `
-                    <div class="dropdown">
-                        <button class="dropbtn">${data.name}</button>
-                        <div class="dropdown-content">
-                            <a href="${baseurl}/logout">Logout</a>
-                            <a href="${baseurl}/profile">Profile</a>
-                            <a href="${baseurl}/analytics">Analytics</a>
-                        </div>
-                    </div>
-                `;
+                loginArea.innerHTML = `<a href="${baseurl}/login">${data.name}</a>`;
             } else {
                 // User is not authenticated, then "Login" link is shown
                 loginArea.innerHTML = `<a href="${baseurl}/login">Login</a>`;
