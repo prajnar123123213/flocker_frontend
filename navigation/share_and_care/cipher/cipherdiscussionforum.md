@@ -383,6 +383,6 @@ async function fetchChannels(groupName) {
         }
     }
 
-    // Fetch groups when the page loads
+    // Fetch groups wh en the page loads
     fetchGroups();
 </script>
