@@ -270,44 +270,51 @@ authors: Ahaan, Xavier, Spencer, Vasanth
       }
     }
 
-    // Chat functionality
-    const chatMessages = document.getElementById("chatMessages");
-    const messageInput = document.getElementById("messageInput");
-    const sendBtn = document.getElementById("sendBtn");
+// Chat functionality
+const chatMessages = document.getElementById("chatMessages");
+const messageInput = document.getElementById("messageInput");
+const sendBtn = document.getElementById("sendBtn");
 
-    function addMessage(content, type = "user") {
-      const messageDiv = document.createElement("div");
-      messageDiv.classList.add("message", type === "user" ? "user-message" : "bot-message");
-      messageDiv.textContent = content;
-      chatMessages.appendChild(messageDiv);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
+function addMessage(content, type = "user") {
+  const messageDiv = document.createElement("div");
+  messageDiv.classList.add("message", type === "user" ? "user-message" : "bot-message");
+  messageDiv.textContent = content;
+  chatMessages.appendChild(messageDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
 
-    sendBtn.addEventListener("click", () => {
-      const message = messageInput.value.trim();
-      if (message) {
-        addMessage(message, "user");
-        messageInput.value = "";
-        setTimeout(botResponse, 2000);
-      }
-    });
+sendBtn.addEventListener("click", () => {
+  const message = messageInput.value.trim();
+  if (message) {
+    addMessage(message, "user");
+    messageInput.value = "";
+    setTimeout(botResponse, 2000); // Bot responds after 2 seconds
+  }
+});
 
-    function botResponse() {
-      const motivationalMessages = [
-        "Keep it up! Your next move could be a game-changer.",
-        "Great effort! Remember, every master was once a beginner.",
-        "You're doing fantastic. Stay focused and enjoy the game!",
-      ];
-      const randomMessage =
-        motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
-      addMessage(randomMessage, "bot");
-    }
+function botResponse() {
+  const motivationalMessages = [
+    "Keep it up! Your next move could be a game-changer.",
+    "Great effort! Remember, every master was once a beginner.",
+    "You're doing fantastic. Stay focused and enjoy the game!",
+    "Patience and strategy will always lead to victory!",
+    "Trust your instincts and keep making moves!",
+    "Think a few steps ahead, and you'll be unstoppable.",
+    "Even the best players make mistakes; keep learning and moving forward.",
+    "Take a deep breath and stay calm – you're doing great!",
+    "Chess is a journey, enjoy every move you make.",
+    "Don't rush – a wise move is worth the wait!"
+  ];
+  const randomMessage =
+    motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
+  addMessage(randomMessage, "bot");
+}
+    
 
     drawBoard();
   </script>
 </body>
 </html>
-
 
 
 
@@ -461,5 +468,76 @@ authors: Ahaan, Xavier, Spencer, Vasanth
         // Fetch groups when the page loads
         fetchGroups();
     </script>
+
+
+<h2>Discussion</h2>
+<textarea placeholder="Enter your thoughts or comments here..." id="comment"></textarea>
+<button class="regularButton" onclick="addComment()"><p class="buttonP">Add Comment</p></button>
+
+<div class="message-box" id="messageBox">
+    <p><strong>Messages:</strong></p>
+</div>
+
+ <script type="module">
+        import { pythonURI, fetchOptions } from '../../../assets/js/api/config.js';
+        const channelID = 23;
+        const commentTitle = "luxuryCars";
+async function addComment() {
+    const argumentText = document.getElementById('comment').value.trim();
+    if (!argumentText) {
+        alert('Please enter a comment.');
+        return;
+    }
+    const argumentData = {
+        title: commentTitle,
+        comment: argumentText,
+        channel_id: channelID,
+        user_name: localStorage.getItem('username') || 'Guest'
+    };
+    try {
+        const response = await fetch(`${pythonURI}/api/post`, {
+            ...fetchOptions,
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(argumentData)
+        });
+        if (!response.ok) throw new Error('Failed to submit comment: ' + response.statusText);
+        document.getElementById('comment').value = ''; // Clear input field
+        fetchComments(); // Refresh comments list
+    } catch (error) {
+        console.error('Error submitting comment:', error);
+        alert('Error submitting comment: ' + error.message);
+    }
+}
+async function fetchComments() {
+    try {
+        const response = await fetch(`${pythonURI}/api/posts/filter`, {
+            ...fetchOptions,
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ channel_id: channelID })
+        });
+        if (!response.ok) throw new Error('Failed to fetch comments: ' + response.statusText);
+        const argumentsData = await response.json();
+        // Reverse the order of the comments so the latest comes first
+        argumentsData.reverse();
+        const messageBox = document.getElementById('messageBox');
+        messageBox.innerHTML = "<p><strong>Messages :</strong></p>"; // Clear existing comments
+        argumentsData.forEach(arg => {
+            const commentElement = document.createElement("p");
+            commentElement.textContent = `${arg.user_name}: ${arg.comment}`;
+            messageBox.appendChild(commentElement);
+        });
+    } catch (error) {
+        console.error('Error fetching comments:', error);
+        alert('Error fetching comments: ' + error.message);
+    }
+}
+window.addEventListener('load', () => {
+    fetchComments(channelID); // Fetch initial comments on page load
+});
+window.addComment = addComment; // Expose the function globally
+    </script>
+
 </body>
 </html>
