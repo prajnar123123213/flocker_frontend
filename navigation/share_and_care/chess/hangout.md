@@ -270,7 +270,7 @@ authors: Ahaan, Xavier, Spencer, Vasanth
       }
     }
 
-    // Chat functionality
+// Chat functionality
 const chatMessages = document.getElementById("chatMessages");
 const messageInput = document.getElementById("messageInput");
 const sendBtn = document.getElementById("sendBtn");
@@ -309,12 +309,7 @@ function botResponse() {
     motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
   addMessage(randomMessage, "bot");
 }
-
-
-    drawBoard();
-  </script>
-</body>
-</html>
+    
 
 
 
