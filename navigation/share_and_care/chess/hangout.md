@@ -270,44 +270,51 @@ authors: Ahaan, Xavier, Spencer, Vasanth
       }
     }
 
-    // Chat functionality
-    const chatMessages = document.getElementById("chatMessages");
-    const messageInput = document.getElementById("messageInput");
-    const sendBtn = document.getElementById("sendBtn");
+// Chat functionality
+const chatMessages = document.getElementById("chatMessages");
+const messageInput = document.getElementById("messageInput");
+const sendBtn = document.getElementById("sendBtn");
 
-    function addMessage(content, type = "user") {
-      const messageDiv = document.createElement("div");
-      messageDiv.classList.add("message", type === "user" ? "user-message" : "bot-message");
-      messageDiv.textContent = content;
-      chatMessages.appendChild(messageDiv);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
+function addMessage(content, type = "user") {
+  const messageDiv = document.createElement("div");
+  messageDiv.classList.add("message", type === "user" ? "user-message" : "bot-message");
+  messageDiv.textContent = content;
+  chatMessages.appendChild(messageDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
 
-    sendBtn.addEventListener("click", () => {
-      const message = messageInput.value.trim();
-      if (message) {
-        addMessage(message, "user");
-        messageInput.value = "";
-        setTimeout(botResponse, 2000);
-      }
-    });
+sendBtn.addEventListener("click", () => {
+  const message = messageInput.value.trim();
+  if (message) {
+    addMessage(message, "user");
+    messageInput.value = "";
+    setTimeout(botResponse, 2000); // Bot responds after 2 seconds
+  }
+});
 
-    function botResponse() {
-      const motivationalMessages = [
-        "Keep it up! Your next move could be a game-changer.",
-        "Great effort! Remember, every master was once a beginner.",
-        "You're doing fantastic. Stay focused and enjoy the game!",
-      ];
-      const randomMessage =
-        motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
-      addMessage(randomMessage, "bot");
-    }
+function botResponse() {
+  const motivationalMessages = [
+    "Keep it up! Your next move could be a game-changer.",
+    "Great effort! Remember, every master was once a beginner.",
+    "You're doing fantastic. Stay focused and enjoy the game!",
+    "Patience and strategy will always lead to victory!",
+    "Trust your instincts and keep making moves!",
+    "Think a few steps ahead, and you'll be unstoppable.",
+    "Even the best players make mistakes; keep learning and moving forward.",
+    "Take a deep breath and stay calm – you're doing great!",
+    "Chess is a journey, enjoy every move you make.",
+    "Don't rush – a wise move is worth the wait!"
+  ];
+  const randomMessage =
+    motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
+  addMessage(randomMessage, "bot");
+}
+    
 
     drawBoard();
   </script>
 </body>
 </html>
-
 
 
 
