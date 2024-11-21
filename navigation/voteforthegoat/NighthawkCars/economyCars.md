@@ -262,11 +262,29 @@ permalink: /voteforthegoat/nighthawkCars/economyCars/
 
 <h3>Voting</h3>
 <div>
-    <button class="regularButton"><p class="buttonP">Honda Civic</p></button>
-    <button class="regularButton"><p class="buttonP">Toyota Corolla</p></button>
-    <button class="regularButton"><p class="buttonP">Kia Forte</p></button>
-    <button class="regularButton"><p class="buttonP">Chevorlet Trax</p></button>
+    <button id="button1" class="regularButton"><p class="buttonP">Honda Civic</p></button>
+    <button id="button2" class="regularButton"><p class="buttonP">Toyota Corolla</p></button>
+    <button id="button3" class="regularButton"><p class="buttonP">Kia Forte</p></button>
+    <button id="button4" class="regularButton"><p class="buttonP">Chevorlet Trax</p></button>
 </div>
+
+<script>
+        // Define messages for each button
+        const messages = {
+            button1: "You voted for Honda Civic! Thank you for voting!",
+            button2: "You voted for Toyota Corolla! Thank you for voting!",
+            button3: "You voted for Kia Forte! Thank you for voting!",
+            button4: "You voted for Chevorlet Trax! Thank you for voting!",
+        };
+
+        // Add event listeners to each button
+        for (let buttonId in messages) {
+            const button = document.getElementById(buttonId);
+            button.addEventListener('click', function() {
+                alert(messages[buttonId]);
+            });
+        }
+    </script>
 
 <h2>Discussion</h2>
 <textarea placeholder="Enter your thoughts or comments here..." id="comment"></textarea>
