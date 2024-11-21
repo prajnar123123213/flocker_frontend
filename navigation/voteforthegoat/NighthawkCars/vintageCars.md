@@ -245,12 +245,29 @@ permalink: /voteforthegoat/nighthawkCars/vintageCars/
 
 <h3>Voting</h3>
 <div>
-    <button class="regularButton"><p class="buttonP">Porshe</p></button>
-    <button class="regularButton"><p class="buttonP">Miata</p></button>
-    <button class="regularButton"><p class="buttonP">Dodge</p></button>
-    <button class="regularButton"><p class="buttonP">Toyota</p></button>
+    <button id="button1" class="regularButton"><p class="buttonP">Porshe</p></button>
+    <button id="button2" class="regularButton"><p class="buttonP">Miata</p></button>
+    <button id="button3" class="regularButton"><p class="buttonP">Dodge</p></button>
+    <button id="button4" class="regularButton"><p class="buttonP">Toyota</p></button>
 </div>
 
+<script>
+        // Define messages for each button
+        const messages = {
+            button1: "You voted for Porshe! Thank you for voting!",
+            button2: "You voted for Miata! Thank you for voting!",
+            button3: "You voted for Dodge! Thank you for voting!",
+            button4: "You voted for Toyota! Thank you for voting!",
+        };
+
+        // Add event listeners to each button
+        for (let buttonId in messages) {
+            const button = document.getElementById(buttonId);
+            button.addEventListener('click', function() {
+                alert(messages[buttonId]);
+            });
+        }
+    </script>
 
 <h3>Discussion</h3>
 <p>   </p>
