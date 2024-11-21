@@ -311,6 +311,10 @@ function botResponse() {
 }
     
 
+    drawBoard();
+  </script>
+</body>
+</html>
 
 
 
