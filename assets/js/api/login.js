@@ -11,14 +11,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const loginArea = document.getElementById('loginArea');
             if (data) { // Update the login area based on the data
                 loginArea.innerHTML = `<a href="${baseurl}/login">${data.name}</a>`;
+                localStorage.setItem('authenticated', 'true'); // Set authenticated status in local storage
             } else {
                 // User is not authenticated, then "Login" link is shown
                 loginArea.innerHTML = `<a href="${baseurl}/login">Login</a>`;
+                localStorage.setItem('authenticated', 'false'); // Set authenticated status in local storage
             }
         })
         .catch(err => { // General error handler
             console.error("Error fetching credentials: ", err);
             // Handle any errors that occurred during getCredentials
+            localStorage.setItem('authenticated', 'false'); // Set authenticated status in local storage
         });
 });
 
