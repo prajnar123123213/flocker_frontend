@@ -19,7 +19,7 @@ search_exclude: true
         flex-direction: column;
         max-width: 800px;
         width: 100%;
-        background-color: #2C3E50;
+        background-color: #276842;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -45,6 +45,7 @@ search_exclude: true
     }
 </style>
 
+<h1>Book Reviews</h1>
 <div class="container">
     <div class="form-container">
         <h2>Select Group and Channel</h2>
@@ -52,13 +53,10 @@ search_exclude: true
             <label for="group_id">Group:</label>
             <select id="group_id" name="group_id" required>
                 <option value="">Select a group</option>
-                <option value="">Book Reviews</option>
             </select>
             <label for="channel_id">Channel:</label>
             <select id="channel_id" name="channel_id" required>
                 <option value="">Select a channel</option>
-                <option value="">Fiction</option>
-                <option value="">Non-Fiction</option>
             </select>
             <button type="submit">Select</button>
         </form>
@@ -98,13 +96,13 @@ search_exclude: true
      */
     async function fetchGroups() {
         try {
-            const response = await fetch(${pythonURI}/api/groups/filter, {
+            const response = await fetch(`${pythonURI}/api/groups/filter`, {
                 ...fetchOptions,
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ section_name: "Home Page" }) // Adjust the section name as needed
+                body: JSON.stringify({ section_name: "Rate and Relate" }) // Adjust the section name if needed
             });
             if (!response.ok) {
                 throw new Error('Failed to fetch groups: ' + response.statusText);
@@ -128,13 +126,13 @@ search_exclude: true
      */
     async function fetchChannels(groupName) {
         try {
-            const response = await fetch(${pythonURI}/api/channels/filter, {
+            const response = await fetch(`${pythonURI}/api/channels/filter`, {
                 ...fetchOptions,
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ group_name: groupName })
+                body: JSON.stringify({ group_name: groupName }) // Pass selected group name here
             });
             if (!response.ok) {
                 throw new Error('Failed to fetch channels: ' + response.statusText);
@@ -154,13 +152,13 @@ search_exclude: true
     }
 
     /**
-      * Handle group selection change
-      * Channel Dropdown refresh to match group_id change
-      */
+     * Handle group selection change
+     * Channel Dropdown refresh to match group_id change
+     */
     document.getElementById('group_id').addEventListener('change', function() {
         const groupName = this.value;
         if (groupName) {
-            fetchChannels(groupName);
+            fetchChannels(groupName);  // Fetch channels for the selected group
         } else {
             document.getElementById('channel_id').innerHTML = '<option value="">Select a channel</option>'; // Reset channels
         }
@@ -203,7 +201,7 @@ search_exclude: true
         // Trap errors
         try {
             // Send POST request to backend, purpose is to write to database
-            const response = await fetch(${pythonURI}/api/post, {
+            const response = await fetch(`${pythonURI}/api/post`, {
                 ...fetchOptions,
                 method: 'POST',
                 headers: {
@@ -234,7 +232,7 @@ search_exclude: true
      */
     async function fetchData(channelId) {
         try {
-            const response = await fetch(${pythonURI}/api/posts/filter, {
+            const response = await fetch(`${pythonURI}/api/posts/filter`, {
                 ...fetchOptions,
                 method: 'POST',
                 headers: {
@@ -253,7 +251,7 @@ search_exclude: true
             const postCount = postData.length || 0;
 
             // Update the HTML elements with the data
-            document.getElementById('count').innerHTML = <h2>Count ${postCount}</h2>;
+            document.getElementById('count').innerHTML = `<h2>Count ${postCount}</h2>`;
 
             // Get the details div
             const detailsDiv = document.getElementById('details');

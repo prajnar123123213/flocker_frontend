@@ -1,10 +1,13 @@
 import { pythonURI, fetchOptions } from '../../assets/js/api/config.js';
 
-console.log("we talk")
+console.log("calico.js accessed")
 document.querySelectorAll('.sidebar-button').forEach(button => {
     button.addEventListener('click', () => {
         const houseName = button.getAttribute('data-house');
         const channelId = button.getAttribute('data-channel-id');
+        
+        // Call selectItem with the correct channel ID
+        selectItem(channelId);
 
         // Store selected house in localStorage
         localStorage.setItem('selectedHouse', houseName);
@@ -15,10 +18,21 @@ document.querySelectorAll('.sidebar-button').forEach(button => {
         renderHousePage(houseName);
         
         // Fetch posts for the selected channel
-        fetchPosts(channelId);
+        fetchData(channelId);
     });
 });
-const groupId = "Calico Vote";
+
+
+// Handle item selection
+function selectItem(channelId) {
+    // Set the group ID and channel ID for posting
+    document.getElementById('group_id').value = "Calico Vote"; // Adjust if dynamic group setting is needed
+    document.getElementById('channel_id').value = channelId;
+
+    // Display the post form if hidden
+    const postForm = document.getElementById('postForm');
+    postForm.style.display = "block";
+}
 
 
 /**
@@ -95,67 +109,83 @@ document.getElementById('group_id').addEventListener('change', function() {
     }
 });
 
+
+document.getElementById('channel_id').addEventListener('change', function() {
+    const selectedChannel = this.options[this.selectedIndex].text;  // Get selected text
+    const channelId = this.value;  // Get selected value
+
+    if (channelId) {
+        // Store the selected house and channel ID in localStorage
+        localStorage.setItem('selectedHouse', selectedChannel);
+        localStorage.setItem('selectedChannelId', channelId);
+
+        // Update the page with the selected house info
+        setBackground(selectedChannel);
+        renderHousePage(selectedChannel);
+        
+        // Fetch posts for the selected channel
+        fetchData(channelId);
+    }
+});
+
 /**
  * Handle form submission for selection
  * Select Button: Computer fetches and displays posts
  */
-document.getElementById('selectionForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const groupId = document.getElementById('group_id').value;
-    const channelId = document.getElementById('channel_id').value;
-    if (groupId && channelId) {
-        fetchData(channelId);
+document.getElementById('selectionForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const selectedChannel = document.getElementById('channel_id');
+    const selectedHouse = selectedChannel.options[selectedChannel.selectedIndex].text;
+    if (selectedChannel.value) {
+        // Store the selected house in localStorage
+        localStorage.setItem('selectedHouse', selectedHouse);
+        alert(`You have selected: ${selectedHouse} House`); // Confirmation message
+        renderHousePage(selectedHouse); // Update the page with the selected house
+        displayPosts(selectedHouse); // Show any posts for the selected house
     } else {
-        alert('Please select both group and channel.');
+        alert('Please select a valid house.');
     }
 });
+
 
 /**
  * Handle form submission for adding a post
  * Add Form Button: Computer handles form submission with request
  */
-document.getElementById('postForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
-
-    // Extract data from form
+console.log("right before postform")
+document.getElementById('postForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    console.log("post form accessed")
     const title = document.getElementById('title').value;
     const comment = document.getElementById('comment').value;
-    const channelId = document.getElementById('channel_id').value;
-
-    // Create API payload
+    const group = document.getElementById('group-select').value;
+    const channel = document.getElementById('channel-select').value;
+    const channelID = document.getElementById('postForm').getAttribute('data-channel-id'); // Retrieve the saved channel ID
     const postData = {
-        title: title,
-        comment: comment,
-        channel_id: channelId
-    };
-
-    // Trap errors
-    try {
-        // Send POST request to backend, purpose is to write to database
-        const response = await fetch(`${pythonURI}/api/post`, {
-            ...fetchOptions,
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(postData)
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to add post: ' + response.statusText);
-        }
-
-        // Successful post
-        const result = await response.json();
-        alert('Post added successfully!');
-        document.getElementById('postForm').reset();
-        fetchData(channelId);
-    } catch (error) {
-        // Present alert on error from backend
-        console.error('Error adding post:', error);
-        alert('Error adding post: ' + error.message);
+      title: title,
+      comment: comment,
+      channel_id: channelID
     }
-});
+    console.log("postdata accessed")
+    try {
+      const response = await fetch(`${pythonURI}/api/post`, {
+        ...fetchOptions,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(postData)
+      });
+
+      if (!response.ok) throw new Error('Failed to add post: ' + response.statusText);
+      alert("Post added successfully!");
+      console.log("post added successfully")
+      // do you need to update form?
+      // call refresh bottom page with new post.
+
+    } catch (error) {
+      console.error('Error adding post:', error);
+      console.log("error adding post")
+    }
+  });
 
 /**
  * Fetch posts based on selected channel

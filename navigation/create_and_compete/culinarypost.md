@@ -3,7 +3,7 @@ layout: post
 title: Create and Compete - Culinary
 search_exclude: true
 permalink: /create_and_compete/culinaryposts
-author: Daksha, Alex, Darsh, Zach
+author: Daksha, Alex, Darh, Zach
 ---
 
 <style>

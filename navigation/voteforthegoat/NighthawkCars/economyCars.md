@@ -13,25 +13,15 @@ permalink: /voteforthegoat/nighthawkCars/economyCars/
     <title>Navigation Bar</title>
 </head>
 <body>
-    <table style="width: 100%; text-align: center; border-collapse: separate; border-spacing: 10px;">
-        <tr>
-            <td id="homepage" style="background-color: #ff4d4d; border-radius: 20px; padding: 15px 20px;">
-                <a href="{{site.baseurl}}/voteforthegoat/nighthawkCars" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif; display: block; border-radius: 20px;">Nighthawk Cars (Home Page)</a>
-            </td>
-            <td id="internetdebates" style="background-color: #ff4d4d; border-radius: 20px; padding: 15px 20px;">
-                <a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/studentCars" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif; display: block; border-radius: 20px;">Student Cars</a>
-            </td>
-            <td id="calicovote" style="background-color: #ff4d4d; border-radius: 20px; padding: 15px 20px;">
-                <a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/vintageCars" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif; display: block; border-radius: 20px;">Vintage Cars</a>
-            </td>
-            <td id="dnerostore" style="background-color: #ff4d4d; border-radius: 20px; padding: 15px 20px;">
-                <a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/luxuryCars" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif; display: block; border-radius: 20px;">Luxury Cars</a>
-            </td>
-            <td id="Beveragedebates" style="background-color: #ff4d4d; border-radius: 20px; padding: 15px 20px;">
-                <a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/economyCars" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif; display: block; border-radius: 20px;">Economy Cars</a>
-            </td>
-        </tr>
-    </table>
+        <table style="width: 100%; text-align: center; border-collapse: separate; border-spacing: 10px;">
+            <tr>
+                <td><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars" class="button">Nighthawk Cars (Home Page)</a></td>
+                <td><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/studentCars" class="button">Student Cars</a></td>
+                <td><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/vintageCars" class="button">Vintage Cars</a></td>
+                <td><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/luxuryCars" class="button">Luxury Cars</a></td>
+                <td><a href="{{site.baseurl}}/voteforthegoat/nighthawkCars/economyCars" class="button">Economy Cars</a></td>
+            </tr>
+        </table>
 </body>
 </html>
 
@@ -42,7 +32,7 @@ permalink: /voteforthegoat/nighthawkCars/economyCars/
     <title>Student Cars</title>
     <style>
         body {
-            background: linear-gradient(135deg, #333333, #ff4d4d, #ffffff); /* 180deg for top-to-bottom gradient */
+            background: linear-gradient(135deg, #333333, orange, #ffffff); /* 180deg for top-to-bottom gradient */
             color: #ffffff;
             font-family: Arial, sans-serif;
             min-height: 100vh;
@@ -64,18 +54,39 @@ permalink: /voteforthegoat/nighthawkCars/economyCars/
         p {
             color: white;   
         }
-        button {
-            background-color: #000000;
-            color: white;
-            border: none;
-            font-size: 14px;
-            padding: 5px 10px;
-            border: 3px solid #C0C0C0;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        table {
+            width: 100%;
+            text-align: center;
+            border-collapse: separate;
+            border-spacing: 10px;
+            border: none; /* Remove any borders from the table */
         }
-        button:hover {
-            background-color: #ffffff; /* Slightly darker on hover */
+        td {
+            background-color: transparent !important; /* Remove background color */
+            padding: 0 !important; /* Remove padding */
+            border: none !important; /* Remove borders from table cells */
+        }
+        .button {
+            background-color: white; /* Light red */
+            color: black !important; /* White text */
+            text-decoration: none;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            display: inline-block;
+            padding: 15px 20px;
+            border-radius: 20px;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            text-align: center;
+        }
+        .button:hover {
+            transform: scale(1.05); /* Slightly larger on hover */
+            background-color: lightgrey; /* Darker red on hover */
+            color: black !important;
+        }
+        .button:active {
+            transform: scale(0.95); /* Shrinks a bit on click */
+            background-color: grey; /* Even darker red on click */
+            color: black !important;
         }
         div {
             margin: 20px 0;
@@ -84,7 +95,7 @@ permalink: /voteforthegoat/nighthawkCars/economyCars/
             background-color: #000000;
             border: 4px solid #ffffff; /* Light gray border */
             padding: 10px; /* Padding inside the box */
-            height: 150px; /* Fixed height */
+            height: 420px; /* Fixed height */
             overflow-y: auto; /* Scrollable */
             margin-top: 40px; /* Space above message box */
         }
@@ -140,7 +151,7 @@ permalink: /voteforthegoat/nighthawkCars/economyCars/
         }
         #comment {
             width: 100%;      /* Full width of the container */
-            height: 200px;    /* Height of the textarea */
+            height: 100px;    /* Height of the textarea */
             padding: 15px;    /* Padding inside the box */
             font-size: 16px;  /* Larger font size for better readability */
             border-radius: 8px; /* Rounded corners */
@@ -173,6 +184,30 @@ permalink: /voteforthegoat/nighthawkCars/economyCars/
             border-radius: 8px; /* Rounded corners */
             border: 3px solid #C0C0C0; /* Border color */
             resize: vertical; /* Allows users to adjust height but not width */
+        }
+        .regularButton {
+        all: unset; /* Removes all default styles */
+        background-color: white !important;
+        border: 2px solid #ccc;
+        border-radius: 12px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+        font-weight: bold;
+        color: black !important;
+        }
+        .regularButton:hover {
+            background-color: lightgray !important; /* Light gray on hover */
+            transform: scale(1.05);
+        }
+        .regularButton:active {
+            background-color: grey !important; /* Slightly darker gray when clicked */
+            transform: scale(0.95); /* Slight scale-down effect on click */
+        }
+        .buttonP {
+            all: unset !important;
+            color: black !important;
         }
     </style>
 </head>
@@ -227,18 +262,96 @@ permalink: /voteforthegoat/nighthawkCars/economyCars/
 
 <h3>Voting</h3>
 <div>
-    <button style="width:175px;"><p style="background-color: rgb(255, 80, 80);border: 2px solid #ddd;">Honda Civic</p></button>
-    <button style="width:175px"><p style="background-color: rgb(255, 80, 80);border: 2px solid #ddd">Toyota Corolla</p></button>
-    <button style="width:175px"><p style="background-color: rgb(255, 80, 80);border: 2px solid #ddd">Kia Forte</p></button>
-    <button style="width:175px"><p style="background-color: rgb(255, 80, 80);border: 2px solid #ddd">Chevorlet Trax</p></button>
+    <button id="button1" class="regularButton"><p class="buttonP">Honda Civic</p></button>
+    <button id="button2" class="regularButton"><p class="buttonP">Toyota Corolla</p></button>
+    <button id="button3" class="regularButton"><p class="buttonP">Kia Forte</p></button>
+    <button id="button4" class="regularButton"><p class="buttonP">Chevorlet Trax</p></button>
 </div>
+
+<script>
+        // Define messages for each button
+        const messages = {
+            button1: "You voted for Honda Civic! Thank you for voting!",
+            button2: "You voted for Toyota Corolla! Thank you for voting!",
+            button3: "You voted for Kia Forte! Thank you for voting!",
+            button4: "You voted for Chevorlet Trax! Thank you for voting!",
+        };
+
+        // Add event listeners to each button
+        for (let buttonId in messages) {
+            const button = document.getElementById(buttonId);
+            button.addEventListener('click', function() {
+                alert(messages[buttonId]);
+            });
+        }
+    </script>
 
 <h2>Discussion</h2>
 <textarea placeholder="Enter your thoughts or comments here..." id="comment"></textarea>
-<button onclick="addComment(22)"><p style="background-color: rgb(255, 80, 80);border: 2px solid #ddd">Add Comment</p></button>
+<button class="regularButton" onclick="addComment()"><p class="buttonP">Add Comment</p></button>
 
 <div class="message-box" id="messageBox">
     <p><strong>Messages:</strong></p>
 </div>
-</body>
+ <script type="module">
+import { pythonURI, fetchOptions } from '../../../assets/js/api/config.js';
+const channelID = 22;
+const commentTitle = "economyCars";
+async function addComment() {
+    const argumentText = document.getElementById('comment').value.trim();
+    if (!argumentText) {
+        alert('Please enter a comment.');
+        return;
+    }
+    const argumentData = {
+        title: commentTitle,
+        comment: argumentText,
+        channel_id: channelID,
+        user_name: localStorage.getItem('username') || 'Guest'
+    };
+    try {
+        const response = await fetch(`${pythonURI}/api/post`, {
+            ...fetchOptions,
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(argumentData)
+        });
+        if (!response.ok) throw new Error('Failed to submit comment: ' + response.statusText);
+        document.getElementById('comment').value = ''; // Clear input field
+        fetchComments(); // Refresh comments list
+    } catch (error) {
+        console.error('Error submitting comment:', error);
+        alert('Error submitting comment: ' + error.message);
+    }
+}
+async function fetchComments() {
+    try {
+        const response = await fetch(`${pythonURI}/api/posts/filter`, {
+            ...fetchOptions,
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ channel_id: channelID })
+        });
+        if (!response.ok) throw new Error('Failed to fetch comments: ' + response.statusText);
+        const argumentsData = await response.json();
+        // Reverse the order of the comments so the latest comes first
+        argumentsData.reverse();
+        const messageBox = document.getElementById('messageBox');
+        messageBox.innerHTML = "<p><strong>Messages :</strong></p>"; // Clear existing comments
+        argumentsData.forEach(arg => {
+            const commentElement = document.createElement("p");
+            commentElement.textContent = `${arg.user_name}: ${arg.comment}`;
+            messageBox.appendChild(commentElement);
+        });
+    } catch (error) {
+        console.error('Error fetching comments:', error);
+        alert('Error fetching comments: ' + error.message);
+    }
+}
+window.addEventListener('load', () => {
+    fetchComments(channelID); // Fetch initial comments on page load
+});
+window.addComment = addComment; // Expose the function globally
+    </script>
+    </body>
 </html>

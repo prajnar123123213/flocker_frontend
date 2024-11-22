@@ -52,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function() {
             feedbackModal.style.display = "none";
         }
     });
-});
 
     // Allow pressing "Enter" to submit guess
     reasoningInput.addEventListener("keypress", function(event) {
@@ -61,3 +60,4 @@ document.addEventListener("DOMContentLoaded", function() {
             submitGuessButton.click(); // Trigger submit button click
         }
     });
+});

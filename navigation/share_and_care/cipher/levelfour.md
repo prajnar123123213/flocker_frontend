@@ -62,6 +62,9 @@ This is a basic chat box rendered with HTML inside Markdown.
   <button id="send-button" style="padding: 8px; background-color: #007bff; color: white; border: none; border-radius: 5px;">Send</button>
 </div>
 
+<div id="feedback" style="margin-top: 10px;"></div>
+<div id="feedback" style="margin-top: 10px;"></div>
+
 <script>
   const chatMessages = document.getElementById('chat-messages');
   const chatInput = document.getElementById('chat-input');
